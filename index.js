@@ -26,8 +26,7 @@ app.post("/api/boardgames", (request, response) => {
     response.json(boardgame)
 })
 
-const PORT = process.env.PORT | 3001
-
+const PORT = process.env.PORT
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
