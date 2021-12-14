@@ -1,6 +1,7 @@
 const express = require("express")
 const cors = require("cors")
 const app = express()
+
 app.use(express.json())
 app.use(cors())
 
@@ -29,6 +30,7 @@ app.post("/api/boardgames", (request, response) => {
 
 // eslint-disable-next-line no-undef
 const PORT = process.env.PORT | 3001
-app.listen(3000, "0.0.0.0", 511, () => {
+
+app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
