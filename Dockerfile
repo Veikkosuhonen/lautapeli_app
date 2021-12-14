@@ -2,8 +2,8 @@ FROM node:17
 
 WORKDIR /usr/src/app
 
-COPY package* ./
+COPY . .
 
 RUN npm install
 
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "start" ]
