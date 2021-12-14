@@ -29,7 +29,9 @@ jobs:
         uses: actions/setup-node@v2.5.0
         with:
           node-version: '17.x'
-          
+      
+      - run: npm install
+      
       # Runs a single command using the runners shell
       - name: Run lint
         run: node run lint
