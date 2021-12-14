@@ -1,0 +1,25 @@
+{
+  "name": "lautapeli_app",
+  "version": "1.0.0",
+  "description": "Boardgame activity tracking web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Veikkosuhonen/lautapeli_app.git"
+  },
+  "author": "Veikkosuhonen",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Veikkosuhonen/lautapeli_app/issues"
+  },
+  "homepage": "https://github.com/Veikkosuhonen/lautapeli_app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.15"
+  }
+}

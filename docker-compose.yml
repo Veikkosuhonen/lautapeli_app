@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  node-dev-env:
+    build: . # Build with the Dockerfile here
+    command: npm run dev # Run npm start as the command
+    ports: 
+      - 3001:3001 # The app uses port 3000 by default, publish it as 3000
+    volumes:
+      - ./:/usr/src/app # Let us modify the contents of the container locally
+      - node_modules:/usr/src/app/node_modules # A bit of node magic, this ensures the dependencies built for the image are not available locally.
+    container_name: node-dev-env # Container name for convenience
+
+volumes: # This is required for the node_modules named volume
+  node_modules:
