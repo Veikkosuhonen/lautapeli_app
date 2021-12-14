@@ -26,7 +26,6 @@ app.post("/api/boardgames", (request, response) => {
     response.json(boardgame)
 })
 
-// eslint-disable-next-line no-undef
 const PORT = process.env.PORT | 3001
 
 app.listen(PORT, () => {
