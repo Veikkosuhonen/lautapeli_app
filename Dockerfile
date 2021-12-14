@@ -4,6 +4,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
+EXPOSE $PORT
+
 RUN npm install
 
 CMD [ "npm", "start" ]
