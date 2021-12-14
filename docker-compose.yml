@@ -11,5 +11,19 @@ services:
       - node_modules:/usr/src/app/node_modules # A bit of node magic, this ensures the dependencies built for the image are not available locally.
     container_name: node-dev-env # Container name for convenience
 
+  mongo:
+    image: mongo
+    ports:
+    - 3456:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: database
+    volumes:
+      - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - mongo_data:/data/db
+  
+
 volumes: # This is required for the node_modules named volume
   node_modules:
+  mongo_data:

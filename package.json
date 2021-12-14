@@ -6,7 +6,8 @@
   "scripts": {
     "test": "test",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon --legacy-watch index.js",
+    "lint": "npx eslint ."
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "eslint": "^8.4.1"
   }
 }
