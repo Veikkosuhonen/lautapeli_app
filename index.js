@@ -5,8 +5,8 @@ app.use(express.json())
 
 let boardgames = [
     {
-        "id": 0,
-        "content": "Hello"
+        id: 0,
+        content: "Hello"
     }
 ]
 
