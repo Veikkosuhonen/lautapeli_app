@@ -34,13 +34,8 @@ jobs:
         with:
           node-version: '17.x'
       
-      - name: Build frontend files and copy
-        run: | 
-          cd ../frontend
-          npm install
-          npm run build
-          cd ..
-          cp frontend/build backend/ -r 
+      - name: Build frontend
+        run: npm run build:ui
 
       - run: npm install
 

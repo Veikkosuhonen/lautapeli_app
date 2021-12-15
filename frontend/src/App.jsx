@@ -1,7 +1,7 @@
 import React from 'react'
-import axios from 'axios'
 import Boardgame from './components/Boardgame'
 import { useState, useEffect } from 'react'
+import bgService from './services/bgService'
 
 const App = () => {
 
@@ -10,10 +10,10 @@ const App = () => {
 
     useEffect(() => {
         console.log("Getting stuff from server")
-        axios.get("http://localhost:3001/api/boardgames")
-        .then(response => {
+        bgService.getAll()
+        .then(bgs => {
             console.log("Received response")
-            setBoardgames(response.data)
+            setBoardgames(bgs)
         })
         .catch(error => {
             console.log("Error: " + error)
@@ -22,10 +22,10 @@ const App = () => {
 
     const postBg = (name) => {
         const bg = { name: name }
-        axios.post("http://localhost:3001/api/boardgames", bg)
-        .then(response => {
-            console.log("Received response to post: " + JSON.stringify(response.data))
-            setBoardgames(boardgames.concat(response.data))
+        bgService.post(bg)
+        .then(bg => {
+            console.log("Received response to post: " + JSON.stringify(bg))
+            setBoardgames(boardgames.concat(bg))
         })
         .catch(error => {
             console.log("Error: " + error)
