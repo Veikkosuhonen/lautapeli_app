@@ -31,7 +31,7 @@ router.post("/", async (request, response) => {
         try {
             const bg = await Boardgame.findByPk(playsession.boardgameId)
             bg.timesPlayed += 1
-            console.log(bg.name + " now played " + bg.timesPlayed + " times");
+            console.log(bg.name + " now played " + bg.timesPlayed + " times")
             bg.save()
         } catch(error) {
             return response.status(400).json({ error })
