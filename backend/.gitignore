@@ -1,4 +1,5 @@
 build
+postgres_database
 
 # Logs
 logs

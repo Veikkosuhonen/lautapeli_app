@@ -1,31 +1,36 @@
 version: '3.7'
 
 services:
+  
+  db:
+    image: postgres:13.2-alpine
+    restart: unless-stopped
+    environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=example
+     - POSTGRES_DB=backend_db
+    container_name: backend_db
+    volumes:
+     - ./postgres_database:/var/lib/postgresql/data
+  
   node-dev-env:
     build: . # Build with the Dockerfile here
     command: npm run dev # Run npm start as the command
     environment:
       - PORT=3001
-    ports: 
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=example
+      - POSTGRES_DATABASE=backend_db
+      - POSTGRES_USE_SSL="false"
+    ports:
       - 3001:3001 # The app uses port 3000 by default, publish it as 3000
     volumes:
       - ./:/usr/src/app # Let us modify the contents of the container locally
       - node_modules:/usr/src/app/node_modules # A bit of node magic, this ensures the dependencies built for the image are not available locally.
     container_name: node-dev-env # Container name for convenience
-
-  #mongo:
-  #  image: mongo
-  #  ports:
-  #  - 3456:27017
-  #  environment:
-  #    MONGO_INITDB_ROOT_USERNAME: root
-  #    MONGO_INITDB_ROOT_PASSWORD: example
-  #    MONGO_INITDB_DATABASE: database
-  #  volumes:
-  #    - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-  #    - mongo_data:/data/db
+    depends_on: [db]
   
 
 volumes: # This is required for the node_modules named volume
   node_modules:
-  mongo_data:
