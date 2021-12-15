@@ -13,6 +13,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: backend/
     
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -31,12 +34,13 @@ jobs:
         with:
           node-version: '17.x'
       
-      - run: cd frontend
-      - run: npm install
-      - run: npm run build
-      - run: cd ..
-      - run: cp frontend/build backend/ -r
-      - run: cd backend 
+      - name: Build frontend files and copy
+        run: | 
+          cd ../frontend
+          npm install
+          npm run build
+          cd ..
+          cp frontend/build backend/ -r 
 
       - run: npm install
 
