@@ -4,6 +4,8 @@ services:
   node-dev-env:
     build: . # Build with the Dockerfile here
     command: npm run dev # Run npm start as the command
+    environment:
+      - PORT=3001
     ports: 
       - 3001:3001 # The app uses port 3000 by default, publish it as 3000
     volumes:

@@ -20,10 +20,30 @@ app.get("/api/boardgames", (request, response) => {
     response.json(boardgames)
 })
 
+const validateBoardgame = (body) => {
+    return body.content
+}
+
+const addBoardgame = (body) => {
+    if (!validateBoardgame(body)) {
+        return {
+            error: "Invalid body!"
+        }
+    }
+
+    let boardgame = {
+        id: boardgames.length,
+        content: body.content
+    }
+
+    boardgames.push(boardgame)
+    return boardgame
+}
+
 app.post("/api/boardgames", (request, response) => {
     const boardgame = request.body
     //console.log(boardgame)
-    response.json(boardgame)
+    response.json(addBoardgame(boardgame))
 })
 
 // eslint-disable-next-line no-undef
