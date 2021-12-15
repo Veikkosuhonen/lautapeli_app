@@ -13,9 +13,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-defaults:
-  run:
-    working-directory: backend
     
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -34,6 +31,13 @@ jobs:
         with:
           node-version: '17.x'
       
+      - run: cd frontend
+      - run: npm install
+      - run: npm run build
+      - run: cd ..
+      - run: cp frontend/build backend/ -r
+      - run: cd backend 
+
       - run: npm install
 
       # Runs a single command using the runners shell
@@ -41,7 +45,7 @@ jobs:
         run: npm run lint
 
       - name: Login to Heroku Container registry
-        env: 
+        env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:login 
         
