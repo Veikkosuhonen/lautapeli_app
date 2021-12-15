@@ -22,7 +22,7 @@ Boardgame.init({
     },
     dateAdded: {
         type: DataTypes.DATEONLY,
-        allowNull: false,
+        allowNull: true,
         defaultValue: DataTypes.NOW
     }
 }, {
