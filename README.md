@@ -1,5 +1,7 @@
 # lautapeli_app
 
+## Live at [lautapelit.herokuapp.com](http://lautapelit.herokuapp.com)
+
 ## Dev
 
 ### Containers
