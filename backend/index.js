@@ -13,6 +13,7 @@ app.use(express.static("build"))
 
 // eslint-disable-next-line no-undef
 let dbUrl = process.env.DATABASE_URL
+const probablyHeroku = dbUrl != undefined
 
 if (!dbUrl) {
     // eslint-disable-next-line no-undef
@@ -21,9 +22,12 @@ if (!dbUrl) {
 
 const sequelize = new Sequelize(dbUrl, {
     dialect: "postgres",
-    dialectOptions: {
-        
-    },
+    dialectOptions: probablyHeroku ? {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    } : {},
 })
 
 
