@@ -8,13 +8,15 @@ Web-app for logging your groups boardgame sessions.
 
 ### Dev:
 
-Requirements: Docker
+Requirements: Docker, Node
 
-Fork and clone the repository and run `docker-compose up`. Open the workspace in the editor of your choice and start hacking!
+- Fork and clone the repository
+- Backend: `docker-compose up`.
+- Frontend: `npm install` and `npm start`.
 
 ### Deploy:
 
-Github Actions CI is set up to deploy the application to [Heroku](https://heroku.com). You will need a (free) account. 
+Github Actions CI is set up to deploy the application to [Heroku](https://heroku.com). You need a (free) account. 
 
 Create a new Heroku app from your Heroku dashboard. Under _resources_, add the Heroku Postgres add-on.
 
