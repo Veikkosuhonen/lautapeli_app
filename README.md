@@ -4,7 +4,7 @@
 
 Web-app for logging your groups boardgame sessions.
 
-_Tämä on myös HY:n fullstack-harjoitustyöni_:  [_Tuntikirjanpito_]()
+_Tämä on myös HY:n fullstack-harjoitustyöni_:  [_Tuntikirjanpito_](https://github.com/Veikkosuhonen/lautapeli_app/blob/master/tuntikirjanpito.md)
 
 ## How to...
 
