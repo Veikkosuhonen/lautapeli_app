@@ -1,13 +1,17 @@
 # lautapeli_app
 
+![example workflow](https://github.com/Veikkosuhonen/lautapeli_app/actions/workflows/main.yml/badge.svg)
+
+
 ## Live at [lautapelit.herokuapp.com](http://lautapelit.herokuapp.com)
 
 ## Dev
 
-### Containers
+### Stack
 
 - [Node 17](https://hub.docker.com/_/node) backend with express.
-- [Mongo](https://hub.docker.com/_/mongo)
+- [Postgres](https://hub.docker.com/_/postgres)
+- [React](https://reactjs.org/)
 
 ### CI
 
