@@ -4,6 +4,8 @@
 
 Web-app for logging your groups boardgame sessions.
 
+_Tämä on myös HY:n fullstack-harjoitustyöni_:  [_Tuntikirjanpito_]()
+
 ## How to...
 
 ### Dev:
