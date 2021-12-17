@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "start": "node index.js",
-    "dev": "nodemon --legacy-watch index.js",
+    "start": "node src/index.js",
+    "dev": "nodemon --legacy-watch src/index.js",
     "lint": "npx eslint .",
     "build:ui": "rm -rf build && cd ../frontend/ && npm install && npm run build && cp -r build ../backend"
   },
