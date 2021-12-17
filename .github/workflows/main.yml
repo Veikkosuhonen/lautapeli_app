@@ -39,6 +39,9 @@ jobs:
 
       - run: npm install
 
+      - name: Run tests
+        run: npm run test
+        
       # Runs a single command using the runners shell
       - name: Run lint
         run: npm run lint

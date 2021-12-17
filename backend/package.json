@@ -4,9 +4,9 @@
   "description": "Boardgame activity tracking web app",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose",
-    "start": "node src/index.js",
-    "dev": "nodemon --legacy-watch src/index.js",
+    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "start": "NODE_ENV=production node src/index.js",
+    "dev": "NODE_ENV=development nodemon --legacy-watch src/index.js",
     "lint": "npx eslint .",
     "build:ui": "rm -rf build && cd ../frontend/ && npm install && npm run build && cp -r build ../backend"
   },
