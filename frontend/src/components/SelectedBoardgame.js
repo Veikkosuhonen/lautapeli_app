@@ -1,7 +1,20 @@
 import React from 'react'
 import { useState } from 'react'
-import PlaySession from './PlaySession'
-import PlaySessionForm from './PlaySessionForm'
+
+const PlaySession = ({ id, date, duration }) => (
+    <li key={id}>
+        {date}, {duration} minutes
+    </li>
+)
+
+const PlaySessionForm = ({onChange, playsession, onSubmit}) => (
+    <div>
+        <form onSubmit={(event) => {event.preventDefault(); onSubmit()}}>
+                <input value={playsession.duration} onChange={onChange}/>
+                <button type="submit">add</button>
+            </form>
+    </div>
+)
 
 const SelectedBoardgame = ({ bg, addPlaySession }) => {
     const [newPlaySession, setNewPlaySession] = useState({duration: 0})

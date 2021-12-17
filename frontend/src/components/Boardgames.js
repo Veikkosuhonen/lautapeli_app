@@ -1,5 +1,11 @@
 import React from "react"
-import Boardgame from "./Boardgame"
+
+const Boardgame = ({ id, name, onSelect }) => (
+    <li>
+        {name}
+        <button onClick={() => onSelect(id)}>Select</button>
+    </li>
+)
 
 const Boardgames = ({ boardgames, onSelect }) => (
     <div>
