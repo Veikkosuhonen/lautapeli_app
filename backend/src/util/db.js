@@ -12,16 +12,19 @@ const sequelize = new Sequelize(DATABASE_URL, {
 })
 
 const connectToDatabase = async () => {
-    try {
-        await sequelize.authenticate()
-        console.log("database connected")
-    } catch (err) {
-        console.log("connecting database failed")
-        // eslint-disable-next-line no-undef
-        return process.exit(1)
+    for (let i = 0; i < 10; i++) {
+        try {
+            await new Promise(r => setTimeout(r, 2000))
+            //await sequelize.authenticate()
+            console.log("database connected")
+            return null
+        } catch (err) {
+            console.log(`connecting database failed - ${i}/10`)
+            await new Promise(r => setTimeout(r, 2000))
+        }
     }
-
-    return null
+    // eslint-disable-next-line no-undef
+    return process.exit(1)
 }
 
 module.exports = { connectToDatabase, sequelize }

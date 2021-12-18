@@ -2,34 +2,34 @@ version: '3.7'
 
 services:
   
-  db:
+  test-db:
     image: postgres:13.2-alpine
     restart: unless-stopped
     environment:
-     - POSTGRES_USER=postgres
-     - POSTGRES_PASSWORD=example
-     - POSTGRES_DB=backend_db
-    container_name: backend_db
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=test_db
+    container_name: backend_test_db
     volumes:
-     - ./data/postgres_database:/var/lib/postgresql/data
+     - ./data/postgres_test_database:/var/lib/postgresql/data
   
-  lautapeli-app:
-    build: .
-    command: npm run dev
+  node-test-env:
+    image: backend_lautapeli-app:latest
+    command: npm run wait_test
     environment:
       - PORT=3001
-      - POSTGRES_HOST=db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=example
-      - POSTGRES_DATABASE=backend_db
+      - POSTGRES_HOST=test_db
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DATABASE=backend_test_db
       - POSTGRES_USE_SSL="false"
     ports:
       - 3001:3001
     volumes:
       - ./:/usr/src/app # Let us modify the contents of the container locally
       - node_modules:/usr/src/app/node_modules # A bit of node magic, this ensures the dependencies built for the image are not available locally.
-    container_name: lautapeli-app-dev
-    depends_on: [db]
+    container_name: node-test-env
+    depends_on: [test-db]
   
 
 volumes: # This is required for the node_modules named volume

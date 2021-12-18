@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "Boardgame activity tracking web app",
   "main": "index.js",
+
   "scripts": {
+    "test:container": "docker-compose -f test-compose.yml up --exit-code-from node-test-env",
+    "wait_test": "sleep 2 && npm run test && npm run lint",
     "test": "NODE_ENV=test jest --verbose --runInBand",
     "start": "NODE_ENV=production node src/index.js",
     "dev": "NODE_ENV=development nodemon --legacy-watch src/index.js",
     "lint": "npx eslint .",
     "build:ui": "rm -rf build && cd ../frontend/ && npm install && npm run build && cp -r build ../backend"
   },
+
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Veikkosuhonen/lautapeli_app.git"

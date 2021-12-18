@@ -1,5 +1,5 @@
 build
-postgres_database
+data
 
 # Logs
 logs
