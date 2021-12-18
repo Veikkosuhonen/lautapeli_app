@@ -51,7 +51,7 @@ jobs:
       - name: Push the image to Heroku
         run: |
             docker tag backend_lautapeli-app registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
-            docker push registry.heroku.com/${NAME}/web
+            docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
         
       - name: Release
         env:
