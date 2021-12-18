@@ -13,7 +13,7 @@ PlaySession.init({
     boardgameId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: "boardgame", key: "id" },
+        references: { model: "boardgames", key: "id" },
     },
     duration: {
         type: DataTypes.INTEGER,
