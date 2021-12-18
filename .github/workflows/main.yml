@@ -37,12 +37,6 @@ jobs:
       # - name: Build frontend
       #   run: npm run build:ui
 
-      #- name: Set up QEMU
-      #  uses: docker/setup-qemu-action@v1
-
-      #- name: Set up Docker Buildx
-      #  uses: docker/setup-buildx-action@v1
-
       - name: Build backend image
         run: docker build . -t backend_lautapeli-app
 
@@ -55,13 +49,11 @@ jobs:
         run: docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
         
       - name: Push the image to Heroku
-        env:
-          NAME: ${{ secrets.HEROKU_APP_NAME }}
         run: |
-            docker tag backend_lautapeli-app registry.heroku.com/${NAME}/web
+            docker tag backend_lautapeli-app registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
             docker push registry.heroku.com/${NAME}/web
         
       - name: Release
         env:
-          NAME: ${{ secrets.HEROKU_APP_NAME }}
-        run: heroku container:release -a $NAME web 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web 
