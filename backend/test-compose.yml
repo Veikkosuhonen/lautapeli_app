@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
       - POSTGRES_DB=test_db
-    container_name: backend_test_db
+    container_name: test_db
     volumes:
      - ./data/postgres_test_database:/var/lib/postgresql/data
   
@@ -21,7 +21,7 @@ services:
       - POSTGRES_HOST=test_db
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
-      - POSTGRES_DATABASE=backend_test_db
+      - POSTGRES_DATABASE=test_db
       - POSTGRES_USE_SSL="false"
     ports:
       - 3001:3001

@@ -12,5 +12,6 @@ module.exports = {
     DATABASE_URL: dbUrl,
     IS_HEROKU: probablyHeroku,
     PORT: process.env.PORT || 3001,
-    SECRET: process.env.SECRET
+    SECRET: process.env.SECRET,
+    NODE_ENV: process.env.NODE_ENV
 }
