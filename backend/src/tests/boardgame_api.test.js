@@ -39,6 +39,14 @@ test("Valid boardgame can be posted", async () => {
         .expect("Content-Type", /application\/json/)
 })
 
+test("Invalid boardgame returns bad request", async () => {
+    const newBg = { title: "Everdell" }
+    const response = await api
+        .post("/api/boardgames")
+        .send(newBg)
+        .expect(405)
+})
+
 test("Posted boardgame is added", async () => {
     await api.post("/api/boardgames").send({ name: "Azul" })
     const response = await api.get("/api/boardgames")

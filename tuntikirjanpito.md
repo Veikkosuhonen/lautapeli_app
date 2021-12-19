@@ -8,6 +8,7 @@
 | 16.12 | 6h | Backendiin käyttäjät, rakenteen parantelua, frontendin laajennusta |
 | 17.12 | 3h | Backendin testauksen aloitus |
 | 18.12 | 3h | Tietokantaa käyttävien integraatiotestien kanssa painintaa |
-| 19.12 | 3h | ^ Tuota edelleen, ja onnistui viimein. Migraatiot. Lisää testejä. |
-| Yht: | 27h |
+| 19.12 | 4h | ^ Tuota edelleen, ja onnistui viimein. Migraatiot. Lisää testejä. |
+| Yht: | 28h |
 | Viikko 2 |
+

@@ -51,7 +51,7 @@ router.put("/:id", async (request, response) => {
     const bg = await Boardgame.findByPk(request.params.id)
     const newBg = request.body
     if (!newBg) {
-        return response.status(403).end()
+        return response.status(405).end()
     }
     if (!bg) {
         return response.status(404).end()
