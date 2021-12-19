@@ -25,12 +25,12 @@ const runMigrations = async () => {
             tableName: "migrations",
         },
         migrations: {
-            glob: ["migrations/*.js", { cwd: __dirname }],
+            glob: ["../migrations/*.js", { cwd: __dirname }],
         },
     })
     const migrations = await migrator.up()
     logger.debug("Migrations up to date", {
-        files: migrations.map((mig) => mig.file),
+        files: migrations.length,
     })
 }
 
@@ -47,6 +47,14 @@ const connectToDatabase = async () => {
     }
     return null
     
+}
+
+const debugTables = async () => {
+    const tables = await sequelize.query("SELECT * \
+    FROM pg_catalog.pg_tables \
+    WHERE schemaname != 'pg_catalog' AND \
+        schemaname != 'information_schema';")
+    console.log(tables)
 }
 
 module.exports = { connectToDatabase, sequelize }

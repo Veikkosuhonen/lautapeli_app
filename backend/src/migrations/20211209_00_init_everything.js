@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize")
 
 module.exports = {
-    up: async (queryInterface) => {
-        await queryInterface.createTable("boardgames", {
+    up: async ({ context: sequelize }) => {
+        await sequelize.getQueryInterface().createTable("boardgames", {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
@@ -22,7 +22,7 @@ module.exports = {
                 allowNull: true,
             }    
         })
-        await queryInterface.createTable("play_sessions", {
+        await sequelize.getQueryInterface().createTable("playSessions", {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
@@ -43,7 +43,7 @@ module.exports = {
                 defaultValue: DataTypes.NOW
             }
         })
-        await queryInterface.createTable("users", {
+        await sequelize.getQueryInterface().createTable("users", {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
@@ -64,9 +64,9 @@ module.exports = {
             },
         })
     },
-    down: async (queryInterface) => {
-        await queryInterface.dropTable("play_sessions")
-        await queryInterface.dropTable("boardgames")
-        await queryInterface.dropTable("users")
+    down: async ({ context: sequelize }) => {
+        await sequelize.getQueryInterface().dropTable("playSessions")
+        await sequelize.getQueryInterface().dropTable("boardgames")
+        await sequelize.getQueryInterface().dropTable("users")
     },
 }

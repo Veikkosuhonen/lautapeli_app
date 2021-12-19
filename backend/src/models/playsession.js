@@ -26,7 +26,6 @@ PlaySession.init({
     }
 }, {
     sequelize,
-    underscored: true,
     timestamps: false,
     modelName: "playSession"
 })

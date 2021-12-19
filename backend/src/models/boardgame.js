@@ -27,7 +27,6 @@ Boardgame.init({
     }
 }, {
     sequelize,
-    underscored: true,
     timestamps: false,
     modelName: "boardgame"
 })
