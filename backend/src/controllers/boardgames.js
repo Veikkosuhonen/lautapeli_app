@@ -1,7 +1,7 @@
 const router = require("express").Router()
 
 const { Boardgame, PlaySession } = require("../models")
-
+const logger = require("../util/logger")
 
 router.get("/", async (request, response) => {
     //console.log("GET " + request.url)
@@ -17,7 +17,7 @@ router.get("/:id", async (request, response) => {
         }
     })
     if (bg) {
-        console.log(bg.toJSON())
+        logger.info(bg.toJSON())
         response.json(bg)
     } else {
         response.status(404).end()
@@ -39,7 +39,7 @@ router.post("/", async (request, response) => {
     } else {
         try {
             const bg = await addBoardgame(boardgame)
-            console.log(bg.toJSON())
+            logger.info(bg.toJSON())
             return response.json(bg)
         } catch(error) {
             return response.status(400).json({ error })
@@ -50,15 +50,17 @@ router.post("/", async (request, response) => {
 router.put("/:id", async (request, response) => {
     const bg = await Boardgame.findByPk(request.params.id)
     const newBg = request.body
-    if (bg && newBg) {
-        bg.name = newBg.name || bg.name
-        bg.timesPlayed = newBg.timesPlayed || bg.timesPlayed
-        await bg.save()
-        console.log(bg.toJSON())
-        response.json(bg)
-    } else {
-        response.status(404).end()
+    if (!newBg) {
+        return response.status(403).end()
     }
+    if (!bg) {
+        return response.status(404).end()
+    }
+    bg.name = newBg.name || bg.name
+    bg.timesPlayed = newBg.timesPlayed || bg.timesPlayed
+    await bg.save()
+    logger.info(bg.toJSON())
+    response.json(bg)
 })
 
 module.exports = router
