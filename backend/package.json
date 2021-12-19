@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test:container": "docker-compose -f test-compose.yml up --exit-code-from node-test-env",
-    "wait_test": "sleep 2 && npm run test && npm run lint",
-    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "wait_test": "sleep 2 && npm run test",
+    "test": "NODE_ENV=test jest --verbose --runInBand --detectOpenHandles",
     "start": "NODE_ENV=production node src/index.js",
     "dev": "NODE_ENV=development nodemon --legacy-watch src/index.js",
     "lint": "npx eslint .",
@@ -30,7 +30,8 @@
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.15",
     "pg": "^8.7.1",
-    "sequelize": "^6.12.0-beta.3"
+    "sequelize": "^6.12.0-beta.3",
+    "umzug": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^8.4.1",
@@ -38,6 +39,7 @@
     "supertest": "^6.1.6"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": ["./src/tests/suiteSetup.js"]
   }
 }

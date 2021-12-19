@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize")
 const { DATABASE_URL, IS_HEROKU } = require("./config")
 const logger = require("./logger")
+const { Umzug, SequelizeStorage } = require("umzug")
 
 const sequelize = new Sequelize(DATABASE_URL, {
     dialect: "postgres",
@@ -13,13 +14,34 @@ const sequelize = new Sequelize(DATABASE_URL, {
     logging: false
 })
 
+const runMigrations = async () => {
+    const migrator = new Umzug({
+        context: sequelize,
+        storage: new SequelizeStorage({
+            sequelize,
+        }),
+        storageOptions: {
+            sequelize,
+            tableName: "migrations",
+        },
+        migrations: {
+            glob: ["migrations/*.js", { cwd: __dirname }],
+        },
+    })
+    const migrations = await migrator.up()
+    logger.debug("Migrations up to date", {
+        files: migrations.map((mig) => mig.file),
+    })
+}
+
 const connectToDatabase = async () => {
     try {
-        await new Promise(r => setTimeout(r, 2000))
-        //await sequelize.authenticate()
-        logger.info("database connected")
-    } catch (err) {
-        logger.info("connecting database failed")
+        await sequelize.authenticate()
+        await runMigrations()
+        logger.debug("database connected")
+    } catch (error) {
+        logger.error("connecting database failed")
+        logger.error(error)
         // eslint-disable-next-line no-undef
         return process.exit(1)
     }

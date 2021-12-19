@@ -1,12 +1,11 @@
 const express = require("express")
 const cors = require("cors")
+const { connectToDatabase } = require("./util/db")
 const app = express()
 
-const { connectToDatabase } = require("./util/db")
-
-
-connectToDatabase()
-
+connectToDatabase().then(() => {
+    app.emit("dbReady")
+})
 
 app.use(cors())
 app.use(express.json())
