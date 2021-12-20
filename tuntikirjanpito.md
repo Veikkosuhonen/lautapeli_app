@@ -11,4 +11,5 @@
 | 19.12 | 4h | ^ Tuota edelleen, ja onnistui viimein. Migraatiot. Lisää testejä. |
 | Yht: | 28h |
 | Viikko 2 |
-
+| 20.12 | 2h | Liitostaulu käyttäjien ja pelisessioiden
+välillä |
