@@ -15,10 +15,12 @@ const bgRouter = require("./controllers/boardgames")
 const playsessionRouter = require("./controllers/playsessions")
 const usersRouter = require("./controllers/users")
 const loginRouter = require("./controllers/login")
+const profileRouter = require("./controllers/myprofile")
 
 app.use("/api/boardgames", bgRouter)
 app.use("/api/playsessions", playsessionRouter)
 app.use("/api/users", usersRouter)
 app.use("/api/login", loginRouter)
+app.use("/api/myprofile", profileRouter)
 
 module.exports = app
