@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken")
 const { User } = require("../models")
-const { SECRET } = require("../util/config")
+const { SECRET } = require("./config")
 
 const getTokenFrom = (request) => {
     const authorization = request.get("authorization")

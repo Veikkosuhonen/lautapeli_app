@@ -1,6 +1,6 @@
 const router = require("express").Router()
 
-const getLoggedInUser = require("./authorisation")
+const getLoggedInUser = require("../util/authorisation")
 
 router.get("/", async (req, res) => {
     const user = await getLoggedInUser(req)
