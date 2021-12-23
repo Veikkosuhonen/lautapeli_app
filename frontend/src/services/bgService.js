@@ -2,6 +2,12 @@ import axios from 'axios'
 
 const baseUrl = "/api/boardgames"
 
+let token = null
+
+const setToken = newToken => {
+    token = "bearer " + newToken
+}
+
 const getAll = () => {
     return axios.get(baseUrl).then(response => response.data)
 }
