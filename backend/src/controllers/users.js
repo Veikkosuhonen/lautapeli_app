@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
     res.json(users)
 })
 
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
     try {
         const body = req.body
 
@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
         const user = await User.create(userObject)
         res.json(user)
     } catch(error) {
-        return res.status(400).json({ error })
+        next(error)
     }
 })
 
