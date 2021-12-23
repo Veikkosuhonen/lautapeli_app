@@ -32,7 +32,7 @@ const addBoardgame = async (body) => {
     return await Boardgame.create({ name: body.name })
 }
 
-router.post("/", async (request, response) => {
+router.post("/", async (request, response, next) => {
     const boardgame = request.body
     if (!validateBoardgame(boardgame)) {
         response.sendStatus(405)
@@ -42,7 +42,7 @@ router.post("/", async (request, response) => {
             logger.info(bg.toJSON())
             return response.json(bg)
         } catch(error) {
-            return response.status(400).json({ error })
+            next(error)
         }
     }
 })

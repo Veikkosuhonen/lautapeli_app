@@ -5,14 +5,14 @@ import playSessionService from './services/playSessionService'
 
 import Boardgames from './components/Boardgames'
 import SelectedBoardgame from './components/SelectedBoardgame'
-
+import ErrorNotification from "./components/ErrorNotification"
 
 const App = () => {
 
     const [boardgames, setBoardgames] = useState([])
     const [newBg, setNewBg] = useState("")
     const [selectedBg, setSelectedBg] = useState(null)
-    
+    const [errorMessage, setErrorMessage] = useState(null)
 
     useEffect(() => {
         console.log("Getting stuff from server")
@@ -20,7 +20,7 @@ const App = () => {
             console.log("Received response")
             setBoardgames(bgs)
         }).catch(error => {
-            console.log("Error: " + error)
+            console.log(error)
         })
     }, [])
 
@@ -29,7 +29,7 @@ const App = () => {
             setSelectedBg(bg)
             console.log("Selected " + bg)
         }).catch(error => {
-            console.log("Error: " + error)
+            console.log(error)
         })
     }
 
@@ -38,8 +38,8 @@ const App = () => {
         bgService.post(bg).then(bg => {
             console.log("Received response to post: " + JSON.stringify(bg))
             setBoardgames(boardgames.concat(bg))
-        }).catch(error => {
-            console.log("Error: " + error)
+        }).catch(_error => {
+            setErrorMessage(`"${name}" already exists!`)
         })
     }
 
@@ -57,12 +57,13 @@ const App = () => {
                 playSessions: selectedBg.playSessions.concat(ps)
             })
         }).catch(error => {
-            console.log("Error: " + error)
+            console.log(error)
         })
     }
 
     return (
         <div>
+            <ErrorNotification message={errorMessage} />
             <Boardgames boardgames={boardgames} onSelect={selectBg} />
             <form onSubmit={addBg}>
                 <input value={newBg} onChange={event => {setNewBg(event.target.value)}}/>
