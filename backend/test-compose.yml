@@ -24,7 +24,7 @@ services:
       - POSTGRES_DATABASE=test_db
       - POSTGRES_USE_SSL="false"
     ports:
-      - 3001:3001
+      - 3002:3001
     volumes:
       - ./:/usr/src/app # Let us modify the contents of the container locally
       - node_modules:/usr/src/app/node_modules # A bit of node magic, this ensures the dependencies built for the image are not available locally.
