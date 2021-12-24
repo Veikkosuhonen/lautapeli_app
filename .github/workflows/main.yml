@@ -29,13 +29,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      #- name: Setup Node
-      #  uses: actions/setup-node@v2.5.0
-      #  with:
-      #    node-version: '17.x'
-      # 
-      # - name: Build frontend
-      #   run: npm run build:ui
+      - name: Setup Node
+        uses: actions/setup-node@v2.5.0
+        with:
+          node-version: '17.x'
+       
+      - name: Build frontend
+        run: npm run build:ui
 
       - name: Build backend image
         run: docker build . -t backend_lautapeli-app
