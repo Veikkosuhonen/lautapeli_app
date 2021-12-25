@@ -18,7 +18,9 @@ const login = async (api) => {
     return response
 }
 
-const getToken = () => "bearer " + token
+const getToken = () => {
+    return "bearer " + token
+}
 
 const testUtils = { register, login, getToken }
 

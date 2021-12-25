@@ -8,13 +8,15 @@ const api = supertest(app)
 
 
 beforeAll((done) => {
-    app.on("dbReady", () => done())
-    testUtils.register(api)
+    app.on("dbReady", async () => { 
+        await testUtils.register(api)
+        done()
+    })
 })
 
 beforeEach(async () => {
     await Boardgame.create({ name: "Shogun" })
-    testUtils.login(api)
+    await testUtils.login(api)
 })
 
 afterEach(async () => {

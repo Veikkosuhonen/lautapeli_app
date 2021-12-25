@@ -5,7 +5,15 @@ const { PlaySession, Boardgame } = require("../models")
 
 router.get("/", async (request, response) => {
     //console.log("GET " + request.url)
-    const playsessions = await PlaySession.findAll()
+    const playsessions = await PlaySession.findAll({
+        attributes: { exclude: ["boardgameId"] },
+        include: [
+            {
+                model: Boardgame,
+                attributes: { exclude: ["timesPlayed", "dateAdded", "addedById"] }
+            }
+        ]
+    })
     response.json(playsessions)
 })
 

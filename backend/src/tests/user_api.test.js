@@ -40,7 +40,6 @@ test("Can create valid user and returns fields", async () => {
 
     expect(body.username).toBe("zyl")
     expect(body.name).toBe("Veikko")
-    expect(body.passwordHash).toBeDefined()
     expect(body.id).toBeDefined()
 })
 

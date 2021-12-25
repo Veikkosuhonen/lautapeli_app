@@ -5,8 +5,20 @@ const logger = require("../util/logger")
 const getLoggedInUser = require("../util/authorization")
 
 router.get("/", async (request, response) => {
-    //console.log("GET " + request.url)
-    const bgs = await Boardgame.findAll()
+    const bgs = await Boardgame.findAll({
+        attributes: { exclude: ["addedById"] },
+        include: [
+            {
+                model: PlaySession,
+                attributes: { exclude: ["boardgameId"] },
+            },
+            {
+                model: User,
+                as: "addedBy",
+                attributes: { exclude: ["username", "passwordHash"] },
+            }
+        ]
+    })
     response.json(bgs)
 })
 
