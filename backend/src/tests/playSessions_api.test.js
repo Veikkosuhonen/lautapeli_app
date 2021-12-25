@@ -45,3 +45,14 @@ test("Playsessions of one boardgame are retrieved", async () => {
     
     expect(response.body.playSessions).toHaveLength(2)
 })
+
+test("Playsessions can be posted", async () => {
+    const bg = await Boardgame.findOne()
+    const response = await api.post("/api/playsessions/")
+        .send({ boardgameId: bg.id, duration: 200 })
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+    
+    expect(response.body.id).toBeDefined()
+    expect(response.body.date).toBeDefined()
+})
