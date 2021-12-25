@@ -24,6 +24,10 @@ Boardgame.init({
         type: DataTypes.DATEONLY,
         allowNull: true,
         defaultValue: DataTypes.NOW
+    },
+    addedById: {
+        type: DataTypes.INTEGER,
+        references: { model: "users", key: "id" },
     }
 }, {
     sequelize,

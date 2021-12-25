@@ -1,7 +1,8 @@
 const router = require("express").Router()
 
-const { Boardgame, PlaySession } = require("../models")
+const { Boardgame, PlaySession, User } = require("../models")
 const logger = require("../util/logger")
+const getLoggedInUser = require("../util/authorization")
 
 router.get("/", async (request, response) => {
     //console.log("GET " + request.url)
@@ -11,11 +12,19 @@ router.get("/", async (request, response) => {
 
 router.get("/:id", async (request, response) => {
     const bg = await Boardgame.findByPk(request.params.id, {
-        include: {
-            model: PlaySession,
-            attributes: { exclude: ["boardgameId"] }
-        }
+        attributes: { exclude: ["addedById"] },
+        include: [
+            {
+                model: PlaySession
+            },
+            {
+                model: User,
+                as: "addedBy",
+                attributes: { exclude: ["username", "passwordHash"] },
+            }
+        ]
     })
+
     if (bg) {
         logger.info(bg.toJSON())
         response.json(bg)
@@ -28,17 +37,20 @@ const validateBoardgame = (body) => {
     return body.name !== undefined
 }
 
-const addBoardgame = async (body) => {
-    return await Boardgame.create({ name: body.name })
-}
-
 router.post("/", async (request, response, next) => {
-    const boardgame = request.body
+    const user = await getLoggedInUser(request)
+    if (!user) {
+        return response.sendStatus(401)
+    }
+    const boardgame = {
+        ...request.body,
+        addedById: user.id
+    }
     if (!validateBoardgame(boardgame)) {
-        response.sendStatus(405)
+        return response.sendStatus(405)
     } else {
         try {
-            const bg = await addBoardgame(boardgame)
+            const bg = await Boardgame.create(boardgame)
             logger.info(bg.toJSON())
             return response.json(bg)
         } catch(error) {
@@ -48,6 +60,10 @@ router.post("/", async (request, response, next) => {
 })
 
 router.put("/:id", async (request, response) => {
+    const user = await getLoggedInUser(request)
+    if (!user) {
+        return response.sendStatus(401)
+    }
     const bg = await Boardgame.findByPk(request.params.id)
     const newBg = request.body
     if (!newBg) {
