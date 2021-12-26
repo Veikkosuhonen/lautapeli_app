@@ -1,8 +1,9 @@
 const supertest = require("supertest")
 const app = require("../app")
 const { sequelize, connectToDatabase } = require("../util/db")
-const { PlaySession, Boardgame } = require("../models")
+const { PlaySession, Boardgame, User, Player } = require("../models")
 const testUtils = require("./testUtils")
+const getLoggedInUser = require("../util/authorization")
 
 const api = supertest(app)
 
@@ -15,6 +16,7 @@ beforeAll((done) => {
 })
 
 beforeEach(async () => {
+    await Player.destroy({ where: { } })
     await PlaySession.destroy({ where: { } })
     await Boardgame.destroy({ where: { } })
     const bg = await Boardgame.create({ name: "Shogun" })
@@ -30,6 +32,7 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
+    await Player.destroy({ where: { } })
     await PlaySession.destroy({ where: { } })
     await Boardgame.destroy({ where: { } })
 })
@@ -63,4 +66,25 @@ test("Playsessions can be posted", async () => {
     
     expect(response.body.id).toBeDefined()
     expect(response.body.date).toBeDefined()
+
+    const bgsResponse = await api.get("/api/boardgames/" + bg.id)
+        .set("authorization", testUtils.getToken())
+    
+    expect(bgsResponse.body.playSessions).toHaveLength(3)
+})
+
+test("Players can be posted to playsessions", async () => {
+    const user = await User.findOne()
+    const playSession = await PlaySession.findOne()
+    const response = await api.post("/api/playsessions/"+ playSession.id + "/players")
+        .send({ playerId: user.id })
+        .set("authorization", testUtils.getToken())
+        .expect(200)
+    
+    expect(response.body.playerId).toBeDefined()
+
+    const psResponse = await api.get("/api/playsessions/" + playSession.id)
+        .set("authorization", testUtils.getToken())
+    
+    expect(psResponse.body.players).toHaveLength(1)
 })

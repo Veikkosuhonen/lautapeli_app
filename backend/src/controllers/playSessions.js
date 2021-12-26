@@ -15,6 +15,7 @@ router.get("/", async (request, response) => {
             {
                 model: User,
                 as: "players",
+                attributes: ["id", "name"],
                 through: {
                     attributes: []
                 }
@@ -25,7 +26,23 @@ router.get("/", async (request, response) => {
 })
 
 router.get("/:id", async (request, response) => {
-    const playsession = await PlaySession.findByPk(request.params.id)
+    const playsession = await PlaySession.findByPk(request.params.id, {
+        attributes: { exclude: ["boardgameId"] },
+        include: [
+            {
+                model: Boardgame,
+                attributes: { exclude: ["timesPlayed", "dateAdded", "addedById"] }
+            },
+            {
+                model: User,
+                as: "players",
+                attributes: ["id", "name"],
+                through: {
+                    attributes: []
+                }
+            }
+        ]
+    })
     if (playsession) {
         console.log(playsession.toJSON())
         response.json(playsession)
@@ -41,7 +58,7 @@ const validatePlaysession = (body) => {
 router.post("/", async (request, response) => {
     const playsession = request.body
     if (!validatePlaysession(playsession)) {
-        response.sendStatus(405)
+        response.sendStatus(403)
     } else {
         try {
             const bg = await Boardgame.findByPk(playsession.boardgameId)
@@ -59,6 +76,23 @@ router.post("/", async (request, response) => {
             return response.status(400).json({ error })
         }
     }
+})
+
+router.post("/:id/players", async (request, response) => {
+    const playSession = await PlaySession.findByPk(request.params.id)
+    if (!playSession) {
+        return response.sendStatus(404)
+    }
+    const playerId = request.body.playerId
+    const user = await User.findByPk(playerId)
+    if (!playerId || !user) {
+        return response.status(400).json({ error: "missing or invalid playerId" })
+    }
+    if ((await playSession.hasPlayer(user))) {
+        return response.status(400).json({ error: "player already in playSession" })
+    }
+    await playSession.addPlayer(user)
+    return response.status(200).json({ playerId })
 })
 
 module.exports = router
