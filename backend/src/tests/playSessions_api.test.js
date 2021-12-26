@@ -2,12 +2,16 @@ const supertest = require("supertest")
 const app = require("../app")
 const { sequelize, connectToDatabase } = require("../util/db")
 const { PlaySession, Boardgame } = require("../models")
+const testUtils = require("./testUtils")
 
 const api = supertest(app)
 
 
 beforeAll((done) => {
-    app.on("dbReady", () => done())
+    app.on("dbReady", async () => {
+        await testUtils.register(api)
+        done()
+    })
 })
 
 beforeEach(async () => {
@@ -22,6 +26,7 @@ beforeEach(async () => {
         boardgameId: bg.id,
         duration: 240
     })
+    await testUtils.login(api)
 })
 
 afterEach(async () => {
@@ -31,6 +36,7 @@ afterEach(async () => {
 
 test("All playsessions are retrieved", async () => {
     const response = await api.get("/api/playsessions/")
+        .set("authorization", testUtils.getToken())
         .expect(200)
         .expect('Content-Type', /application\/json/)
     
@@ -40,6 +46,7 @@ test("All playsessions are retrieved", async () => {
 test("Playsessions of one boardgame are retrieved", async () => {
     const bg = await Boardgame.findOne()
     const response = await api.get("/api/boardgames/" + bg.id)
+        .set("authorization", testUtils.getToken())
         .expect(200)
         .expect('Content-Type', /application\/json/)
     
@@ -50,6 +57,7 @@ test("Playsessions can be posted", async () => {
     const bg = await Boardgame.findOne()
     const response = await api.post("/api/playsessions/")
         .send({ boardgameId: bg.id, duration: 200 })
+        .set("authorization", testUtils.getToken())
         .expect(200)
         .expect('Content-Type', /application\/json/)
     

@@ -16,7 +16,7 @@ app.use(cors())
 app.use(requestLogger)
 
 const bgRouter = require("./controllers/boardgames")
-const playsessionRouter = require("./controllers/playsessions")
+const playsessionRouter = require("./controllers/playSessions")
 const usersRouter = require("./controllers/users")
 const loginRouter = require("./controllers/login")
 const profileRouter = require("./controllers/myprofile")

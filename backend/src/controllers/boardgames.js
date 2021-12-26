@@ -3,6 +3,9 @@ const router = require("express").Router()
 const { Boardgame, PlaySession, User } = require("../models")
 const logger = require("../util/logger")
 const getLoggedInUser = require("../util/authorization")
+const { authorization } = require("../middleware/authorization")
+
+router.use(authorization)
 
 router.get("/", async (request, response) => {
     const bgs = await Boardgame.findAll({
@@ -50,7 +53,7 @@ const validateBoardgame = (body) => {
     return body.name !== undefined
 }
 
-router.post("/", async (request, response, next) => {
+router.post("/", authorization, async (request, response, next) => {
     const user = await getLoggedInUser(request)
     if (!user) {
         return response.sendStatus(401)
@@ -72,18 +75,14 @@ router.post("/", async (request, response, next) => {
     }
 })
 
-router.put("/:id", async (request, response) => {
-    const user = await getLoggedInUser(request)
-    if (!user) {
-        return response.sendStatus(401)
-    }
+router.put("/:id", authorization, async (request, response) => {
     const bg = await Boardgame.findByPk(request.params.id)
     const newBg = request.body
     if (!newBg) {
-        return response.status(405).end()
+        return response.sendStatus(405)
     }
     if (!bg) {
-        return response.status(404).end()
+        return response.sendStatus(404)
     }
     bg.name = newBg.name || bg.name
     bg.timesPlayed = newBg.timesPlayed || bg.timesPlayed

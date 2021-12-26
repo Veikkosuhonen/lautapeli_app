@@ -26,12 +26,15 @@ afterEach(async () => {
 test("Boardgames are returned as json", async () => {
     await api
         .get("/api/boardgames")
+        .set("authorization", testUtils.getToken())
         .expect(200)
         .expect("Content-Type", /application\/json/)
 })
 
 test("Response contains one object", async () => {
-    const response = await api.get("/api/boardgames")
+    const response = await api
+        .get("/api/boardgames") 
+        .set("authorization", testUtils.getToken())
     expect(response.body).toHaveLength(1)
 })
 
@@ -75,7 +78,9 @@ test("Posted boardgame is added", async () => {
         .post("/api/boardgames")
         .set("authorization", testUtils.getToken())
         .send({ name: "Azul" })
-    const response = await api.get("/api/boardgames")
+    const response = await api
+        .get("/api/boardgames")
+        .set("authorization", testUtils.getToken())
     expect(response.body).toHaveLength(2)
 })
 
@@ -85,7 +90,9 @@ test("Can get posted boardgame", async () => {
         .set("authorization", testUtils.getToken())
         .send({ name: "Azul" })
     const id = postResponse.body.id
-    const response = await api.get("/api/boardgames/" + id)
+    const response = await api
+        .get("/api/boardgames/" + id)
+        .set("authorization", testUtils.getToken())
     expect(response.status).toBe(200)
 })
 
