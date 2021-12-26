@@ -13,7 +13,7 @@ module.exports = {
                 allowNull: false,
                 references: { model: 'users', key: 'id' },
             },
-            playsessionId: {
+            playSessionId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: { model: 'playSessions', key: 'id' },

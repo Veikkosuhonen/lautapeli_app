@@ -6,8 +6,8 @@ const Player = require("./player")
 Boardgame.hasMany(PlaySession)
 PlaySession.belongsTo(Boardgame)
 
-User.belongsToMany(PlaySession, { through: Player })
-PlaySession.belongsToMany(User, { through: Player })
+User.belongsToMany(PlaySession, { through: Player, as: "players" })
+PlaySession.belongsToMany(User, { through: Player, as: "players" })
 
 User.hasMany(Boardgame, { foreignKey: "addedById", as: "addedBy" })
 Boardgame.belongsTo(User, { foreignKey: "addedById", as: "addedBy" })

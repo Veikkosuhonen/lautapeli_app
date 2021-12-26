@@ -15,14 +15,13 @@ Player.init({
         allowNull: false,
         references: { model: "users", key: "id" },
     },
-    playsessionId: {
+    playSessionId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: "playsessions", key: "id" },
+        references: { model: "playSessions", key: "id" },
     },
 }, {
     sequelize,
-    underscored: true,
     timestamps: false,
     modelName: "player"
 })

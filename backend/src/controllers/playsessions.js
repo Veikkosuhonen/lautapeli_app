@@ -1,6 +1,6 @@
 const router = require("express").Router()
 
-const { PlaySession, Boardgame } = require("../models")
+const { PlaySession, Boardgame, Player, User } = require("../models")
 
 
 router.get("/", async (request, response) => {
@@ -11,6 +11,13 @@ router.get("/", async (request, response) => {
             {
                 model: Boardgame,
                 attributes: { exclude: ["timesPlayed", "dateAdded", "addedById"] }
+            },
+            {
+                model: User,
+                as: "players",
+                through: {
+                    attributes: []
+                }
             }
         ]
     })

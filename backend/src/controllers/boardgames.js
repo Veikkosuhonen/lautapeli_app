@@ -10,7 +10,7 @@ router.get("/", async (request, response) => {
         include: [
             {
                 model: PlaySession,
-                attributes: { exclude: ["boardgameId"] },
+                attributes: { exclude: ["boardgameId", "players"] },
             },
             {
                 model: User,
@@ -27,7 +27,8 @@ router.get("/:id", async (request, response) => {
         attributes: { exclude: ["addedById"] },
         include: [
             {
-                model: PlaySession
+                model: PlaySession,
+                attributes: { exclude: ["boardgameId"] },
             },
             {
                 model: User,
