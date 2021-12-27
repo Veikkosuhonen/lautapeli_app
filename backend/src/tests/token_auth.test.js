@@ -2,7 +2,7 @@ const supertest = require("supertest")
 const app = require("../app")
 const { sequelize } = require("../util/db")
 const { User } = require("../models")
-const { getLoggedInUser } = require("../util/authorization")
+const { getLoggedInUser } = require("../middleware/authorization")
 
 const api = supertest(app)
 

@@ -3,7 +3,7 @@ const app = require("../app")
 const { sequelize, connectToDatabase } = require("../util/db")
 const { PlaySession, Boardgame, User, Player } = require("../models")
 const testUtils = require("./testUtils")
-const getLoggedInUser = require("../util/authorization")
+const { getLoggedInUser } = require("../middleware/authorization")
 
 const api = supertest(app)
 

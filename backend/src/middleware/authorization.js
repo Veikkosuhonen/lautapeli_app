@@ -19,7 +19,9 @@ const getLoggedInUser = async (request) => {
     if (!decodedToken.id) {
         return null
     }
-    return await User.findByPk(decodedToken.id)
+    return await User.findByPk(decodedToken.id, {
+        attributes: ["id", "username", "name"]
+    })
 }
 
 const authorization = (request, response, next) => {

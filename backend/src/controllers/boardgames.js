@@ -2,8 +2,7 @@ const router = require("express").Router()
 
 const { Boardgame, PlaySession, User } = require("../models")
 const logger = require("../util/logger")
-const getLoggedInUser = require("../util/authorization")
-const { authorization } = require("../middleware/authorization")
+const { authorization, getLoggedInUser } = require("../middleware/authorization")
 
 router.use(authorization)
 
