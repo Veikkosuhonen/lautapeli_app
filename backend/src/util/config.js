@@ -13,5 +13,7 @@ module.exports = {
     IS_HEROKU: probablyHeroku,
     PORT: process.env.PORT || 3001,
     SECRET: process.env.SECRET,
-    NODE_ENV: process.env.NODE_ENV
+    NODE_ENV: process.env.NODE_ENV,
+    ADMIN_USER: process.env.ADMIN_USER,
+    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD
 }

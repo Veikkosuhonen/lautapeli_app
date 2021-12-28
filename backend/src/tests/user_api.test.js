@@ -20,11 +20,11 @@ beforeEach(async () => {
         name: "Veikko",
         password: "yykaakoonee"
     })
-    testUtils.login(api)
+    await testUtils.login(api)
 })
 
-afterEach(() => {
-    User.destroy({ where: {}})
+afterEach(async () => {
+    await testUtils.clearUsers()
 })
 
 test("Users are returned as json", async () => {

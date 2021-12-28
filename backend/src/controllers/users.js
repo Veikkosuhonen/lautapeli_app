@@ -1,11 +1,11 @@
 const bcrypt = require("bcrypt")
 const router = require("express").Router()
-
 const { User } = require("../models")
+const { auth } = require("../middleware/authorization")
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
     const users = await User.findAll({
-        attributes: { exclude: ["username", "passwordHash"] }
+        attributes: { exclude: ["username", "passwordHash", "isAdmin"] }
     })
     res.json(users)
 })
@@ -21,18 +21,19 @@ router.post("/", async (req, res, next) => {
             username: body.username,
             name: body.name,
             passwordHash,
+            isAdmin: false
         }
 
         const user = await User.create(userObject)
-        res.json({ id: user.id, username: user.username, name: user.name })
+        res.json({ id: user.id, username: user.username, name: user.name, isAdmin: user.isAdmin })
     } catch(error) {
         next(error)
     }
 })
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
     const user = await User.findByPk(req.params.id, {
-        attributes: { exclude: ["username", "passwordHash"] }
+        attributes: { exclude: ["username", "passwordHash", "isAdmin"] }
     })
     if (user) {
         res.json(user)

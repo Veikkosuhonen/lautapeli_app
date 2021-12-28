@@ -2,11 +2,9 @@ const router = require("express").Router()
 
 const { Boardgame, PlaySession, User } = require("../models")
 const logger = require("../util/logger")
-const { authorization, getLoggedInUser } = require("../middleware/authorization")
+const { auth, getLoggedInUser } = require("../middleware/authorization")
 
-router.use(authorization)
-
-router.get("/", async (request, response) => {
+router.get("/", auth, async (request, response) => {
     const bgs = await Boardgame.findAll({
         attributes: { exclude: ["addedById"] },
         include: [
@@ -24,7 +22,7 @@ router.get("/", async (request, response) => {
     response.json(bgs)
 })
 
-router.get("/:id", async (request, response) => {
+router.get("/:id", auth, async (request, response) => {
     const bg = await Boardgame.findByPk(request.params.id, {
         attributes: { exclude: ["addedById"] },
         include: [
@@ -52,7 +50,7 @@ const validateBoardgame = (body) => {
     return body.name !== undefined
 }
 
-router.post("/", authorization, async (request, response, next) => {
+router.post("/", auth, async (request, response, next) => {
     const user = await getLoggedInUser(request)
     if (!user) {
         return response.sendStatus(401)
@@ -74,7 +72,7 @@ router.post("/", authorization, async (request, response, next) => {
     }
 })
 
-router.put("/:id", authorization, async (request, response) => {
+router.put("/:id", auth, async (request, response) => {
     const bg = await Boardgame.findByPk(request.params.id)
     const newBg = request.body
     if (!newBg) {

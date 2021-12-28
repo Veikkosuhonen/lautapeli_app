@@ -42,6 +42,6 @@
     "testEnvironment": "node",
     "setupFilesAfterEnv": ["./src/tests/suiteSetup.js"],
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": false
   }
 }

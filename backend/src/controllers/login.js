@@ -33,7 +33,13 @@ router.post("/", async (request, response) => {
 
     response
         .status(200)
-        .send({ token, username: user.username, name: user.name })
+        .send({
+            id: user.id,
+            token, 
+            username: user.username, 
+            name: user.name, 
+            isAdmin: user.isAdmin 
+        })
 })
 
 module.exports = router

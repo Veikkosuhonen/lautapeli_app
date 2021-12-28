@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
 const { User } = require("../models")
 const { SECRET } = require("../util/config")
+const logger = require("../util/logger")
 
 const getTokenFrom = (request) => {
     const authorization = request.get("authorization")
@@ -20,20 +21,32 @@ const getLoggedInUser = async (request) => {
         return null
     }
     return await User.findByPk(decodedToken.id, {
-        attributes: ["id", "username", "name"]
+        attributes: ["id", "username", "name", "isAdmin"]
     })
 }
 
-const authorization = (request, response, next) => {
+const auth = (request, response, next) => {
     const token = getTokenFrom(request)
     if (!token) {
-        response.sendStatus(401)
+        return response.status(401).json({ error: "token missing" })
     }
     const decodedToken = jwt.verify(token, SECRET)
     if (!decodedToken.id) {
-        response.sendStatus(401)
+        return response.status(401).json({ error: "invalid token" })
     }
     next()
 }
 
-module.exports = { authorization, getLoggedInUser }
+const adminAuth = (request, response, next) => {
+    getLoggedInUser(request).then(user => {
+        if (!user || !user.isAdmin) {
+            return response.status(401).json({ error: "Unauthorized" })
+        }
+        next()
+    }).catch(error => {
+        logger.error(error)
+        return response.status(401).json({ error: "Unauthorized" })
+    })
+}
+
+module.exports = { auth, getLoggedInUser, adminAuth }

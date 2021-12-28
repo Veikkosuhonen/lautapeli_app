@@ -2,6 +2,8 @@ const Sequelize = require("sequelize")
 const { DATABASE_URL, IS_HEROKU } = require("./config")
 const logger = require("./logger")
 const { Umzug, SequelizeStorage } = require("umzug")
+const bcrypt = require("bcrypt")
+const { ADMIN_USER, ADMIN_PASSWORD } = require("./config")
 
 const sequelize = new Sequelize(DATABASE_URL, {
     dialect: "postgres",
@@ -34,11 +36,42 @@ const runMigrations = async () => {
     })
 }
 
+const createAdmin = async () => {
+    if (!ADMIN_USER || !ADMIN_PASSWORD) {
+        logger.error("ADMIN_USER or ADMIN_PASSWORD env vars undefined")
+        return
+    }
+    const [exists, meta] = await sequelize.query(
+        `SELECT id FROM users WHERE username=? AND "isAdmin"`,
+        { replacements: [ADMIN_USER]} )
+    if (exists.length !== 0) {
+        logger.info("Admin already exists")
+        return
+    }
+    
+    const passwordHash = await bcrypt.hash(ADMIN_PASSWORD, 10)
+
+    try {
+        await sequelize.query(
+            "INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?)",
+            { 
+                logging: undefined,
+                replacements: [ADMIN_USER, passwordHash, "Administraattori", true] 
+            }
+        )
+        logger.info("Admin created")
+    } catch (error) {
+        logger.error("Error when creating admin: ")
+        logger.error(error)
+    }
+}
+
 const connectToDatabase = async () => {
     try {
         await sequelize.authenticate()
         await runMigrations()
-        logger.debug("database connected")
+        await createAdmin()
+        logger.debug("Database connected")
     } catch (error) {
         logger.error("connecting database failed")
         logger.error(error)
@@ -46,7 +79,6 @@ const connectToDatabase = async () => {
         return process.exit(1)
     }
     return null
-    
 }
 
 const debugTables = async () => {

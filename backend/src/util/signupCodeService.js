@@ -15,7 +15,6 @@ const createNew = () => {
         date: Date.now()
     }
     codes.push(newCode)
-    console.log(newCode)
     return newCode
 }
 

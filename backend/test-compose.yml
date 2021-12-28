@@ -24,6 +24,8 @@ services:
       - POSTGRES_DATABASE=test_db
       - POSTGRES_USE_SSL="false"
       - SECRET=kaalikääryle
+      - ADMIN_USER=perunalaatikko
+      - ADMIN_PASSWORD=vihreakuula
     ports:
       - 3002:3001
     volumes:

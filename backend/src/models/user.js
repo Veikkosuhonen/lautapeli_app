@@ -23,6 +23,10 @@ User.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    isAdmin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    }
 }, {
     sequelize,
     timestamps: false,

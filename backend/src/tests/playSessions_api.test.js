@@ -1,9 +1,7 @@
 const supertest = require("supertest")
 const app = require("../app")
-const { sequelize, connectToDatabase } = require("../util/db")
 const { PlaySession, Boardgame, User, Player } = require("../models")
 const testUtils = require("./testUtils")
-const { getLoggedInUser } = require("../middleware/authorization")
 
 const api = supertest(app)
 
@@ -59,7 +57,7 @@ test("Playsessions of one boardgame are retrieved", async () => {
 test("Playsessions can be posted", async () => {
     const bg = await Boardgame.findOne()
     const response = await api.post("/api/playsessions/")
-        .send({ boardgameId: bg.id, duration: 200 })
+        .send({ boardgameId: bg.id, duration: 200 })
         .set("authorization", testUtils.getToken())
         .expect(200)
         .expect('Content-Type', /application\/json/)

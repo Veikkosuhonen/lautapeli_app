@@ -1,4 +1,6 @@
-const { sequelize } = require("../util/db")
+const { sequelize } = require("../util/db")
+const { User } = require("../models")
 
-
-afterAll(() => {/*sequelize.close()*/})
+afterAll(async () => { 
+    await User.destroy({ where: {} })
+})

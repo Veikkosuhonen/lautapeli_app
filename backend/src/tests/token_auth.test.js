@@ -3,6 +3,7 @@ const app = require("../app")
 const { sequelize } = require("../util/db")
 const { User } = require("../models")
 const { getLoggedInUser } = require("../middleware/authorization")
+const testUtils = require("./testUtils")
 
 const api = supertest(app)
 
@@ -19,8 +20,8 @@ beforeEach(async () => {
     })
 })
 
-afterEach(() => {
-    User.destroy({ where: {}})
+afterEach(async () => {
+    await testUtils.clearUsers()
 })
 
 test("After login, requests are considered authorized", async () => {

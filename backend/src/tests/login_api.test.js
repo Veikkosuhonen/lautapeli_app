@@ -1,7 +1,5 @@
 const supertest = require("supertest")
 const app = require("../app")
-const { sequelize, connectToDatabase } = require("../util/db")
-const { User } = require("../models")
 const testUtils = require("./testUtils")
 
 const api = supertest(app)
@@ -16,7 +14,7 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
-    await User.destroy({ where: {} })
+    await testUtils.clearUsers()
 })
 
 test("Existing user can log in", async () => {
