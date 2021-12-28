@@ -10,7 +10,7 @@ beforeAll((done) => {
 })
 
 beforeEach(async () => {
-    await testUtils.register(api)
+    await testUtils.createUser(api)
 })
 
 afterEach(async () => {

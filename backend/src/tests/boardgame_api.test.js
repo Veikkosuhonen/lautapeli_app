@@ -9,7 +9,7 @@ const api = supertest(app)
 
 beforeAll((done) => {
     app.on("dbReady", async () => { 
-        await testUtils.register(api)
+        await testUtils.createUser(api)
         done()
     })
 })

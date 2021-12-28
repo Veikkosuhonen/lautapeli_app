@@ -13,11 +13,7 @@ beforeAll((done) => {
 })
 
 beforeEach(async () => {
-    await api.post("/api/users").send({
-        username: "veikmaster",
-        name: "Veikko",
-        password: "yykaakoonee"
-    })
+    await testUtils.createUser(api)
 })
 
 afterEach(async () => {

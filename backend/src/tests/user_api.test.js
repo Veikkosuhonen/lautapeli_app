@@ -3,23 +3,19 @@ const app = require("../app")
 const { sequelize } = require("../util/db")
 const { User } = require("../models")
 const testUtils = require("./testUtils")
+const { ADMIN_USER, ADMIN_PASSWORD } = require("../util/config")
 
 const api = supertest(app)
 
 
 beforeAll((done) => {
     app.on("dbReady", async () => {
-        await testUtils.register(api)
         done()
     })
 })
 
 beforeEach(async () => {
-    await api.post("/api/users").send({
-        username: "veikmaster",
-        name: "Veikko",
-        password: "yykaakoonee"
-    })
+    await testUtils.createUser(api)
     await testUtils.login(api)
 })
 
@@ -35,7 +31,8 @@ test("Users are returned as json", async () => {
         .expect("Content-Type", /application\/json/)
 })
 
-test("Can create valid user and returns fields", async () => {
+test("Admin can create valid user and returns fields", async () => {
+    await testUtils.login(api, ADMIN_USER, ADMIN_PASSWORD)
     const response = await api.post("/api/users")
         .set("authorization", testUtils.getToken())
         .send({

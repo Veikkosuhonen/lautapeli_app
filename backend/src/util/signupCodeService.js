@@ -1,9 +1,11 @@
-let codes = []
 const EXPIRATION_SECONDS = 120
+const CODE_LENGTH = 4
+
+let codes = []
 
 const generateCode = () => {
     let code = ""
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < CODE_LENGTH; i++) {
         code += Math.floor(Math.random() * 10)
     }
     return code

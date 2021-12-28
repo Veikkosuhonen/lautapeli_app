@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt")
 const router = require("express").Router()
 const { User } = require("../models")
 const { auth, adminAuth } = require("../middleware/authorization")
-const { response } = require("express")
 
 router.get("/", auth, async (req, res) => {
     const users = await User.findAll({
@@ -11,7 +10,28 @@ router.get("/", auth, async (req, res) => {
     res.json(users)
 })
 
-router.post("/", async (req, res, next) => {
+router.get("/:id", auth, async (req, res) => {
+    const user = await User.findByPk(req.params.id, {
+        attributes: { exclude: ["username", "passwordHash", "isAdmin"] }
+    })
+    if (user) {
+        res.json(user)
+    } else {
+        res.status(404).end()
+    }
+})
+
+router.put("/:id", adminAuth, async (req, res) => {
+    if (!req.body.disabled || typeof(req.body.disabled) !== "boolean") {
+        return res.status(400).json({ error: "missing or invalid disabled field" })
+    }
+    const user = await User.findByPk(req.params.id)
+    user.disabled = req.body.disabled
+    await user.save()
+    return res.json(user)
+})
+
+router.post("/", adminAuth, async (req, res, next) => {
     try {
         const body = req.body
 
@@ -30,27 +50,6 @@ router.post("/", async (req, res, next) => {
     } catch(error) {
         next(error)
     }
-})
-
-router.get("/:id", auth, async (req, res) => {
-    const user = await User.findByPk(req.params.id, {
-        attributes: { exclude: ["username", "passwordHash", "isAdmin"] }
-    })
-    if (user) {
-        res.json(user)
-    } else {
-        res.status(404).end()
-    }
-})
-
-router.put("/:id", adminAuth, async (req, res) => {
-    if (!req.body.disabled || typeof(req.body.disabled) !== "boolean") {
-        return res.status(400).json({ error: "missing or invalid disabled field" })
-    }
-    const user = await User.findByPk(req.params.id)
-    user.disabled = req.body.disabled
-    await user.save()
-    return res.json(user)
 })
 
 module.exports = router

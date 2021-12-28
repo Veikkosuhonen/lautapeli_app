@@ -14,7 +14,7 @@ beforeAll((done) => {
 })
 
 beforeEach(async () => {
-    await testUtils.register(api, "me", "hacker", "hacks")
+    await testUtils.createUser(api, "me", "hacker", "hacks")
 })
 
 afterEach(async () => {

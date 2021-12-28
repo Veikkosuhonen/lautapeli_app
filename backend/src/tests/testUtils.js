@@ -1,17 +1,17 @@
 const { User } = require("../models")
 const logger = require("../util/logger")
+const { ADMIN_USER, ADMIN_PASSWORD } = require("../util/config")
 
 let token = null
 
-const register = async (api, username, name, password) => {
+const createUser = async (api, username, name, password) => {
+    await login(api, ADMIN_USER, ADMIN_PASSWORD)
     username = username || "veikmaster"
     name = name || "Veikko"
     password = password || "yykaakoonee"
-    return await api.post("/api/users").send({
-        username,
-        name,
-        password
-    })
+    return api.post("/api/users").send({
+        username, name, password
+    }).set("Authorization", getToken())
 }
 
 const login = async (api, username, password) => {
@@ -42,6 +42,6 @@ const clearUsers = async () => {
     }
 }
 
-const testUtils = { register, login, getToken, clearUsers }
+const testUtils = { createUser, login, getToken, clearUsers }
 
 module.exports = testUtils
