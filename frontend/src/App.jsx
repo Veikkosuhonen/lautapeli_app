@@ -106,8 +106,11 @@ const App = () => {
     }
 
     const userInfo = () => (
-        <div>
-            <p>Logged in as {user.name} <button onClick={handleLogout}>Logout</button></p>
+        <div class="flex justify-end space-x-4">
+            <p class="text-xl text-slate-200">
+                Logged in as {user.name} 
+            </p>
+            <button class="dark:bg-teal-700 hover:dark:bg-teal-600 rounded p-1" onClick={handleLogout}>Logout</button>
         </div>
     )
 
@@ -119,7 +122,7 @@ const App = () => {
     )
 
     return (
-        <div>
+        <div class="grid grid-cols-1 space-y-2 divide-y divide-slate-700">
             {user && userInfo()}
             <ErrorNotification message={errorMessage} />
             <Boardgames boardgames={boardgames} onSelect={selectBg} />

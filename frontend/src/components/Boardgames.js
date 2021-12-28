@@ -9,7 +9,7 @@ const Boardgame = ({ id, name, onSelect }) => (
 
 const Boardgames = ({ boardgames, onSelect }) => (
     <div>
-        <h1>Boardgames</h1>
+        <h1 class="text-xl text-slate-400">Boardgames</h1>
         <ul>
             {boardgames.map(bg => 
                 <Boardgame key={bg.id} id={bg.id} name={bg.name} onSelect={onSelect}/>
