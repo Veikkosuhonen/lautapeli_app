@@ -3,11 +3,14 @@ const logger = require("../util/logger")
 
 let token = null
 
-const register = async (api) => {
+const register = async (api, username, name, password) => {
+    username = username || "veikmaster"
+    name = name || "Veikko"
+    password = password || "yykaakoonee"
     return await api.post("/api/users").send({
-        username: "veikmaster",
-        name: "Veikko",
-        password: "yykaakoonee"
+        username,
+        name,
+        password
     })
 }
 

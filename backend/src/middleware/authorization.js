@@ -21,20 +21,23 @@ const getLoggedInUser = async (request) => {
         return null
     }
     return await User.findByPk(decodedToken.id, {
-        attributes: ["id", "username", "name", "isAdmin"]
+        attributes: ["id", "username", "name", "isAdmin", "disabled"]
     })
 }
 
 const auth = (request, response, next) => {
-    const token = getTokenFrom(request)
-    if (!token) {
-        return response.status(401).json({ error: "token missing" })
-    }
-    const decodedToken = jwt.verify(token, SECRET)
-    if (!decodedToken.id) {
-        return response.status(401).json({ error: "invalid token" })
-    }
-    next()
+    getLoggedInUser(request).then(user => {
+        if (!user) {
+            return response.status(401).json({ error: "token missing or invalid" })
+        }
+        if (user.disabled) {
+            return response.status(401).json({ error: "account disabled" })
+        }
+        next()
+    }).catch(error => {
+        logger.error(error)
+        return response.status(401).json({ error: "token missing or invalid" })
+    })
 }
 
 const adminAuth = (request, response, next) => {
