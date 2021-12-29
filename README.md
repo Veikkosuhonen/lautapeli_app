@@ -2,7 +2,7 @@
 
 ![example workflow](https://github.com/Veikkosuhonen/lautapeli_app/actions/workflows/main.yml/badge.svg)
 
-Web-app for logging your groups boardgame sessions.
+Web-app for logging your groups boardgame sessions. Go see it at https://lautapelit.herokuapp.com/
 
 _Tämä on myös HY:n fullstack-harjoitustyöni_:  [_Tuntikirjanpito_](https://github.com/Veikkosuhonen/lautapeli_app/blob/master/tuntikirjanpito.md)
 
