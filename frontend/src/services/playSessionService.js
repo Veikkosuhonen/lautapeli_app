@@ -1,9 +1,9 @@
-import axios from 'axios'
+import api from "./api"
 
 const baseUrl = "/api/playsessions"
 
 const post = (playSession) => {
-    return axios.post(baseUrl, playSession).then(response => response.data)
+    return api.post(baseUrl, playSession).then(response => response.data)
 }
 
 const playSessionService = {
