@@ -110,14 +110,16 @@ const App = () => {
             <p class="text-xl text-slate-200">
                 Logged in as {user.name} 
             </p>
-            <button class="dark:bg-teal-700 hover:dark:bg-teal-600 rounded p-1" onClick={handleLogout}>Logout</button>
+            <button class="bg-teal-700 hover:bg-teal-600 rounded p-1" onClick={handleLogout}>Logout</button>
         </div>
     )
 
     const bgForm = () => (
-        <form onSubmit={addBg}>
-            <input value={newBg} onChange={event => {setNewBg(event.target.value)}}/>
-            <button type="submit">add</button>
+        <form onSubmit={addBg} class="grid-rows-1 p-2 space-x-4 text-slate-400">
+            <input class="p-1 rounded bg-slate-800 border border-slate-700 focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-offset-2"
+            value={newBg} onChange={event => {setNewBg(event.target.value)}}/>
+            <button class="text-slate-900 bg-orange-500 hover:bg-orange-400 hover:shadow-md hover:shadow-orange-400/40 px-4 py-1 rounded-md"
+            type="submit">add</button>
         </form>
     )
 

@@ -452,6 +452,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.grid-rows-1 {
+  grid-template-rows: repeat(1, minmax(0, 1fr));
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -512,9 +516,19 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(51 65 85 / var(--tw-border-opacity));
 }
 
+.bg-teal-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 118 110 / var(--tw-bg-opacity));
+}
+
 .bg-slate-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+}
+
+.bg-sky-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 165 233 / var(--tw-bg-opacity));
 }
 
 .bg-indigo-500 {
@@ -522,17 +536,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(99 102 241 / var(--tw-bg-opacity));
 }
 
+.bg-orange-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 115 22 / var(--tw-bg-opacity));
+}
+
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
 
-.from-sky-300 {
-  --tw-gradient-from: #7dd3fc;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(125 211 252 / 0));
+.from-slate-900 {
+  --tw-gradient-from: #0f172a;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(15 23 42 / 0));
 }
 
-.to-slate-50 {
-  --tw-gradient-to: #f8fafc;
+.to-gray-900 {
+  --tw-gradient-to: #111827;
 }
 
 .bg-fixed {
@@ -572,23 +591,43 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(148 163 184 / var(--tw-text-opacity));
 }
 
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 .text-slate-300 {
   --tw-text-opacity: 1;
   color: rgb(203 213 225 / var(--tw-text-opacity));
 }
 
-.text-white {
+.text-slate-900 {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: rgb(15 23 42 / var(--tw-text-opacity));
 }
 
 .outline-offset-2 {
   outline-offset: 2px;
 }
 
+.hover\:bg-teal-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(13 148 136 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-sky-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(56 189 248 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-indigo-400:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(129 140 248 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-orange-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 146 60 / var(--tw-bg-opacity));
 }
 
 .hover\:shadow-md:hover {
@@ -597,8 +636,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.hover\:shadow-indigo-400\/30:hover {
-  --tw-shadow-color: rgb(129 140 248 / 0.3);
+.hover\:shadow-sky-400\/40:hover {
+  --tw-shadow-color: rgb(56 189 248 / 0.4);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.hover\:shadow-indigo-300\/40:hover {
+  --tw-shadow-color: rgb(165 180 252 / 0.4);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.hover\:shadow-orange-400\/40:hover {
+  --tw-shadow-color: rgb(251 146 60 / 0.4);
   --tw-shadow: var(--tw-shadow-colored);
 }
 
@@ -617,25 +666,4 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .focus\:outline-indigo-400:focus {
   outline-color: #818cf8;
-}
-
-@media (prefers-color-scheme: dark) {
-  .dark\:bg-teal-700 {
-    --tw-bg-opacity: 1;
-    background-color: rgb(15 118 110 / var(--tw-bg-opacity));
-  }
-
-  .dark\:from-slate-900 {
-    --tw-gradient-from: #0f172a;
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(15 23 42 / 0));
-  }
-
-  .dark\:to-gray-900 {
-    --tw-gradient-to: #111827;
-  }
-
-  .hover\:dark\:bg-teal-600:hover {
-    --tw-bg-opacity: 1;
-    background-color: rgb(13 148 136 / var(--tw-bg-opacity));
-  }
 }

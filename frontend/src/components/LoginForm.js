@@ -30,7 +30,8 @@ const LoginForm = ({
                 onChange={handlePasswordChange}
                 />
             </div>
-            <button type="submit" class="text-white bg-indigo-500 hover:bg-indigo-400 hover:shadow-md hover:shadow-indigo-400/30 px-4 py-1 rounded-md">Login</button>
+            <button type="submit" class="text-white bg-indigo-500 hover:bg-indigo-400 hover:shadow-md hover:shadow-indigo-300/40 px-4 py-1 rounded-md"
+            >Login</button>
         </form>
     </div>
 )
