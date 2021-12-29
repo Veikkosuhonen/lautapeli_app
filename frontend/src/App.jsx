@@ -9,11 +9,12 @@ import Boardgames from './components/Boardgames'
 import SelectedBoardgame from './components/SelectedBoardgame'
 import ErrorNotification from "./components/ErrorNotification"
 import LoginForm from './components/LoginForm'
+import BoardgameForm from './components/BoardgameForm'
+import { SecondaryButton } from './components/Buttons'
 
 const App = () => {
 
     const [boardgames, setBoardgames] = useState([])
-    const [newBg, setNewBg] = useState("")
     const [selectedBg, setSelectedBg] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
     const [username, setUsername] = useState("")
@@ -58,8 +59,7 @@ const App = () => {
         })
     }
 
-    const addBg = (event) => {
-        event.preventDefault()
+    const addBg = (newBg) => {
         console.log("Adding " + newBg)
         postBg(newBg)
     }
@@ -110,20 +110,8 @@ const App = () => {
             <p className="text-xl text-slate-200">
                 Logged in as {user.name} 
             </p>
-            <button className="bg-teal-700 hover:bg-teal-600 rounded p-1" onClick={handleLogout}>Logout</button>
+            <SecondaryButton onClick={handleLogout} text="logout" />
         </div>
-    )
-
-    const bgForm = () => (
-        <form onSubmit={addBg} className="grid-rows-1 p-2 space-x-4 text-slate-200">
-            <input 
-            className="p-1 rounded placeholder-slate-500 bg-slate-700 border border-slate-600 focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-offset-2"
-            placeholder="Boardgame name"
-            value={newBg} onChange={event => {setNewBg(event.target.value)}}/>
-            <button 
-            className="text-slate-700 bg-orange-500 hover:bg-orange-400 hover:shadow-md hover:shadow-orange-400/40 px-4 py-1 rounded-md"
-            type="submit">add</button>
-        </form>
     )
 
     return (
@@ -132,7 +120,7 @@ const App = () => {
             <ErrorNotification message={errorMessage} />
             <Boardgames boardgames={boardgames} onSelect={selectBg} />
             {user && <SelectedBoardgame bg={selectedBg} addPlaySession={addPlaySession}/>}
-            {user && bgForm()}
+            {user && <BoardgameForm addBg={addBg} />}
             {!user && 
             <LoginForm 
                 username={username}

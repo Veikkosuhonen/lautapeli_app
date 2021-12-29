@@ -3,10 +3,13 @@ import React from "react"
 const Boardgame = ({ boardgame, onSelect }) => (
     <div className="rounded border py-4 px-2 bg-slate-800 border-slate-700">
         <div className="grid grid-cols-2 justify-start px-2 space-y-2">
-            <div class="col-span-2">
-                <button onClick={() => onSelect(boardgame.id)} className="text-xl text-slate-200">{boardgame.name}</button>
+            <div className="col-span-2">
+                <button onClick={() => onSelect(boardgame.id)} 
+                className="text-xl text-slate-200 
+                hover:underline underline-offset-2 decoration-4 decoration-dashed decoration-indigo-600"
+                >{boardgame.name}</button>
             </div>
-            <p className="text-slate-500 text-xs">Added {boardgame.dateAdded}</p>
+            <p className="text-slate-500 text-xs">Added {boardgame.dateAdded} {boardgame.addedBy && boardgame.addedBy.name}</p>
             <p className="text-slate-500 text-xs">Played {boardgame.timesPlayed} times</p>
         </div>
     </div>

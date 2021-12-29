@@ -1,4 +1,5 @@
 import React from "react"
+import { PrimaryButton } from "./Buttons"
 
 const LoginForm = ({
     handleSubmit,
@@ -30,8 +31,7 @@ const LoginForm = ({
                 onChange={handlePasswordChange}
                 />
             </div>
-            <button type="submit" className="text-white bg-indigo-500 hover:bg-indigo-400 hover:shadow-md hover:shadow-indigo-300/40 px-4 py-1 rounded-md"
-            >Login</button>
+            <PrimaryButton type="submit" text="Login" />
         </form>
     </div>
 )
