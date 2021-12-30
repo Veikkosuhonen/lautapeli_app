@@ -110,7 +110,11 @@ const App = () => {
 
     const handleRegister = (credentials) => {
         console.log("Registering " + JSON.stringify(credentials))
-        registerService.register(credentials)
+        registerService.register(credentials).then((data) => {
+            console.log(JSON.stringify(data))
+        }).catch((error) => {
+            console.log(error)
+        })
     }
 
     const userInfo = () => (

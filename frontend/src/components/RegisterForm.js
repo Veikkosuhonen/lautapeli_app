@@ -5,13 +5,15 @@ import Surface from "./Surface"
 const InputField = ({
     type,
     placeholder,
+    name,
     value,
     onChange
 }) => (
     <input 
     className="p-1 
-    text-slate-300
+    text-slate-300 w-full
     rounded bg-slate-700 border border-slate-600 focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-offset-2 "
+    name={name || placeholder}
     type={type}
     value={value}
     placeholder={placeholder}
@@ -36,12 +38,12 @@ const RegisterForm = ({
     }
 
     return (
-        <div className="flex flex-col sm:p-2 md:w-full lg:w-1/3">
+        <div className="flex flex-row justify-center py-2 px-6 w-full">
             <Surface>
                 <form 
                 onSubmit={submitHandler}
-                className="flex flex-col gap-2">
-                    <div className="flex flex-row">
+                className="flex flex-col gap-2 m-1">
+                    <div className="flex flex-row mb-4">
                         <h1 className="text-lg text-slate-100 font-medium">Register</h1>
                     </div>
                     <div className="flex flex-row">
@@ -56,7 +58,7 @@ const RegisterForm = ({
                     <div className="flex flex-row mb-2">
                         <InputField type="password" placeholder="confirm password" value={passwordConfirm} onChange={(event) => {setPasswordConfirm(event.target.value)}} />
                     </div>
-                    <div className="flex flex-row">
+                    <div className="flex flex-row mb-4">
                         <InputField type="number" placeholder="code" value={code} onChange={(event) => {setCode(event.target.value)}} />
                     </div>
                     <PrimaryButton type="submit" text="Register"/>
