@@ -26,6 +26,7 @@ services:
       - SECRET=kaalikääryle
       - ADMIN_USER=perunalaatikko
       - ADMIN_PASSWORD=vihreakuula
+      - NODE_ENV=test
     ports:
       - 3002:3001
     volumes:

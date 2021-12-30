@@ -3,9 +3,7 @@ import { PrimaryButton, SecondaryButton } from "./components/Buttons";
 import adminService from "./services/adminService";
 import userService from "./services/userService"
 
-const Admin = ({
-
-}) => {
+const Admin = () => {
     const [codes, setCodes] = useState([])
     const [usersVisible, setUsersVisible] = useState(false)
     const [users, setUsers] = useState([])

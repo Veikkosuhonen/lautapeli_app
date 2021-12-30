@@ -12,6 +12,8 @@ import LoginForm from './components/LoginForm'
 import BoardgameForm from './components/BoardgameForm'
 import { SecondaryButton } from './components/Buttons'
 import Admin from './Admin'
+import RegisterForm from './components/RegisterForm'
+import registerService from './services/registerService'
 
 const App = () => {
 
@@ -106,6 +108,11 @@ const App = () => {
         setUser(null)
     }
 
+    const handleRegister = (credentials) => {
+        console.log("Registering " + JSON.stringify(credentials))
+        registerService.register(credentials)
+    }
+
     const userInfo = () => (
         <div className="flex justify-end space-x-4">
             <p className="text-xl text-slate-200">
@@ -119,7 +126,7 @@ const App = () => {
         <div className="grid grid-cols-1 space-y-2 divide-y divide-slate-600">
             {user && userInfo()}
             <ErrorNotification message={errorMessage} />
-            <Boardgames boardgames={boardgames} onSelect={selectBg} />
+            {user && <Boardgames boardgames={boardgames} onSelect={selectBg} />}
             {user && <SelectedBoardgame bg={selectedBg} addPlaySession={addPlaySession}/>}
             {user && <BoardgameForm addBg={addBg} />}
             {user && user.isAdmin && <Admin />}
@@ -131,6 +138,9 @@ const App = () => {
                 handlePasswordChange={({ target }) => setPassword(target.value)}
                 handleSubmit={handleLogin}
             />}
+            {!user && 
+            <RegisterForm handleSubmit={handleRegister}/>
+            }
         </div>
     )
 }

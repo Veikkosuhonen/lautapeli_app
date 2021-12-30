@@ -23,6 +23,7 @@ services:
       - POSTGRES_PASSWORD=example
       - POSTGRES_DATABASE=backend_db
       - POSTGRES_USE_SSL="false"
+      - NODE_ENV=development
     ports:
       - 3001:3001
     volumes:
