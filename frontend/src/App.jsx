@@ -11,6 +11,7 @@ import ErrorNotification from "./components/ErrorNotification"
 import LoginForm from './components/LoginForm'
 import BoardgameForm from './components/BoardgameForm'
 import { SecondaryButton } from './components/Buttons'
+import Admin from './Admin'
 
 const App = () => {
 
@@ -121,6 +122,7 @@ const App = () => {
             <Boardgames boardgames={boardgames} onSelect={selectBg} />
             {user && <SelectedBoardgame bg={selectedBg} addPlaySession={addPlaySession}/>}
             {user && <BoardgameForm addBg={addBg} />}
+            {user && user.isAdmin && <Admin />}
             {!user && 
             <LoginForm 
                 username={username}

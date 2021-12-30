@@ -15,7 +15,7 @@ router.get("/", auth, async (request, response) => {
             {
                 model: User,
                 as: "addedBy",
-                attributes: { exclude: ["username", "passwordHash"] },
+                attributes: ["id", "name"],
             }
         ]
     })
@@ -33,7 +33,7 @@ router.get("/:id", auth, async (request, response) => {
             {
                 model: User,
                 as: "addedBy",
-                attributes: { exclude: ["username", "passwordHash"] },
+                attributes: ["id", "name"],
             }
         ]
     })

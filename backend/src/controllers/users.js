@@ -5,14 +5,14 @@ const { auth, adminAuth } = require("../middleware/authorization")
 
 router.get("/", auth, async (req, res) => {
     const users = await User.findAll({
-        attributes: { exclude: ["username", "passwordHash", "isAdmin"] }
+        attributes: { exclude: ["passwordHash"] }
     })
     res.json(users)
 })
 
 router.get("/:id", auth, async (req, res) => {
     const user = await User.findByPk(req.params.id, {
-        attributes: { exclude: ["username", "passwordHash", "isAdmin"] }
+        attributes: { exclude: ["passwordHash"] }
     })
     if (user) {
         res.json(user)
@@ -22,7 +22,7 @@ router.get("/:id", auth, async (req, res) => {
 })
 
 router.put("/:id", adminAuth, async (req, res) => {
-    if (!req.body.disabled || typeof(req.body.disabled) !== "boolean") {
+    if (typeof(req.body.disabled) !== "boolean") {
         return res.status(400).json({ error: "missing or invalid disabled field" })
     }
     const user = await User.findByPk(req.params.id)
