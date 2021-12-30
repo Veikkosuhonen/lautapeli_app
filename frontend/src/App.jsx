@@ -1,27 +1,30 @@
 import React from 'react'
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    NavLink,
+} from "react-router-dom";
+
 import { useState, useEffect } from 'react'
+
 import bgService from './services/boardgameService'
 import playSessionService from './services/playSessionService'
 import loginService from './services/loginService'
 import api from './services/api'
 
-import Boardgames from './components/Boardgames'
-import SelectedBoardgame from './components/SelectedBoardgame'
-import ErrorNotification from "./components/ErrorNotification"
-import LoginForm from './components/LoginForm'
-import BoardgameForm from './components/BoardgameForm'
-import { SecondaryButton } from './components/Buttons'
-import Admin from './Admin'
-import RegisterForm from './components/RegisterForm'
 import registerService from './services/registerService'
+
+import Main from './Main';
+import Register from './Register';
+import Login from './Login';
+import Navbar from './components/Navbar';
 
 const App = () => {
 
     const [boardgames, setBoardgames] = useState([])
     const [selectedBg, setSelectedBg] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
     const [user, setUser] = useState(null)
 
     useEffect(() => {
@@ -79,11 +82,10 @@ const App = () => {
         })
     }
 
-    const handleLogin = async (event) => {
-        event.preventDefault()
+    const handleLogin = async (credentials) => {
         console.log("Logging in...")
         try {
-            const user = await loginService.login({ username, password })
+            const user = await loginService.login(credentials)
 
             window.localStorage.setItem(
                 "lautapeliAppUser", JSON.stringify(user)
@@ -93,8 +95,6 @@ const App = () => {
                 setBoardgames(bgs)
             })
             setUser(user)
-            setUsername("")
-            setPassword("")
             setErrorMessage(null)
         } catch (error) {
             showError("Invalid username or password")
@@ -106,6 +106,7 @@ const App = () => {
         window.localStorage.removeItem("lautapeliAppUser")
         api.setToken(null)
         setUser(null)
+        setBoardgames([])
     }
 
     const handleRegister = (credentials) => {
@@ -117,35 +118,32 @@ const App = () => {
         })
     }
 
-    const userInfo = () => (
-        <div className="flex justify-end space-x-4">
-            <p className="text-xl text-slate-200">
-                Logged in as {user.name} 
-            </p>
-            <SecondaryButton onClick={handleLogout} text="logout" />
-        </div>
-    )
-
     return (
-        <div className="grid grid-cols-1 space-y-2 divide-y divide-slate-600">
-            {user && userInfo()}
-            <ErrorNotification message={errorMessage} />
-            {user && <Boardgames boardgames={boardgames} onSelect={selectBg} />}
-            {user && <SelectedBoardgame bg={selectedBg} addPlaySession={addPlaySession}/>}
-            {user && <BoardgameForm addBg={addBg} />}
-            {user && user.isAdmin && <Admin />}
-            {!user && 
-            <LoginForm 
-                username={username}
-                password={password}
-                handleUsernameChange={({ target }) => setUsername(target.value)}
-                handlePasswordChange={({ target }) => setPassword(target.value)}
-                handleSubmit={handleLogin}
-            />}
-            {!user && 
-            <RegisterForm handleSubmit={handleRegister}/>
-            }
-        </div>
+        <Router>
+            <Navbar user={user} handleLogout={handleLogout}/>
+            <Routes>
+                <Route path="/" element={
+                    <Main 
+                    user={user} 
+                    errorMessage={errorMessage} 
+                    boardgames={boardgames}
+                    selectedBg={selectedBg}
+                    selectBg={selectBg}
+                    addBg={addBg}
+                    addPlaySession={addPlaySession}
+                    />
+                } />
+                <Route path="/login" element={
+                    <Login user={user} handleLogin={handleLogin}/>
+                } />
+                <Route path="/register" element={
+                    <Register 
+                    handleRegister={handleRegister}
+                    user={user}
+                    />
+                } />
+            </Routes>
+        </Router>
     )
 }
 

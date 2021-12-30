@@ -1,25 +1,8 @@
 import React, { useState } from "react"
 import { PrimaryButton } from "./Buttons"
 import Surface from "./Surface"
+import InputField from "./InputField"
 
-const InputField = ({
-    type,
-    placeholder,
-    name,
-    value,
-    onChange
-}) => (
-    <input 
-    className="p-1 
-    text-slate-300 w-full
-    rounded bg-slate-700 border border-slate-600 focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-offset-2 "
-    name={name || placeholder}
-    type={type}
-    value={value}
-    placeholder={placeholder}
-    onChange={onChange}
-    />
-)
 
 const RegisterForm = ({
     handleSubmit
@@ -37,6 +20,18 @@ const RegisterForm = ({
         })
     }
 
+    const validateName = (name) => {
+        if (name && name.length > 2 && name.length < 12) {
+            return ""
+        } else {
+            return "Should be between 3 and 11 characters"
+        }
+    }
+
+    const onError = (error) => {
+        console.log(error)
+    }
+
     return (
         <div className="flex flex-row justify-center py-2 px-6 w-full">
             <Surface>
@@ -47,15 +42,15 @@ const RegisterForm = ({
                         <h1 className="text-lg text-slate-100 font-medium">Register</h1>
                     </div>
                     <div className="flex flex-row">
-                        <InputField type="text" placeholder="username" value={username} onChange={(event) => {setUsername(event.target.value)}} />
+                        <InputField type="text" placeholder="username" value={username} onChange={(event) => {setUsername(event.target.value)}} validation={validateName} onValidationError={onError}/>
                     </div>
-                    <div className="flex flex-row mb-2">
+                    <div className="flex flex-row mb-4">
                         <InputField type="text" placeholder="name" value={name} onChange={(event) => {setName(event.target.value)}} />
                     </div>
                     <div className="flex flex-row">
-                        <InputField type="password" placeholder="password" value={password} onChange={(event) => {setPassword(event.target.value)}} />
+                        <InputField type="password" placeholder="password" autoComplete="new-password" value={password} onChange={(event) => {setPassword(event.target.value)}} />
                     </div>
-                    <div className="flex flex-row mb-2">
+                    <div className="flex flex-row mb-4">
                         <InputField type="password" placeholder="confirm password" value={passwordConfirm} onChange={(event) => {setPasswordConfirm(event.target.value)}} />
                     </div>
                     <div className="flex flex-row mb-4">
