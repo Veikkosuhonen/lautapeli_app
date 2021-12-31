@@ -19,12 +19,13 @@ import Main from './Main';
 import Register from './Register';
 import Login from './Login';
 import Navbar from './components/Navbar';
+import Notifications from './components/Notifications';
 
 const App = () => {
 
+    const [notifications, setNotifications] = useState([])
     const [boardgames, setBoardgames] = useState([])
     const [selectedBg, setSelectedBg] = useState(null)
-    const [errorMessage, setErrorMessage] = useState(null)
     const [user, setUser] = useState(null)
 
     useEffect(() => {
@@ -40,18 +41,17 @@ const App = () => {
     }, [])
 
     const showError = (message) => {
-        setErrorMessage(message)
+        setNotifications(notifications.concat(message))
         setTimeout(() => {
-            setErrorMessage(null)
+            setNotifications(notifications.filter(n => n !== message))
         }, 5000)
     }
 
     const selectBg = (id) => {
         bgService.getOne(id).then(bg => {
             setSelectedBg(bg)
-            console.log("Selected " + bg)
         }).catch(error => {
-            console.log(error)
+            showError(error.message)
         })
     }
 
@@ -78,7 +78,7 @@ const App = () => {
                 playSessions: selectedBg.playSessions.concat(ps)
             })
         }).catch(error => {
-            console.log(error)
+            showError(error.message)
         })
     }
 
@@ -95,7 +95,6 @@ const App = () => {
                 setBoardgames(bgs)
             })
             setUser(user)
-            setErrorMessage(null)
         } catch (error) {
             showError("Invalid username or password")
         }
@@ -114,23 +113,24 @@ const App = () => {
         registerService.register(credentials).then((data) => {
             console.log(JSON.stringify(data))
         }).catch((error) => {
-            console.log(error)
+            showError(error.message)
         })
     }
 
     return (
         <Router>
             <Navbar user={user} handleLogout={handleLogout}/>
+            <Notifications notifications={notifications}/>
             <Routes>
                 <Route path="/" element={
                     <Main 
                     user={user} 
-                    errorMessage={errorMessage} 
                     boardgames={boardgames}
                     selectedBg={selectedBg}
                     selectBg={selectBg}
                     addBg={addBg}
                     addPlaySession={addPlaySession}
+                    showNotification={showError}
                     />
                 } />
                 <Route path="/login" element={

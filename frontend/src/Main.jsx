@@ -13,13 +13,15 @@ const Main = ({
     selectBg,
     selectedBg,
     addBg,
-    addPlaySession
+    addPlaySession,
+    showNotification
 }) => {
     
     const navigate = useNavigate()
     useEffect(() => {
         if (!user) {
             navigate("/login")
+            showNotification("You need to login before accessing the site")
         }
     })
 
