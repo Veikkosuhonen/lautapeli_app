@@ -29,7 +29,8 @@ const App = () => {
 
     useEffect(() => {
         const userJSON = window.localStorage.getItem("lautapeliAppUser")
-        if (userJSON) {
+        if (userJSON && userJSON !== "undefined") {
+            console.log(userJSON)
             const user = JSON.parse(userJSON)
             api.setToken(user.token)
             bgService.getAll().then(bgs => {
@@ -83,20 +84,19 @@ const App = () => {
 
     const handleLogin = async (credentials) => {
         console.log("Logging in...")
-        try {
-            const user = await loginService.login(credentials)
-
-            window.localStorage.setItem(
-                "lautapeliAppUser", JSON.stringify(user)
-            )
+        loginService.login(credentials).then(user => {
             api.setToken(user.token)
             bgService.getAll().then(bgs => {
                 setBoardgames(bgs)
             })
             setUser(user)
-        } catch (error) {
-            showError("Invalid username or password")
-        }
+            window.localStorage.setItem(
+                "lautapeliAppUser", JSON.stringify(user)
+            )
+        }).catch(error => {
+            console.log(JSON.stringify(error))
+            showError(error.message)
+        })  
     }
 
     const handleLogout = (_event) => {
@@ -109,9 +109,9 @@ const App = () => {
 
     const handleRegister = (credentials) => {
         console.log("Registering " + JSON.stringify(credentials))
-        registerService.register(credentials).then((data) => {
+        registerService.register(credentials).then(data => {
             console.log(JSON.stringify(data))
-        }).catch((error) => {
+        }).catch(error => {
             showError(error.message)
         })
     }

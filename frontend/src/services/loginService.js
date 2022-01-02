@@ -2,9 +2,8 @@ import api from "./api"
 
 const baseUrl = "/api/login"
 
-const login = async (credentials) => {
-    const response = await api.post(baseUrl, credentials)
-    return response.data
+const login = (credentials) => {
+    return api.post(baseUrl, credentials)
 }
 
 const loginService = {

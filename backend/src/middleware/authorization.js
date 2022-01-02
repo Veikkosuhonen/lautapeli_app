@@ -28,27 +28,27 @@ const getLoggedInUser = async (request) => {
 const auth = (request, response, next) => {
     getLoggedInUser(request).then(user => {
         if (!user) {
-            return response.status(401).json({ error: "token missing or invalid" })
+            return response.status(401).json({ status: 401, error: "token missing or invalid" })
         }
         if (user.disabled) {
-            return response.status(401).json({ error: "account disabled" })
+            return response.status(401).json({ status: 401, error: "account disabled" })
         }
         next()
     }).catch(error => {
         logger.error(error)
-        return response.status(401).json({ error: "token missing or invalid" })
+        return response.status(401).json({ status: 401, error: "token missing or invalid" })
     })
 }
 
 const adminAuth = (request, response, next) => {
     getLoggedInUser(request).then(user => {
         if (!user || !user.isAdmin) {
-            return response.status(401).json({ error: "Unauthorized" })
+            return response.status(401).json({ status: 401, error: "Unauthorized" })
         }
         next()
     }).catch(error => {
         logger.error(error)
-        return response.status(401).json({ error: "Unauthorized" })
+        return response.status(401).json({ status: 401, error: "Unauthorized" })
     })
 }
 

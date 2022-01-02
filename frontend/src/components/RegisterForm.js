@@ -3,6 +3,11 @@ import { PrimaryButton } from "./Buttons"
 import Surface from "./Surface"
 import InputField from "./InputField"
 
+const validation = (condition, setValid, message) => (value) => {
+    const isValid = condition(value)
+    setValid(isValid)
+    return isValid ? "" : message
+}
 
 const RegisterForm = ({
     handleSubmit
@@ -32,55 +37,35 @@ const RegisterForm = ({
         }
     }
 
-    const validateUsername = (name) => {
-        if (name && name.length > 2 && name.length <= 20) {
-            setValidUsername(true)
-            return ""
-        } else {
-            setValidUsername(false)
-            return "Should be between 3 and 20 characters"
-        }
-    }
+    const validateUsername = validation(
+        (username) => username && username.length > 2 && username.length <= 20,
+        setValidUsername,
+        "Should be between 3 and 20 characters"
+    )
 
-    const validateName = (name) => {
-        if (name && name.length > 2 && name.length <= 20) {
-            setValidName(true)
-            return ""
-        } else {
-            setValidUsername(false)
-            return "Should be between 3 and 20 characters"
-        }
-    }
+    const validateName = validation(
+        (username) => username && username.length > 2 && username.length <= 20,
+        setValidName,
+        "Should be between 3 and 20 characters"
+    )
+    
+    const validatePassword = validation(
+        (password) => password && password.length > 5 && password.length <= 40,
+        setValidPwd,
+        "Should be between 3 and 20 characters"
+    )
 
-    const validatePassword = (password) => {
-        if (password && password.length > 5 && password.length < 40) {
-            setValidPwd(true)
-            return ""
-        } else {
-            setValidPwd(false)
-            return "Should be longer than 5 characters"
-        }
-    }
+    const validatePasswordConfirm = validation(
+        (passwordConfirm) => passwordConfirm === password,
+        setValidPwdConfirm,
+        "Passwords do not match!"
+    )
 
-    const validatePasswordConfirm = (passwordConfirm) => {
-        if (passwordConfirm !== password) {
-            setValidPwdConfirm(false)
-            return "Passwords do not match!"
-        } else {
-            setValidPwdConfirm(true)
-            return ""
-        }
-    }
-
-    const validateCode = (code) => {
-        setValidCode(code !== "")
-        if (!validCode) {
-            return "Cannot be empty"
-        }
-        return ""
-    }
-
-    console.log(isValid())
+    const validateCode = validation(
+        (code) => code !== "",
+        setValidCode,
+        "Must not be empty"
+    )
 
     return (
         <div className="flex flex-row justify-center py-2 px-6 w-full">
