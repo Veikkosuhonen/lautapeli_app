@@ -17,6 +17,7 @@ import registerService from './services/registerService'
 import Main from './Main';
 import Register from './Register';
 import Login from './Login';
+import Admin from './Admin';
 import Navbar from './components/Navbar';
 import Notifications from './components/Notifications';
 
@@ -30,7 +31,6 @@ const App = () => {
     useEffect(() => {
         const userJSON = window.localStorage.getItem("lautapeliAppUser")
         if (userJSON && userJSON !== "undefined") {
-            console.log(userJSON)
             const user = JSON.parse(userJSON)
             api.setToken(user.token)
             bgService.getAll().then(bgs => {
@@ -141,6 +141,9 @@ const App = () => {
                     user={user}
                     />
                 } />
+                <Route path="/admin" element={
+                    <Admin showError={showError} user={user}/>
+                }></Route>
             </Routes>
         </Router>
     )

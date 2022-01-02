@@ -3,11 +3,11 @@ import api from "./api";
 const baseUrl = "/api/admin"
 
 const getCodes = () => {
-    return api.get(baseUrl + "/codes").then(response => response.data)
+    return api.get(baseUrl + "/codes")
 }
 
 const genCode = () => {
-    return api.post(baseUrl + "/codes").then(response => response.data)
+    return api.post(baseUrl + "/codes")
 }
 
 const adminService = {

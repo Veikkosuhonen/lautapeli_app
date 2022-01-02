@@ -1,5 +1,5 @@
 import React from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { SecondaryButton } from "./Buttons"
 
 const NavbarLink = ({ path, children }) => {
@@ -14,6 +14,14 @@ const Navbar = ({
     user,
     handleLogout
 }) => {
+
+    const navigate = useNavigate()
+
+    const onLogout = () => {
+        navigate("/login")
+        handleLogout()
+    }
+
     return (
         <div className="backdrop-blur-sm bg-slate-700/30 border-b border-slate-700 
         sticky top-0 w-full p-4">
@@ -23,6 +31,11 @@ const Navbar = ({
                         <h1 className="text-2xl text-slate-300 font-thin">Lautapelit</h1>
                     </NavbarLink>
                 </div>
+                { user && user.isAdmin && 
+                    <NavbarLink path="/admin">
+                        <h2 className="text-xl text-slate-300 font-thin mr-4">Admin view</h2>
+                    </NavbarLink> 
+                }
                 { user && 
                 <>
                     <h2 className="text-l text-slate-500 font-thin">logged in as</h2>
@@ -33,7 +46,7 @@ const Navbar = ({
                 }
                 { user && 
                 <div className="">
-                    <SecondaryButton onClick={handleLogout} text="Logout"/>
+                    <SecondaryButton onClick={onLogout} text="Logout"/>
                 </div>
                 }
                 { !user && 

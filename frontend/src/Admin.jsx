@@ -3,22 +3,30 @@ import { PrimaryButton, SecondaryButton } from "./components/Buttons";
 import adminService from "./services/adminService";
 import userService from "./services/userService"
 
-const Admin = () => {
+const Admin = ({ user, showError }) => {
     const [codes, setCodes] = useState([])
     const [usersVisible, setUsersVisible] = useState(false)
     const [users, setUsers] = useState([])
 
     useEffect(() => {
+        if (!user) return // user credentials not yet loaded
         adminService.getCodes().then(codes => {
             setCodes(codes.sort((c1, c2) => c2.date - c1.date))
+        }).catch(error => {
+            showError(error.message)
+            setCodes([])
         })
-    }, [])
+    }, [user, showError])
 
     useEffect(() => {
+        if (!user) return // user credentials not yet loaded
         userService.getAll().then(users => {
             setUsers(users)
+        }).catch(error => {
+            showError(error.message)
+            setUsers([])
         })
-    }, [])
+    }, [user, showError])
 
     const toggleDisabled = (user) => {
         if (!window.confirm("Are you sure you want to set disabled on user '" + user.name + "' to '" + !user.disabled + "'?"))
@@ -31,12 +39,16 @@ const Admin = () => {
                     disabled: data.disabled
                 }: u
             ))
+        }).catch(error => {
+            showError(error.message)
         })
     }
 
     const genCode = () => {
         adminService.genCode().then(code => {
             setCodes(codes.concat(code).sort((c1, c2) => c2.date - c1.date))
+        }).catch(error => {
+            showError(error.message)
         })
     }
 
