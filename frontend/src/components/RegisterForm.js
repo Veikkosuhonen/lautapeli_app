@@ -2,12 +2,7 @@ import React, { useState } from "react"
 import { PrimaryButton } from "./Buttons"
 import Surface from "./Surface"
 import InputField from "./InputField"
-
-const validation = (condition, setValid, message) => (value) => {
-    const isValid = condition(value)
-    setValid(isValid)
-    return isValid ? "" : message
-}
+import { validation } from "../util/validation"
 
 const RegisterForm = ({
     handleSubmit

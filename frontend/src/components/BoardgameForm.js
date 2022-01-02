@@ -1,11 +1,13 @@
 import React, { useState } from "react"
 import { PrimaryButton } from "./Buttons"
-
+import InputField from "./InputField"
+import { validation } from "../util/validation"
 
 const BoardgameForm = ({ 
     addBg,
 }) => {
     const [newBg, setNewBg] = useState("")
+    const [valid, setValid] = useState(false)
 
     const submitHandler = (event) => {
         event.preventDefault()
@@ -13,13 +15,22 @@ const BoardgameForm = ({
         setNewBg("")
     }
 
+    const validateName = validation(
+        (name) => name !== "",
+        setValid,
+        "Name must not be empty"
+    )
+
     return (
-        <form onSubmit={submitHandler} className="grid-rows-1 p-2 space-x-4 text-slate-200">
-            <input 
-            className="p-1 rounded placeholder-slate-500 bg-slate-700 border border-slate-600 focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-offset-2"
-            placeholder="Boardgame name"
-            value={newBg} onChange={event => {setNewBg(event.target.value)}}/>
-            <PrimaryButton type="submit" text="add boardgame"/>
+        <form onSubmit={submitHandler}>
+            <div className="flex flex-col space-y-4 m-4">
+                <h3 className="font-light text-xl text-slate-400">Add a new boardgame</h3>
+                <InputField 
+                placeholder="Boardgame name"
+                value={newBg} onChange={event => {setNewBg(event.target.value)}}
+                validation={validateName}/>
+                <PrimaryButton type="submit" text="add boardgame" disabled={!valid}/>
+            </div>
         </form>
     )
 }

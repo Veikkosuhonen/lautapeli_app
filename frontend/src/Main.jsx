@@ -27,10 +27,9 @@ const Main = ({
 
     return (
         <div className="grid grid-cols-1 space-y-2 divide-y divide-slate-600">
-            <ErrorNotification message={errorMessage} />
+            <BoardgameForm addBg={addBg} />
             <Boardgames boardgames={boardgames} onSelect={selectBg} />
             <SelectedBoardgame bg={selectedBg} addPlaySession={addPlaySession}/>
-            <BoardgameForm addBg={addBg} />
         </div>
     )
 }
