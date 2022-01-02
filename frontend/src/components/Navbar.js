@@ -23,7 +23,7 @@ const Navbar = ({
     }
 
     return (
-        <div className="backdrop-blur-sm bg-slate-700/30 border-b border-slate-700 
+        <div className="backdrop-blur bg-slate-700/40 border-b border-slate-700 
         sticky top-0 w-full p-4">
             <div className="flex flex-row items-end space-x-4">
                 <div className="mr-auto">

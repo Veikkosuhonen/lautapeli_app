@@ -2,13 +2,8 @@ import React from 'react'
 import { useState } from 'react'
 import { PrimaryButton } from './Buttons';
 import InputField from './InputField';
-import Surface from './Surface';
-
-const PlaySession = ({ id, date, duration }) => (
-    <li key={id}>
-        Played <span className="text-sm text-slate-500">{new Date(date).toDateString()}</span>, {duration} minutes
-    </li>
-)
+import PopupWindow from "./PopupWindow"
+import PlaySession from './PlaySession';
 
 const PlaySessionForm = ({onChange, playsession, onSubmit}) => (
     <div>
@@ -24,8 +19,8 @@ const PlaySessionForm = ({onChange, playsession, onSubmit}) => (
     </div>
 )
 
-const SelectedBoardgame = ({ bg, addPlaySession }) => {
-    const [newPlaySession, setNewPlaySession] = useState("")
+const SelectedBoardgame = ({ bg, addPlaySession, popupWindowRef }) => {
+    const [newPlaySession, setNewPlaySession] = useState({})
 
     const onPlaySessionChange = (event) => {
         event.preventDefault()
@@ -41,36 +36,18 @@ const SelectedBoardgame = ({ bg, addPlaySession }) => {
         })
     }
 
-    if (bg) {
-        if (bg.playSessions.length !== 0) {
-            return (
-                <div className="p-2">
-                <Surface>
-                    <h3 className="text-slate-200 text-xl">{bg.name}</h3>
-                    <ul className="text-slate-400 font-light">
-                        {bg.playSessions.map(ps => 
-                            <PlaySession key={ps.id} id={ps.id} date={ps.date} duration={ps.duration}/>
-                        )}
-                    </ul>
-                    <PlaySessionForm onChange={onPlaySessionChange} playsession={newPlaySession} onSubmit={onPlaySessionFormSubmit}/>
-                </Surface>
-                </div>
-            )
-        } else {
-            return (
-                <div className="p-2">
-                <Surface>
-                <h3 className="text-slate-200 text-xl">{bg.name}</h3>
-                    <p className="text-slate-400 font-light">Not yet played!</p>
-                    <PlaySessionForm onChange={onPlaySessionChange} playsession={newPlaySession} onSubmit={onPlaySessionFormSubmit}/>
-                </Surface>
-                </div>
-            )
-        }
-       
-    } else return (
-        <div className="p-2">
-        </div>
+    return (
+        <PopupWindow ref={popupWindowRef} title={bg && bg.name}>
+            <PlaySessionForm onChange={onPlaySessionChange} playsession={newPlaySession} onSubmit={onPlaySessionFormSubmit}/>
+            <ul className="text-slate-400 font-light">
+                {bg && bg.playSessions.length !== 0 && bg.playSessions.map(ps => 
+                    <PlaySession key={ps.id} playSession={ps}/>
+                )}
+            </ul>
+            {bg && bg.playSessions.length === 0 &&
+                <p className="text-sm text-slate-500">Not yet played</p>
+            }
+        </PopupWindow>
     )
 }
 

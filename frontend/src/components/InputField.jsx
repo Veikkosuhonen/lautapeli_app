@@ -12,7 +12,7 @@ const InputField = ({
     validation,
 }) => {
     const [popoverVisible, setPopoverVisible] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("asd")
+    const [errorMessage, setErrorMessage] = useState("")
 
     const {
         getArrowProps,
@@ -29,8 +29,8 @@ const InputField = ({
     });
 
     let className = "p-1 text-slate-300 w-full rounded bg-slate-700 border focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-offset-2 border-slate-600"
-    if (popoverVisible) {
-        className += " outline outline-1 outline-rose-500 focus:outline-rose-500"
+    if (errorMessage) {
+        className += " outline outline-rose-500 focus:outline-rose-500"
     }
 
     const checkValidation = (value) => {
@@ -39,7 +39,9 @@ const InputField = ({
             if (error) {
                 setErrorMessage(error)
                 setPopoverVisible(true)
+                setTimeout(() => {setPopoverVisible(false)}, 4000)
             } else {
+                setErrorMessage("")
                 setPopoverVisible(false)
             }
         }

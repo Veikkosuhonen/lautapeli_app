@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import {
     BrowserRouter as Router,
     Routes,
@@ -47,9 +47,12 @@ const App = () => {
         }, 5000)
     }
 
+    const selectedBgRef = useRef()
+
     const selectBg = (id) => {
         bgService.getOne(id).then(bg => {
             setSelectedBg(bg)
+            selectedBgRef.current.setVisible(true)
         }).catch(error => {
             showError(error.message)
         })
@@ -130,6 +133,7 @@ const App = () => {
                     addBg={addBg}
                     addPlaySession={addPlaySession}
                     showNotification={showError}
+                    selectedBgRef={selectedBgRef}
                     />
                 } />
                 <Route path="/login" element={
