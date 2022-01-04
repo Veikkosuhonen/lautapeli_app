@@ -97,7 +97,7 @@ const RegisterForm = ({
                         onChange={(event) => {setCode(event.target.value)}}
                         validation={validateCode} />
                     </div>
-                    <PrimaryButton type="submit" text="Register" disabled={!isValid()}/>
+                    <PrimaryButton type="submit" content="Register" disabled={!isValid()}/>
                 </form>
             </Surface>
         </div>

@@ -21,6 +21,8 @@ import Admin from './Admin';
 import Navbar from './components/Navbar';
 import Notifications from './components/Notifications';
 
+let notificationId = 0
+
 const App = () => {
 
     const [notifications, setNotifications] = useState([])
@@ -41,9 +43,11 @@ const App = () => {
     }, [])
 
     const showError = (message) => {
-        setNotifications(notifications.concat(message))
+        const notification = { message, id: notificationId++ }
+        console.log(notificationId)
+        setNotifications(notifications.concat(notification))
         setTimeout(() => {
-            setNotifications(notifications.filter(n => n !== message))
+            setNotifications(notifications.filter(n => n.id !== notification.id))
         }, 5000)
     }
 
@@ -56,6 +60,12 @@ const App = () => {
         }).catch(error => {
             showError(error.message)
         })
+    }
+
+    const openAddFormRef = useRef()
+
+    const openAddForm = () => {
+        openAddFormRef.current.setVisible(true)
     }
 
     const postBg = (name) => {
@@ -134,6 +144,8 @@ const App = () => {
                     addPlaySession={addPlaySession}
                     showNotification={showError}
                     selectedBgRef={selectedBgRef}
+                    addBgRef={openAddFormRef}
+                    onOpenAddForm={openAddForm}
                     />
                 } />
                 <Route path="/login" element={

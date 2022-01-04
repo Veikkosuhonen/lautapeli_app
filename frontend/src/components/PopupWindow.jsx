@@ -1,6 +1,7 @@
 import React, { useImperativeHandle, useState } from "react";
 import Background from "./Background";
 import Surface from "./Surface";
+import { XIcon } from "@heroicons/react/solid";
 
 const PopupWindow = React.forwardRef((props, ref) => {
     const [open, setOpen] = useState(false)
@@ -17,7 +18,7 @@ const PopupWindow = React.forwardRef((props, ref) => {
 
     return open ? (
         <Background>
-            <div className="p-8 mx-auto">
+            <div className="md:w-2/3 lg:w-1/2 mx-auto">
                 <Surface>
                     <div className="grid grid-cols-1 grid-rows-1 gap-4">
                         <div className="grid grid-cols-2">
@@ -25,7 +26,7 @@ const PopupWindow = React.forwardRef((props, ref) => {
                                 {props.title}
                             </h1>
                             <button className="text-slate-500 justify-self-end"
-                            onClick={() => {setVisible(false)}}>close</button>
+                            onClick={() => {setVisible(false)}}><XIcon className="h-5 w-5 text-slate-500"/></button>
                         </div>
                         {props.children}
                     </div>

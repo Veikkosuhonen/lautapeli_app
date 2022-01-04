@@ -31,7 +31,7 @@ const LoginForm = ({
                         <InputField type="password" placeholder="password" autoComplete="current-password"
                         value={password} onChange={(event) => {setPassword(event.target.value)}} />
                     </div>
-                    <PrimaryButton type="submit" text="Login" />
+                    <PrimaryButton type="submit" content="Login" />
                 </form>
             </Surface>
         </div>

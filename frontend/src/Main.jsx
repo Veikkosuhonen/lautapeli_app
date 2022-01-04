@@ -14,6 +14,8 @@ const Main = ({
     addPlaySession,
     showNotification,
     selectedBgRef,
+    onOpenAddForm,
+    addBgRef
 }) => {
     
     const navigate = useNavigate()
@@ -26,8 +28,8 @@ const Main = ({
 
     return (
         <div className="grid grid-cols-1 space-y-2">
-            <BoardgameForm addBg={addBg} />
-            <Boardgames boardgames={boardgames} onSelect={selectBg} />
+            <Boardgames boardgames={boardgames} onSelect={selectBg} onOpenAddForm={onOpenAddForm}/>
+            <BoardgameForm addBg={addBg} popupWindowRef={addBgRef}/>
             <SelectedBoardgame bg={selectedBg} addPlaySession={addPlaySession} popupWindowRef={selectedBgRef}/>
         </div>
     )

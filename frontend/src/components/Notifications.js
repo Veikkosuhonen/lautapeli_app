@@ -5,11 +5,11 @@ const Notifications = ({
 }) => {
 
     return (
-        <div className="fixed top-2 w-full">
-            <div className="flex flex-col items-center space-y-2">
+        <div className="fixed top-2">
+            <div className="flex flex-col space-y-2">
             {notifications.map(notification => 
-                <div key={notification.id} className="flex flex-row p-2 bg-rose-500/20 backdrop-blur-sm rounded border border-slate-700">
-                    <p className="text-slate-300">{notification}</p>
+                <div key={notification.id} className="p-2 bg-rose-500/20 backdrop-blur-sm rounded border border-slate-700">
+                    <p className="text-slate-300">{notification.message}</p>
                 </div>
             )}
             </div>

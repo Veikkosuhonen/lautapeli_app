@@ -9,17 +9,23 @@ const PlaySessionForm = ({onChange, playsession, onSubmit}) => (
     <div>
         <form className="flex flex-row space-x-4"
         onSubmit={(event) => {event.preventDefault(); onSubmit()}}>
-            <InputField 
-            value={playsession.duration} 
-            onChange={onChange} 
-            placeholder="duration (min)"
-            type="number"/>
-            <PrimaryButton type="submit" text="add playsession" />
+            <div>
+                <InputField 
+                value={playsession.duration} 
+                onChange={onChange} 
+                placeholder="duration (min)"
+                type="number"/>
+            </div>
+            <PrimaryButton type="submit" content="add playsession" />
         </form>
     </div>
 )
 
-const SelectedBoardgame = ({ bg, addPlaySession, popupWindowRef }) => {
+const SelectedBoardgame = ({
+    bg, 
+    addPlaySession, 
+    popupWindowRef
+}) => {
     const [newPlaySession, setNewPlaySession] = useState({})
 
     const onPlaySessionChange = (event) => {
