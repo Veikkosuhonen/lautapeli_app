@@ -64,11 +64,20 @@ const App = () => {
 
     const postBg = (name) => {
         const bg = { name: name }
-        bgService.post(bg).then(bg => {
+
+        const response = bgService.post(bg)
+
+        toast.promise(response, {
+            pending: "Adding boardgame",
+            success: "Success",
+            error: { render({data}) { return data.message }}
+        })
+
+        response.then(bg => {
             console.log("Received response to post: " + JSON.stringify(bg))
             setBoardgames(boardgames.concat(bg))
         }).catch(_error => {
-            showError(`"${name}" already exists!`)
+            console.log(`"${name}" already exists!`)
         })
     }
 
@@ -79,19 +88,35 @@ const App = () => {
 
     const addPlaySession = (playSession) => {
         console.log("Adding " + playSession)
-        playSessionService.post(playSession).then(ps => {
+        const response = playSessionService.post(playSession)
+
+        toast.promise(response, {
+            pending: "Adding playsession",
+            success: "Success",
+            error: { render({data}) { return data.message }}
+        })
+
+        response.then(ps => {
             setSelectedBg({
                 ...selectedBg, 
                 playSessions: selectedBg.playSessions.concat(ps)
             })
         }).catch(error => {
-            showError(error.message)
+            console.log(error.message)
         })
     }
 
     const handleLogin = async (credentials) => {
         console.log("Logging in...")
-        loginService.login(credentials).then(user => {
+        const response = loginService.login(credentials)
+
+        toast.promise(response, {
+            pending: "Checking credentials",
+            success: { render({data}) { return `Welcome back, ${data.name}!`} },
+            error: { render({data}) { return data.message }}
+        })
+
+        response.then(user => {
             api.setToken(user.token)
             bgService.getAll().then(bgs => {
                 setBoardgames(bgs)
@@ -102,7 +127,7 @@ const App = () => {
             )
         }).catch(error => {
             console.log(JSON.stringify(error))
-            showError(error.message)
+            //showError(error.message)
         })  
     }
 
@@ -116,10 +141,18 @@ const App = () => {
 
     const handleRegister = (credentials) => {
         console.log("Registering " + JSON.stringify(credentials))
-        registerService.register(credentials).then(data => {
+        const response = registerService.register(credentials)
+
+        toast.promise(response, {
+            pending: "Checking credentials",
+            success: { render({data}) { return `Welcome, ${data.name}!`} },
+            error: { render({data}) { return data.message }}
+        })
+
+        response.then(data => {
             console.log(JSON.stringify(data))
         }).catch(error => {
-            showError(error.message)
+            console.log(error.message)
         })
     }
 
