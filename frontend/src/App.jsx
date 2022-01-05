@@ -7,6 +7,9 @@ import {
 
 import { useState, useEffect } from 'react'
 
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 import bgService from './services/boardgameService'
 import playSessionService from './services/playSessionService'
 import loginService from './services/loginService'
@@ -19,13 +22,9 @@ import Register from './Register';
 import Login from './Login';
 import Admin from './Admin';
 import Navbar from './components/Navbar';
-import Notifications from './components/Notifications';
-
-let notificationId = 0
 
 const App = () => {
 
-    const [notifications, setNotifications] = useState([])
     const [boardgames, setBoardgames] = useState([])
     const [selectedBg, setSelectedBg] = useState(null)
     const [user, setUser] = useState(null)
@@ -43,12 +42,7 @@ const App = () => {
     }, [])
 
     const showError = (message) => {
-        const notification = { message, id: notificationId++ }
-        console.log(notificationId)
-        setNotifications(notifications.concat(notification))
-        setTimeout(() => {
-            setNotifications(notifications.filter(n => n.id !== notification.id))
-        }, 5000)
+        toast(message)
     }
 
     const selectedBgRef = useRef()
@@ -132,7 +126,9 @@ const App = () => {
     return (
         <Router>
             <Navbar user={user} handleLogout={handleLogout}/>
-            <Notifications notifications={notifications}/>
+            <ToastContainer 
+                position="top-center"
+            />
             <Routes>
                 <Route path="/" element={
                     <Main 

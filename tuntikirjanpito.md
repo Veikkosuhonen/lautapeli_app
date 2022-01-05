@@ -17,4 +17,12 @@
 | Viikko 3 |
 | 27.12 | 2h | Admin-käyttäjä |
 | 28.12 | 6h | Adminin toiminnot: käyttäjien disablointi, koodilla rekisteröityminen |
-| 29.12 | xh | Backend suht. tuotantovalmis, frontendiin kaikki perustoiminnot |
+| 29.12 | 3h | Backend suht. tuotantovalmis |
+| 30.12 | 4h | Frontendin kehitystä, Tailwindcss:n käyttöönotto |
+| 31.12 | 3h | React router, formien validointi, stylausta yms |
+| Yht: | 18h |
+| Viikko 4 |
+| 2.1 | 4h | Frontendin autorisoidut näkymät, ui-devausta |
+| 3.1 | 4h | UI-devausta, mm. hieno popup-ikkuna |
+| 4.1 | 4h | UI-devausta, stylailua. |
+
