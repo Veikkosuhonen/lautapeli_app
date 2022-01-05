@@ -1,6 +1,6 @@
 import React from "react"
 import { NavLink, useNavigate } from "react-router-dom"
-import { Disclosure, Menu } from "@headlessui/react"
+import { Disclosure } from "@headlessui/react"
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { SecondaryButton } from "./Buttons"
 
