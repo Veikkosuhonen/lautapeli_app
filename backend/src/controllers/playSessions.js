@@ -1,6 +1,6 @@
 const router = require("express").Router()
 
-const { PlaySession, Boardgame, Player, User } = require("../models")
+const { PlaySession, Boardgame, /*Player,*/ User } = require("../models")
 const { auth } = require("../middleware/authorization")
 
 router.get("/", auth, async (request, response) => {
@@ -61,7 +61,7 @@ const validatePlaysession = (body) => {
 router.post("/", auth, async (request, response) => {
     const playSession = request.body
     if (!validatePlaysession(playSession)) {
-        response.sendStatus(403)
+        response.status(400).json({ error: "Invalid playsession" })
     } else {
         try {
             const bg = await Boardgame.findByPk(playSession.boardgameId)

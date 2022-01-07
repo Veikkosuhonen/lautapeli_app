@@ -22,10 +22,12 @@ import Register from './Register';
 import Login from './Login';
 import Admin from './Admin';
 import Navbar from './components/Navbar';
+import userService from './services/userService';
 
 const App = () => {
 
     const [boardgames, setBoardgames] = useState([])
+    const [users, setUsers] = useState([])
     const [selectedBg, setSelectedBg] = useState(null)
     const [user, setUser] = useState(null)
 
@@ -36,6 +38,9 @@ const App = () => {
             api.setToken(user.token)
             bgService.getAll().then(bgs => {
                 setBoardgames(bgs)
+            })
+            userService.getAll().then(usrs => {
+                setUsers(usrs)
             })
             setUser(user)
         }
@@ -87,7 +92,7 @@ const App = () => {
     }
 
     const addPlaySession = (playSession) => {
-        console.log("Adding " + playSession)
+        console.log("Adding " + JSON.stringify(playSession))
         const response = playSessionService.post(playSession)
 
         toast.promise(response, {
@@ -166,6 +171,7 @@ const App = () => {
                 <Route path="/" element={
                     <Main 
                     user={user} 
+                    users={users}
                     boardgames={boardgames}
                     selectedBg={selectedBg}
                     selectBg={selectBg}

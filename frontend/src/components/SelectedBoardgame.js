@@ -4,14 +4,16 @@ import PlaySession from './PlaySession';
 import PlaySessionForm from './PlaySessionForm';
 
 const SelectedBoardgame = ({
-    bg, 
+    bg,
+    user,
+    users,
     addPlaySession, 
     popupWindowRef
 }) => {
 
     return (
         <PopupWindow ref={popupWindowRef} title={bg && bg.name}>
-            <PlaySessionForm boardgame={bg} addPlaySession={addPlaySession}/>
+            <PlaySessionForm user={user} boardgame={bg} addPlaySession={addPlaySession} users={users}/>
             <ul className="text-slate-400 font-light">
                 {bg && bg.playSessions.length !== 0 && bg.playSessions.map(ps => 
                     <PlaySession key={ps.id} playSession={ps}/>

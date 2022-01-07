@@ -652,6 +652,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-width: 1px;
 }
 
+.border-0 {
+  border-width: 0px;
+}
+
 .border-l-4 {
   border-left-width: 4px;
 }
@@ -692,6 +696,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-rose-500\/20 {
   background-color: rgb(244 63 94 / 0.2);
+}
+
+.bg-slate-500\/20 {
+  background-color: rgb(100 116 139 / 0.2);
 }
 
 .bg-gradient-to-r {
@@ -759,6 +767,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-left {
   text-align: left;
+}
+
+.align-middle {
+  vertical-align: middle;
 }
 
 .font-serif {

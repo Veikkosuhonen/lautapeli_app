@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useState, useEffect } from "react"
 
 import Boardgames from './components/Boardgames'
 import SelectedBoardgame from './components/SelectedBoardgame'
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 
 const Main = ({
     user,
+    users,
     boardgames,
     selectBg,
     selectedBg,
@@ -17,7 +18,7 @@ const Main = ({
     onOpenAddForm,
     addBgRef
 }) => {
-    
+
     const navigate = useNavigate()
     useEffect(() => {
         if (!user) {
@@ -30,7 +31,7 @@ const Main = ({
         <div className="grid grid-cols-1 space-y-2">
             <Boardgames boardgames={boardgames} onSelect={selectBg} onOpenAddForm={onOpenAddForm}/>
             <BoardgameForm addBg={addBg} popupWindowRef={addBgRef}/>
-            <SelectedBoardgame bg={selectedBg} addPlaySession={addPlaySession} popupWindowRef={selectedBgRef}/>
+            <SelectedBoardgame user={user} bg={selectedBg} users={users} addPlaySession={addPlaySession} popupWindowRef={selectedBgRef}/>
         </div>
     )
 }
