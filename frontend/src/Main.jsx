@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 
 import Boardgames from './components/Boardgames'
 import SelectedBoardgame from './components/SelectedBoardgame'
