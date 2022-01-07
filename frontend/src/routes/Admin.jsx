@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { PrimaryButton, SecondaryButton } from "./components/Buttons";
-import Surface from "./components/Surface";
-import adminService from "./services/adminService";
-import userService from "./services/userService"
+import { PrimaryButton, SecondaryButton } from "../components/Buttons";
+import Surface from "../components/Surface";
+import adminService from "../services/adminService";
+import userService from "../services/userService"
 
 const Admin = ({ user, showError }) => {
     const [codes, setCodes] = useState([])

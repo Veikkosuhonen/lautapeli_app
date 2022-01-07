@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { PrimaryButton } from './Buttons';
+import { PrimaryButton, SecondaryButton } from './Buttons';
 import InputField from './InputField';
 import DateInput from './DateInput';
 import { UserIcon } from '@heroicons/react/outline';
@@ -23,17 +23,17 @@ const PlayerSelector = ({ user, users, addPlayer }) => {
         <div className="flex flex-row items-center space-x-2">
             <Listbox value={selected} onChange={setSelected}>
                 <Listbox.Button><Player user={selected} /></Listbox.Button>
-                <div className="relative flex flex-col space-y-2">
-                <Listbox.Options>
-                    {users.map((user) => (
-                        <Listbox.Option key={user.id} value={user}>
-                            <Player user={user} />
-                        </Listbox.Option>
-                    ))}
-                </Listbox.Options>
+                <div className="absolute flex flex-col space-y-2">
+                    <Listbox.Options>
+                        {users.map((user) => (
+                            <Listbox.Option key={user.id} value={user}>
+                                <Player user={user} />
+                            </Listbox.Option>
+                        ))}
+                    </Listbox.Options>
                 </div>
             </Listbox>
-            <PrimaryButton content="Add player" onClick={() => { addPlayer(selected) }}/>
+            <SecondaryButton content="Add player" onClick={() => { addPlayer(selected) }}/>
         </div>
     )
 }
@@ -58,21 +58,31 @@ const PlaySessionForm = ({
     }
 
     return (
-        <div>
-            <form className="flex flex-row space-x-4"
-                onSubmit={onSubmit}
-            >
-                <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-3">
+            <h1 className="text-lg text-slate-400">New playsession</h1>
+            <form onSubmit={onSubmit}>
+                <div className="grid grid-cols-2 gap-2 items-center text-slate-500">
+                    <span>Date</span>
                     <DateInput date={date} setDate={setDate}/>
+                    <span>Duration</span>
                     <InputField 
                         value={duration} 
                         onChange={(event) => { setDuration(event.target.value) }} 
                         placeholder="duration (min)"
                         type="number"
                     />
-                    {players.map(user => <Player user={user}/>)}
-                    <PlayerSelector user={user} users={users} addPlayer={(player) => { setPlayers(players.concat(player)) }}/>
-                    <PrimaryButton type="submit" content="add playsession" />
+                    <span>Players</span>
+                    {players.map(user => 
+                    <div className="col-span-2">
+                        <Player user={user}/>
+                    </div>
+                    )}
+                    <div className="col-span-2">
+                        <PlayerSelector user={user} users={users} addPlayer={(player) => { setPlayers(players.concat(player)) }}/>
+                    </div>
+                    <div className="col-span-2 pt-2">
+                        <PrimaryButton type="submit" content="add playsession" />
+                    </div>
                 </div>
             </form>
         </div>

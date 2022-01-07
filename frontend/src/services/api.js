@@ -1,9 +1,11 @@
 import axios from "axios"
 
 class ApiError extends Error {
-    constructor(jsonResponse) {
-        super(jsonResponse.error)
-        this.status = jsonResponse.status
+    status = null
+    constructor(response) {
+        let json = response.data
+        super(json.error)
+        this.status = json.status || response.status
     }
 }
 
@@ -29,9 +31,9 @@ const processResponse = (response) => {
     return response
         .then(response => response.data)
         .catch(error => {
-            if (error.response) {
+            if (error.response && error.response.data) {
                 console.log(error.response.data)
-                throw new ApiError(error.response.data)
+                throw new ApiError(error.response)
             } else {
                 console.log(error)
                 throw error

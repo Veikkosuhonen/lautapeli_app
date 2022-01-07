@@ -2,18 +2,21 @@ import React from "react"
 import { PrimaryButton } from "./Buttons"
 import Surface from "./Surface"
 import { PlusIcon } from "@heroicons/react/solid"
+import { Link } from "react-router-dom"
 
-const Boardgame = ({ boardgame, onSelect }) => (
+const Boardgame = ({ boardgame }) => (
     <Surface className="
     border-l-4 border-slate-800
     transition duration-200
     hover:border-indigo-500">
         <div className="grid grid-cols-2 justify-start px-2 gap-x-4 space-y-2">
             <div className="col-span-2">
-                <button onClick={() => onSelect(boardgame.id)} 
-                className="text-xl text-slate-200 
-                hover:underline underline-offset-2 decoration-4 decoration-dashed decoration-indigo-600"
-                >{boardgame.name}</button>
+                <Link to={"/boardgames/" + boardgame.id}
+                    className="text-xl text-slate-200 
+                    hover:underline underline-offset-2 decoration-4 decoration-dashed decoration-indigo-600"
+                >
+                    {boardgame.name}
+                </Link>
             </div>
             <p className="text-slate-500 text-xs">Added {boardgame.dateAdded} {boardgame.addedBy && boardgame.addedBy.name}</p>
             <p className="text-slate-500 text-xs">Played {boardgame.timesPlayed} times</p>
@@ -21,7 +24,7 @@ const Boardgame = ({ boardgame, onSelect }) => (
     </Surface>
 )
 
-const Boardgames = ({ 
+const BoardgamesList = ({ 
     boardgames, onSelect,
     onOpenAddForm
  }) => (
@@ -38,4 +41,4 @@ const Boardgames = ({
     </div>
 )
 
-export default Boardgames
+export default BoardgamesList

@@ -1,22 +1,22 @@
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import RegisterForm from "./components/RegisterForm"
+import LoginForm from "../components/LoginForm"
 
-const Register = ({
+const Login = ({
     user,
-    handleRegister
+    handleLogin
 }) => {
     const navigate = useNavigate()
-    
+
     useEffect(() => {
         if (user) {
             navigate("/")
         }
     })
-
+    
     return (
-        <RegisterForm handleSubmit={handleRegister}/>
+        <LoginForm handleLogin={handleLogin}/>
     )
 }
 
-export default Register
+export default Login
