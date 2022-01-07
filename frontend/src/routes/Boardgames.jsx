@@ -2,7 +2,6 @@ import React from "react"
 
 import BoardgamesList from '../components/BoardgamesList'
 import BoardgameForm from '../components/BoardgameForm'
-import { Outlet } from "react-router-dom"
 
 const Boardgames = ({
     boardgames,
