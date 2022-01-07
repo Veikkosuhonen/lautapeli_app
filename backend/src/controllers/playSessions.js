@@ -51,23 +51,27 @@ router.get("/:id", auth, async (request, response) => {
 })
 
 const validatePlaysession = (body) => {
-    return body.boardgameId !== undefined
+    return (
+        body.boardgameId !== undefined &&
+        body.duration !== undefined &&
+        body.players !== undefined
+    )
 }
 
 router.post("/", auth, async (request, response) => {
-    const playsession = request.body
-    if (!validatePlaysession(playsession)) {
+    const playSession = request.body
+    if (!validatePlaysession(playSession)) {
         response.sendStatus(403)
     } else {
         try {
-            const bg = await Boardgame.findByPk(playsession.boardgameId)
+            const bg = await Boardgame.findByPk(playSession.boardgameId)
             bg.timesPlayed += 1
             bg.save()
         } catch(error) {
             return response.status(400).json({ error })
         }
         try {
-            const ps = await PlaySession.create({ boardgameId: playsession.boardgameId, duration: playsession.duration })
+            const ps = await PlaySession.create({ boardgameId: playSession.boardgameId, duration: playSession.duration, date: playSession.date })
             return response.json(ps)
         } catch(error) {
             return response.status(400).json({ error })

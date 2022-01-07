@@ -20,11 +20,15 @@ beforeEach(async () => {
     const bg = await Boardgame.create({ name: "Shogun" })
     await PlaySession.create({
         boardgameId: bg.id,
-        duration: 180
+        duration: 180,
+        date: new Date(),
+        players: []
     })
     await PlaySession.create({
         boardgameId: bg.id,
-        duration: 240
+        duration: 240,
+        date: new Date(),
+        players: []
     })
     await testUtils.login(api)
 })
@@ -39,7 +43,7 @@ test("All playsessions are retrieved", async () => {
     const response = await api.get("/api/playsessions/")
         .set("authorization", testUtils.getToken())
         .expect(200)
-        .expect('Content-Type', /application\/json/)
+        .expect("Content-Type", /application\/json/)
     
     expect(response.body).toHaveLength(2)
 })
@@ -49,7 +53,7 @@ test("Playsessions of one boardgame are retrieved", async () => {
     const response = await api.get("/api/boardgames/" + bg.id)
         .set("authorization", testUtils.getToken())
         .expect(200)
-        .expect('Content-Type', /application\/json/)
+        .expect("Content-Type", /application\/json/)
     
     expect(response.body.playSessions).toHaveLength(2)
 })
@@ -57,10 +61,15 @@ test("Playsessions of one boardgame are retrieved", async () => {
 test("Playsessions can be posted", async () => {
     const bg = await Boardgame.findOne()
     const response = await api.post("/api/playsessions/")
-        .send({ boardgameId: bg.id, duration: 200 })
+        .send({
+            boardgameId: bg.id,
+            duration: 180,
+            date: new Date(),
+            players: []
+        })
         .set("authorization", testUtils.getToken())
         .expect(200)
-        .expect('Content-Type', /application\/json/)
+        .expect("Content-Type", /application\/json/)
     
     expect(response.body.id).toBeDefined()
     expect(response.body.date).toBeDefined()
