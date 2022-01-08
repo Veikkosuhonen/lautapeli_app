@@ -37,30 +37,30 @@ const Boardgame = ({
 
 
     return (
-        <div className="p-2">
-            <Surface>
-                <div className="flex flex-row justify-center">
-                    {boardgame ? 
-                    <div className="flex flex-col space-y-4">
-                        <div className="flex flex-row items-center space-x-2">
-                            <PlayIcon className="w-10 h-10 text-slate-400"/>
-                            <h1 className="text-slate-400 text-2xl">{boardgame.name}</h1>
-                        </div>
-                        <ul className="text-slate-400 font-light">
-                            {boardgame && boardgame.playSessions.length !== 0 && boardgame.playSessions.map(ps => 
-                                <PlaySession key={ps.id} playSession={ps}/>
-                            )}
-                        </ul>
-                        {boardgame && boardgame.playSessions.length === 0 &&
-                            <p className="text-sm text-slate-500">Not yet played</p>
-                        }
-                        <PlaySessionForm user={user} boardgame={boardgame} addPlaySession={addPlaySession} users={users}/>
+        <div className="flex flex-row justify-center">
+            {boardgame ? 
+            <div className="flex flex-col space-y-4">
+                <Surface>
+                    <div className="flex flex-row items-center space-x-2">
+                        <PlayIcon className="w-10 h-10 text-slate-400"/>
+                        <h1 className="text-slate-400 text-2xl">{boardgame.name}</h1>
                     </div>
-                    : <>
-                        <span className="text-slate-200 text-xl">Loading...</span>
-                    </>}
-                </div>
-            </Surface>
+                </Surface>
+                <Surface>
+                    <ul className="text-slate-400 font-light">
+                        {boardgame && boardgame.playSessions.length !== 0 && boardgame.playSessions.map(ps => 
+                            <PlaySession key={ps.id} playSession={ps}/>
+                        )}
+                    </ul>
+                    {boardgame && boardgame.playSessions.length === 0 &&
+                        <p className="text-sm text-slate-500">Not yet played</p>
+                    }
+                </Surface>
+                <PlaySessionForm user={user} boardgame={boardgame} addPlaySession={addPlaySession} users={users}/>
+            </div>
+            : <>
+                <span className="text-slate-200 text-xl">Loading...</span>
+            </>}
         </div>
     )
 }

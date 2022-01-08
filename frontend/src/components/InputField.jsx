@@ -4,12 +4,11 @@ import 'react-popper-tooltip/dist/styles.css';
 
 const InputField = ({
     type,
-    placeholder,
     name,
     value,
     onChange,
-    autoComplete,
     validation,
+    ...props
 }) => {
     const [popoverVisible, setPopoverVisible] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
@@ -51,14 +50,16 @@ const InputField = ({
     return (
         <>
             <input 
-            ref={setTriggerRef}
-            className={className}
-            name={name || placeholder}
-            type={type}
-            value={value}
-            placeholder={placeholder}
-            onChange={event => { onChange(event); checkValidation(event.target.value)}}
-            autoComplete={autoComplete}
+                ref={setTriggerRef}
+                className={className}
+                name={name || props["placeholder"]}
+                type={type}
+                value={value}
+                onChange={event => { onChange(event); checkValidation(event.target.value)}}
+                placeholder={props["placeholder"]}
+                autoComplete={props["autoComplete"]}
+                onFocus={props["onFocus"]}
+                onBlur={props["onBlur"]}
             />
             { visible && (
                 <div
