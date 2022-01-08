@@ -47,31 +47,31 @@ const Navbar = ({
                         </NavbarLink>
                     </div>
 
-                    <div className="hidden sm:block sm:ml-6">
+                    <div className="hidden sm:block sm:ml-6 overflow-hidden p-1">
                         <div className="flex items-center space-x-4">
                             { user && 
                             <NavbarLink path="/boardgames">
-                                <h1 className="text-slate-300 font-normal text-xl">Boardgames</h1>
+                                <h1 className="text-slate-300 font-normal text-lg">Boardgames</h1>
                             </NavbarLink>
                             }
                             { user && user.isAdmin && 
                             <NavbarLink path="/admin">
-                                <h1 className="text-slate-300 font-normal text-xl">Admin</h1>
+                                <h1 className="text-slate-300 font-normal text-lg">Admin</h1>
                             </NavbarLink>
                             }
                             { !user && 
                             <NavbarLink path="/login">
-                                <h1 className="text-slate-300 font-normal text-xl">Login</h1>
+                                <h1 className="text-slate-300 font-normal text-lg">Login</h1>
                             </NavbarLink>
                             }
                             { !user && 
                             <NavbarLink path="/register">
-                                <h1 className="text-slate-300 font-normal text-xl">Register</h1>
+                                <h1 className="text-slate-300 font-normal text-lg">Register</h1>
                             </NavbarLink>
                             }
                             { user && 
                             <div className="flex flex-row items-center space-x-2">
-                                <span className="text-slate-400 font-light text-lg">{user.name}</span>
+                                <span className="text-slate-400 font-light text-md">{user.name}</span>
                                 <SecondaryButton content="logout" onClick={onLogout}/>
                             </div>
                             }
@@ -84,27 +84,27 @@ const Navbar = ({
                 <div className="px-4 py-2 flex flex-col divide-y-2 divide-slate-700">
                     { user && 
                     <NavbarLink path="/boardgames">
-                        <h1 className="text-slate-300 font-normal text-xl py-2">Boardgames</h1>
+                        <h1 className="text-slate-300 font-normal text-lg py-2">Boardgames</h1>
                     </NavbarLink>
                     }
                     { user && user.isAdmin && 
                     <NavbarLink path="/admin">
-                        <h1 className="text-slate-300 font-normal text-xl py-2">Admin</h1>
+                        <h1 className="text-slate-300 font-normal text-lg py-2">Admin</h1>
                     </NavbarLink>
                     }
                     { !user && 
                     <NavbarLink path="/login">
-                        <h1 className="text-slate-300 font-normal text-xl py-2">Login</h1>
+                        <h1 className="text-slate-400 font-normal text-lg py-2">Login</h1>
                     </NavbarLink>
                     }
                     { !user && 
                     <NavbarLink path="/register">
-                        <h1 className="text-slate-300 font-normal text-xl py-2">Register</h1>
+                        <h1 className="text-slate-300 font-normal text-lg py-2">Register</h1>
                     </NavbarLink>
                     }
                     { user && 
                     <div className="flex flex-row items-center space-x-2 pt-4 pb-2">
-                        <span className="text-slate-400 font-light text-lg">{user.name}</span>
+                        <span className="text-slate-400 font-light text-md">{user.name}</span>
                         <SecondaryButton content="logout" onClick={onLogout}/>
                     </div>
                     }

@@ -1,7 +1,5 @@
 import React from "react"
-import { PrimaryButton } from "./Buttons"
 import Surface from "./Surface"
-import { PlusIcon } from "@heroicons/react/solid"
 import { Link } from "react-router-dom"
 
 const Boardgame = ({ boardgame }) => (
@@ -26,18 +24,11 @@ const Boardgame = ({ boardgame }) => (
 
 const BoardgamesList = ({ 
     boardgames, onSelect,
-    onOpenAddForm
  }) => (
-    <div className="p-2 flex flex-col">
-        <div className="flex flex-row pl-4 space-x-4 py-4 items-center">
-            <h1 className="text-2xl font-light text-slate-400">Boardgames</h1>
-            <PrimaryButton content={<PlusIcon className="h-5 w-5 text-slate-800"/>} onClick={onOpenAddForm} />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-y-4 gap-x-3">
-            {boardgames.map(bg => 
-                <Boardgame key={bg.id} boardgame={bg} onSelect={onSelect}/>
-            )}
-        </div>
+    <div className="grid grid-cols-1 p-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-y-4 gap-x-3">
+        {boardgames.map(bg => 
+            <Boardgame key={bg.id} boardgame={bg} onSelect={onSelect}/>
+        )}
     </div>
 )
 

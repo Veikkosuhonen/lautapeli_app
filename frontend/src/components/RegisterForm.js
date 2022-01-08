@@ -33,32 +33,32 @@ const RegisterForm = ({
     }
 
     const validateUsername = validation(
-        (username) => username && username.length > 2 && username.length <= 20,
         setValidUsername,
+        (username) => username && username.length > 2 && username.length <= 20,
         "Should be between 3 and 20 characters"
     )
 
     const validateName = validation(
-        (username) => username && username.length > 2 && username.length <= 20,
         setValidName,
+        (username) => username && username.length > 2 && username.length <= 20,
         "Should be between 3 and 20 characters"
     )
     
     const validatePassword = validation(
-        (password) => password && password.length > 5 && password.length <= 40,
         setValidPwd,
+        (password) => password && password.length > 5 && password.length <= 40,
         "Should be between 3 and 20 characters"
     )
 
     const validatePasswordConfirm = validation(
-        (passwordConfirm) => passwordConfirm === password,
         setValidPwdConfirm,
+        (passwordConfirm) => passwordConfirm === password,
         "Passwords do not match!"
     )
 
     const validateCode = validation(
-        (code) => code !== "",
         setValidCode,
+        (code) => code !== "",
         "Must not be empty"
     )
 

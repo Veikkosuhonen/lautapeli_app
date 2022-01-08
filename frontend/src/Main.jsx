@@ -1,29 +1,30 @@
-import React from 'react'
+import React from "react"
 import {
     BrowserRouter as Router,
     Routes,
     Route,
 } from "react-router-dom";
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react"
 
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
-import bgService from './services/boardgameService'
-import playSessionService from './services/playSessionService'
-import loginService from './services/loginService'
-import registerService from './services/registerService'
-import userService from './services/userService';
-import api from './services/api'
+import bgService from "./services/boardgameService"
+import playSessionService from "./services/playSessionService"
+import loginService from "./services/loginService"
+import registerService from "./services/registerService"
+import userService from "./services/userService";
+import api from "./services/api"
 
-import Home from './routes/Home';
-import Register from './routes/Register';
-import Login from './routes/Login';
-import Admin from './routes/Admin';
-import Navbar from './components/Navbar';
-import Boardgame from './routes/Boardgame';
-import Boardgames from './routes/Boardgames';
+import Home from "./routes/Home";
+import Register from "./routes/Register";
+import Login from "./routes/Login";
+import Admin from "./routes/Admin";
+import Navbar from "./components/Navbar";
+import Boardgame from "./routes/Boardgame";
+import Boardgames from "./routes/Boardgames";
+import NewBoardgame from "./routes/NewBoardgame";
 
 const Main = () => {
 
@@ -156,14 +157,12 @@ const Main = () => {
                     <Home user={user}/>
                 } />
                 <Route path="boardgames" element={
-                    <Boardgames 
-                        user={user} 
-                        users={users}
-                        boardgames={boardgames}
-                        addBg={addBg}
-                        showNotification={showError}
-                    />
-                } />
+                    <Boardgames boardgames={boardgames}/>
+                } >
+                    <Route path="new" element={
+                        <NewBoardgame addBoardgame={addBg} boardgames={boardgames}/>
+                    } />
+                </Route>
                 <Route path="boardgames/:boardgameId" element={
                     <Boardgame user={user} users={users} addPlaySession={addPlaySession}/>
                 } />
