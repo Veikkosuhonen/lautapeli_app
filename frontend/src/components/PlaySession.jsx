@@ -1,6 +1,6 @@
 import React from "react"
 
-const PlaySession = ({ playSession, addPlayer }) => {
+const PlaySession = ({ playSession }) => {
     return (
         
         <li key={playSession.id}>

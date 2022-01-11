@@ -4,43 +4,82 @@ import { PrimaryButton } from './Buttons';
 import InputField from './InputField';
 import DateInput from './DateInput';
 import Surface from "./Surface"
-import { UserIcon, XIcon } from '@heroicons/react/outline';
 import Select from "react-select"
 
-const SelectedPlayer = ({ 
-    user, 
-    onRemove
-}) => (
-    <div className="border-0 rounded bg-slate-500/20 p-2 align-middle">
-        <div className="flex flex-row justify-start px-4 space-x-2">
-            <UserIcon className="w-5 h-5 text-slate-400"/>
-            <span className="text-sm text-slate-400 font-light">{user.name}</span>
-            <button onClick={() => onRemove(user)} type="button">
-                <XIcon className="w-5 h-5 text-slate-500 hover:text-slate-300" />
-            </button>
+const ScoreInput = (
+    {value, onChange, ...props}
+) => {
+
+    return (
+        <div className="">
+            <input 
+                value={value}
+                onChange={onChange}
+                type="number"
+                placeholder="0"
+                className="rounded bg-slate-600 p-1 my-2 focus:outline-none text-center w-28"
+                onBlur={props["onBlur"]}
+            />
         </div>
-    </div>
-)
+    )
+}
 
 const PlayerSelector = ({ 
-    users, 
+    users,
     onChange
  }) => {
 
-    const options = users.map(user => ({value: user, label: user.name}))
+    const options = users.map(user => ({
+        value: user,
+        label: user.name
+    }))
+
+    const styles = {
+        input: (styles, {data}) => ({
+            ...styles,
+            color: "rgb(148 163 184)",
+        }),
+        control: (styles, {data}) => ({
+            ...styles,
+            backgroundColor: undefined,
+        }),
+        menu: (styles, {data}) => ({
+            ...styles,
+            backgroundColor: "rgb(51 65 81)",
+        }),
+        option: (styles, {data, isFocused, isDisabled, isSelected}) => ({
+            ...styles,
+            backgroundColor: isFocused ? "rgb(71 85 105)": "rgb(51 65 81)",
+        }),
+        multiValue: (styles, {data}) => ({
+            ...styles,
+            backgroundColor: "rgb(51 65 81)",
+            borderRadius: "4px"
+        }),
+        multiValueLabel: (styles, {data}) => ({
+            ...styles,
+            color: "rgb(148 163 184)"
+        })
+    }
 
     return (
         <Select 
             options={options}
             onChange={(values) => onChange(values)}
+            placeholder="Select players"
             isMulti
-            classNamePrefix="bg-slate-700"
+            escapeClearsValue={false}
+            backspaceRemovesValue={false}
+            blurInputOnSelect
+            isClearable={false}
+            menuPlacement="auto"
+            styles={styles}
         />
     )
 }
 
 const PlaySessionForm = ({
-    user, users, boardgame, addPlaySession
+    users, boardgame, addPlaySession
 }) => {
 
     const [duration, setDuration] = useState(0)
@@ -53,46 +92,95 @@ const PlaySessionForm = ({
             boardgameId: boardgame.id,
             duration,
             date,
-            players: players.map(user => user.id)
+            players: players.map(player => ({ userId: player.userId, score: player.score }))
         }
-        addPlaySession(playSession)
+        console.log(JSON.stringify(playSession))
+        //addPlaySession(playSession)
     }
 
-    const onPlayersChange = (players) => {
-        setPlayers(players.map(p => p.value))
+    const onPlayersChange = (usersSelected) => {
+        const newPlayers = usersSelected
+            .filter(u => ( // filter out the users already in the session
+                !players.some(player => player.userId === u.value.id)
+            ))
+            .map(u => ({ // convert to player objects
+                userId: u.value.id,
+                name: u.value.name, 
+                score: 0
+        }))
+        setPlayers(players
+            .filter(p => usersSelected.some(u => u.value.id === p.userId)) // remove those that are not selected
+            .concat(newPlayers)
+        )
     }
-    console.log(JSON.stringify(players))
+
+    const onScoreChange = (userId, score) => {
+        setPlayers(players.map(p => 
+            p.userId === userId 
+            ? {...p, score}
+            : p
+        ))
+    }
+
+    const onScoreFocusLoss = () => { // sort players by score
+        setPlayers(players.slice().sort((a, b) => b.score - a.score))
+    }
 
     return (
-        <Surface>
-            <div className="flex flex-col space-y-3">
-                <h1 className="text-lg text-slate-400">New playsession</h1>
-                <form onSubmit={onSubmit}>
-                    <div className="grid grid-cols-2 gap-2 items-center text-slate-500">
-                        <span>Date</span>
+        <Surface className="flex flex-col space-y-3">
+            <h1 className="text-lg text-slate-400 pb-2">New playsession</h1>
+            <form onSubmit={onSubmit}>
+                <div className="grid grid-cols-3 gap-2 items-center text-slate-500">
+
+                    <span>Date</span>
+                    <div className="col-span-2">
                         <DateInput date={date} setDate={setDate}/>
-                        <span>Duration</span>
+                    </div>
+
+                    <span>Duration</span>
+                    <div className="col-span-2">
                         <InputField 
                             value={duration} 
                             onChange={(event) => { setDuration(event.target.value) }} 
                             placeholder="duration (min)"
                             type="number"
                         />
-                        <span>Players</span>
-                        <div className="col-span-2">
-                            <PlayerSelector users={users} players={players} onChange={onPlayersChange}/>
-                        </div>
-                        {players.map(user => 
-                        <div className="col-span-2">
-                            <SelectedPlayer user={user}/>
-                        </div>
-                        )}
-                        <div className="col-span-2 pt-2">
-                            <PrimaryButton type="submit" content="add playsession" />
-                        </div>
                     </div>
-                </form>
-            </div>
+
+                    <span className="pt-4 text-slate-400">Select players</span>
+                    <div className="col-span-3 text-sm text-slate-400 font-light max-w-sm pb-2">
+                        <PlayerSelector users={users} onChange={onPlayersChange}/>
+                    </div>
+
+                    {players.length > 0 && 
+                    <div class="col-span-3 space-y-2">
+                        <div className="grid grid-cols-2 items-center
+                        uppercase text-slate-500 text-xs">
+                            <span>Player</span>
+                            <span>Score</span>
+                        </div>
+                        {players.map(player => 
+                            <div key={player.userId} className="grid grid-cols-2 items-center  
+                            text-slate-400 py-1 px-2 rounded bg-slate-700">
+                                <div>{player.name}</div>
+                                <div>
+                                    <ScoreInput 
+                                        value={player.score} 
+                                        onChange={(event) => { onScoreChange(player.userId, event.target.value)}}
+                                        onBlur={onScoreFocusLoss}
+                                    />
+                                </div>
+                            </div>
+                        )} 
+                            
+                    </div>
+                    }
+
+                    <div className="col-span-3 pt-4">
+                        <PrimaryButton type="submit" content="add playsession" />
+                    </div>
+                </div>
+            </form>
         </Surface>
     )
 }
