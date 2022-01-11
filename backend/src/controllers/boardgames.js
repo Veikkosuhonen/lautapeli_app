@@ -29,6 +29,16 @@ router.get("/:id", auth, async (request, response) => {
             {
                 model: PlaySession,
                 attributes: { exclude: ["boardgameId"] },
+                include: [
+                    {
+                        model: User,
+                        as: "players",
+                        attributes: ["id", "name"],
+                        through: {
+                            attributes: []
+                        }
+                    }
+                ]
             },
             {
                 model: User,

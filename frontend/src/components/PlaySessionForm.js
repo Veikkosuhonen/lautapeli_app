@@ -92,31 +92,30 @@ const PlaySessionForm = ({
             boardgameId: boardgame.id,
             duration,
             date,
-            players: players.map(player => ({ userId: player.userId, score: player.score }))
+            players: players.map(p => ({ id: p.id, score: p.score }))
         }
-        console.log(JSON.stringify(playSession))
-        //addPlaySession(playSession)
+        addPlaySession(playSession)
     }
-
+    
     const onPlayersChange = (usersSelected) => {
         const newPlayers = usersSelected
             .filter(u => ( // filter out the users already in the session
-                !players.some(player => player.userId === u.value.id)
+                !players.some(player => player.id === u.value.id)
             ))
             .map(u => ({ // convert to player objects
-                userId: u.value.id,
+                id: u.value.id,
                 name: u.value.name, 
                 score: 0
         }))
         setPlayers(players
-            .filter(p => usersSelected.some(u => u.value.id === p.userId)) // remove those that are not selected
+            .filter(p => usersSelected.some(u => u.value.id === p.id)) // remove those that are not selected
             .concat(newPlayers)
         )
     }
 
-    const onScoreChange = (userId, score) => {
+    const onScoreChange = (id, score) => {
         setPlayers(players.map(p => 
-            p.userId === userId 
+            p.id === id 
             ? {...p, score}
             : p
         ))
@@ -153,20 +152,20 @@ const PlaySessionForm = ({
                     </div>
 
                     {players.length > 0 && 
-                    <div class="col-span-3 space-y-2">
+                    <div className="col-span-3 space-y-2">
                         <div className="grid grid-cols-2 items-center
                         uppercase text-slate-500 text-xs">
                             <span>Player</span>
                             <span>Score</span>
                         </div>
                         {players.map(player => 
-                            <div key={player.userId} className="grid grid-cols-2 items-center  
+                            <div key={player.id} className="grid grid-cols-2 items-center  
                             text-slate-400 py-1 px-2 rounded bg-slate-700">
                                 <div>{player.name}</div>
                                 <div>
                                     <ScoreInput 
                                         value={player.score} 
-                                        onChange={(event) => { onScoreChange(player.userId, event.target.value)}}
+                                        onChange={(event) => { onScoreChange(player.id, event.target.value)}}
                                         onBlur={onScoreFocusLoss}
                                     />
                                 </div>

@@ -11,7 +11,6 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 import bgService from "./services/boardgameService"
-import playSessionService from "./services/playSessionService"
 import loginService from "./services/loginService"
 import registerService from "./services/registerService"
 import userService from "./services/userService";
@@ -30,7 +29,6 @@ const Main = () => {
 
     const [boardgames, setBoardgames] = useState([])
     const [users, setUsers] = useState([])
-    const [selectedBg, setSelectedBg] = useState(null)
     const [user, setUser] = useState(null)
 
     useEffect(() => {
@@ -74,26 +72,6 @@ const Main = () => {
     const addBg = (newBg) => {
         console.log("Adding " + newBg)
         postBg(newBg)
-    }
-
-    const addPlaySession = (playSession) => {
-        console.log("Adding " + JSON.stringify(playSession))
-        const response = playSessionService.post(playSession)
-
-        toast.promise(response, {
-            pending: "Adding playsession",
-            success: "Success",
-            error: { render({data}) { return data.message }}
-        })
-
-        response.then(ps => {
-            setSelectedBg({
-                ...selectedBg, 
-                playSessions: selectedBg.playSessions.concat(ps)
-            })
-        }).catch(error => {
-            console.log(error.message)
-        })
     }
 
     const handleLogin = async (credentials) => {
@@ -164,7 +142,7 @@ const Main = () => {
                     } />
                 </Route>
                 <Route path="boardgames/:boardgameId" element={
-                    <Boardgame user={user} users={users} addPlaySession={addPlaySession}/>
+                    <Boardgame user={user} users={users} />
                 } />
                 <Route path="login" element={
                     <Login user={user} handleLogin={handleLogin}/>

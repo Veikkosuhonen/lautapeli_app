@@ -4,6 +4,8 @@ import PlaySession from '../components/PlaySession';
 import PlaySessionForm from '../components/PlaySessionForm';
 
 import bgService from '../services/boardgameService';
+import playSessionService from '../services/playSessionService';
+
 import { toast } from 'react-toastify';
 import api from '../services/api';
 import { PlayIcon } from '@heroicons/react/outline';
@@ -11,8 +13,7 @@ import Surface from '../components/Surface';
 
 const Boardgame = ({
     user,
-    users,
-    addPlaySession, 
+    users
 }) => {
 
     const [boardgame, setBoardgame] = useState(null)
@@ -25,6 +26,7 @@ const Boardgame = ({
         api.setToken(user.token)
         bgService.getOne(id).then(bg => {
             setBoardgame(bg)
+            console.log(JSON.stringify(bg))
         }).catch(error => {
             console.log(JSON.stringify(error.status))
             if (error.status === 404) {
@@ -35,6 +37,26 @@ const Boardgame = ({
         })
     }, [user, id, navigate])
 
+
+    const addPlaySession = (playSession) => {
+        console.log("Adding " + JSON.stringify(playSession))
+        const response = playSessionService.post(playSession)
+
+        toast.promise(response, {
+            pending: "Adding playsession",
+            success: "Success",
+            error: { render({data}) { return data.message }}
+        })
+
+        response.then(playSession => {
+            setBoardgame({
+                ...boardgame, 
+                playSessions: boardgame.playSessions.concat(playSession)
+            })
+        }).catch(error => {
+            console.log(error.message)
+        })
+    }
 
     return (
         <div className="flex flex-row justify-center">

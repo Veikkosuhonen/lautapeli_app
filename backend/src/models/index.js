@@ -1,6 +1,6 @@
 const Boardgame = require("./boardgame")
 const User = require("./user")
-const PlaySession = require("./playsession")
+const PlaySession = require("./playSession")
 const Player = require("./player")
 
 Boardgame.hasMany(PlaySession)
