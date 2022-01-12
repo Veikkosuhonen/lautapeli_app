@@ -71,8 +71,9 @@ test("Playsessions can be posted", async () => {
         .expect(200)
         .expect("Content-Type", /application\/json/)
     
-    expect(response.body.id).toBeDefined()
-    expect(response.body.date).toBeDefined()
+    const playSession = response.body.playSession
+    expect(playSession.id).toBeDefined()
+    expect(playSession.date).toBeDefined()
 
     const bgsResponse = await api.get("/api/boardgames/" + bg.id)
         .set("authorization", testUtils.getToken())

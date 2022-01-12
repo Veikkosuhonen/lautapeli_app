@@ -70,7 +70,7 @@ test("Invalid boardgame returns bad request", async () => {
         .post("/api/boardgames")
         .set("authorization", testUtils.getToken())
         .send(newBg)
-        .expect(405)
+        .expect(400)
 })
 
 test("Posted boardgame is added", async () => {
@@ -89,7 +89,7 @@ test("Can get posted boardgame", async () => {
         .post("/api/boardgames")
         .set("authorization", testUtils.getToken())
         .send({ name: "Azul" })
-    const id = postResponse.body.id
+    const id = postResponse.body.boardgame.id
     const response = await api
         .get("/api/boardgames/" + id)
         .set("authorization", testUtils.getToken())
@@ -101,7 +101,7 @@ test("Put modifies boardgame", async () => {
         .post("/api/boardgames")
         .set("authorization", testUtils.getToken())
         .send({ name: "Azul" })
-    const id = postResponse.body.id
+    const id = postResponse.body.boardgame.id
     const response = await api
         .put("/api/boardgames/" + id)
         .set("authorization", testUtils.getToken())
