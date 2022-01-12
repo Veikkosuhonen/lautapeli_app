@@ -5,7 +5,7 @@ export default function Activities({
     activities
 }) {
     return (
-        <Surface className="w-48 sm:w-64 py-2 pl-1 rounded-xl">
+        <Surface className="w-48 sm:w-64 rounded-xl">
             <h1 className="text-xl font-light text-slate-400 pb-4">Recent activity</h1>
             <div className="flex flex-col space-y-6">
                 {activities.map(activity => (

@@ -18,7 +18,7 @@ const ScoreInput = (
                 onChange={onChange}
                 type="number"
                 placeholder="0"
-                className="rounded bg-slate-700 p-1 my-2 focus:outline-none text-center w-28"
+                className="rounded bg-slate-700 p-1 my-2 focus:outline-none text-center w-20 font-serif text-orange-500"
                 onBlur={props["onBlur"]}
             />
         </div>

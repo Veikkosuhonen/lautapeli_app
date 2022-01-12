@@ -58,9 +58,32 @@ const validatePlaysession = (body) => {
 }
 
 const createActivity = async (playSession) => {
+    const winnerId = playSession.players.reduce((acc, player) => 
+            (player.player.score > acc.score ? { id: player.id, score: player.player.score } : acc), 
+            { id: -1, score: -1 }
+        ).id
+
+    const winnerQuery = User.findByPk(winnerId, { attributes: ["name"] })
+
     const bg = await Boardgame.findByPk(playSession.boardgameId, { attributes: ["id", "name"] })
 
-    return await Activity.create({ description: `${bg.name} was played`, link: `/boardgames/${bg.id}`})
+    const winner = await winnerQuery
+
+    let description = `${bg.name} was played`
+    if (winner) {
+        if (playSession.players.length > 1) {
+            description = `${winner.name} won in ${bg.name} with ${playSession.players.length - 1} other${playSession.players.length > 2 ? "s" : ""}`
+        } else {
+            description = `${winner.name} won in ${bg.name}`
+        }
+    }
+
+    console.log(description)
+
+    return await Activity.create({ 
+        description: description, 
+        link: `/boardgames/${bg.id}`
+    })
 }
 
 router.post("/", auth, async (request, response) => {
@@ -82,12 +105,11 @@ router.post("/", auth, async (request, response) => {
             ({ userId: player.id, playSessionId: ps.id, score: player.score })
         ))
         
-        const fullPs = PlaySession.findByPk(ps.id, {
+        const result = await PlaySession.findByPk(ps.id, {
             include: [{ model: User, as: "players", attributes: ["id", "name"], through: { attributes: ["score"] } }]
         })
 
-        const activity = await createActivity(ps)
-        const result = await fullPs
+        const activity = await createActivity(result)
         
         const responseJSON = {
             playSession: result.toJSON(),
