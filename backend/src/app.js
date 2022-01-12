@@ -6,8 +6,9 @@ const requestLogger = require("./middleware/requestLogger"),
     errorHandler = require("./middleware/errorHandler"),
     requireHTTPS = require("./middleware/requireHTTPS")
 
-const bgRouter = require("./controllers/boardgames"),
-    playsessionRouter = require("./controllers/playSessions"),
+const boardgameRouter = require("./controllers/boardgames"),
+    playSessionRouter = require("./controllers/playSessions"),
+    activityRouter = require("./controllers/activity")
     usersRouter = require("./controllers/users"),
     registerRouter = require("./controllers/register"),
     loginRouter = require("./controllers/login"),
@@ -15,6 +16,7 @@ const bgRouter = require("./controllers/boardgames"),
     adminRouter = require("./controllers/admin"),
     unknownEndpointRouter = require("./controllers/unknownEndpoint")
 
+    
 const app = express()
 
 connectToDatabase().then(() => {
@@ -30,8 +32,9 @@ app.use(requestLogger)
 
 
 
-app.use("/api/boardgames", bgRouter)
-app.use("/api/playsessions", playsessionRouter)
+app.use("/api/boardgames", boardgameRouter)
+app.use("/api/playsessions", playSessionRouter)
+app.use("/api/activities", activityRouter)
 app.use("/api/users", usersRouter)
 app.use("/api/register", registerRouter)
 app.use("/api/login", loginRouter)

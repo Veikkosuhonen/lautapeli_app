@@ -13,7 +13,8 @@ import Surface from '../components/Surface';
 
 const Boardgame = ({
     user,
-    users
+    users,
+    addActivity
 }) => {
 
     const [boardgame, setBoardgame] = useState(null)
@@ -48,11 +49,18 @@ const Boardgame = ({
             error: { render({data}) { return data.message }}
         })
 
-        response.then(playSession => {
+        response.then(data => {
+            console.log(JSON.stringify(data))
+
+            const playSession = data.playSession
+
+            addActivity(data.activity)
+
             setBoardgame({
                 ...boardgame, 
                 playSessions: boardgame.playSessions.concat(playSession)
             })
+            
             clear()
         }).catch(error => {
             console.log(error.message)
@@ -60,7 +68,7 @@ const Boardgame = ({
     }
 
     return (
-        <div className="flex flex-row justify-center">
+        <div className="basis-full">
             {boardgame ? 
             <div className="flex flex-col space-y-4">
                 <Surface>

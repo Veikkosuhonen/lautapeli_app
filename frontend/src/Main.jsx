@@ -14,6 +14,7 @@ import bgService from "./services/boardgameService"
 import loginService from "./services/loginService"
 import registerService from "./services/registerService"
 import userService from "./services/userService";
+import activityService from "./services/activityService"
 import api from "./services/api"
 
 import Home from "./routes/Home";
@@ -24,10 +25,12 @@ import Navbar from "./components/Navbar";
 import Boardgame from "./routes/Boardgame";
 import Boardgames from "./routes/Boardgames";
 import NewBoardgame from "./routes/NewBoardgame";
+import ContentLayout from "./components/ContentLayout";
 
 const Main = () => {
 
     const [boardgames, setBoardgames] = useState([])
+    const [activities, setActivities] = useState([])
     const [users, setUsers] = useState([])
     const [user, setUser] = useState(null)
 
@@ -41,6 +44,9 @@ const Main = () => {
             })
             userService.getAll().then(usrs => {
                 setUsers(usrs)
+            })
+            activityService.getAll().then(activities => {
+                setActivities(activities)
             })
             setUser(user)
         }
@@ -61,17 +67,22 @@ const Main = () => {
             error: { render({data}) { return data.message }}
         })
 
-        response.then(bg => {
+        response.then(data => {
             console.log("Received response to post: " + JSON.stringify(bg))
-            setBoardgames(boardgames.concat(bg))
-        }).catch(_error => {
-            console.log(`"${name}" already exists!`)
+            setBoardgames(boardgames.concat(data.boardgame))
+            addActivity(data.activity)
+        }).catch(error => {
+            console.log(error)
         })
     }
 
     const addBg = (newBg) => {
         console.log("Adding " + newBg)
         postBg(newBg)
+    }
+
+    const addActivity = (activity) => {
+        setActivities(activities.concat(activity))
     }
 
     const handleLogin = async (credentials) => {
@@ -135,14 +146,18 @@ const Main = () => {
                     <Home user={user}/>
                 } />
                 <Route path="boardgames" element={
-                    <Boardgames boardgames={boardgames}/>
+                    <ContentLayout activities={activities}>
+                        <Boardgames boardgames={boardgames} />
+                    </ContentLayout>
                 } >
                     <Route path="new" element={
-                        <NewBoardgame addBoardgame={addBg} boardgames={boardgames}/>
+                        <NewBoardgame addBoardgame={addBg} boardgames={boardgames} />
                     } />
                 </Route>
                 <Route path="boardgames/:boardgameId" element={
-                    <Boardgame user={user} users={users} />
+                    <ContentLayout activities={activities}>
+                        <Boardgame user={user} users={users} addActivity={addActivity}/>
+                    </ContentLayout>
                 } />
                 <Route path="login" element={
                     <Login user={user} handleLogin={handleLogin}/>

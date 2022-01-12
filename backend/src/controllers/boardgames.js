@@ -1,6 +1,6 @@
 const router = require("express").Router()
 
-const { Boardgame, PlaySession, User } = require("../models")
+const { Boardgame, PlaySession, User, Activity } = require("../models")
 const logger = require("../util/logger")
 const { auth, getLoggedInUser } = require("../middleware/authorization")
 
@@ -65,21 +65,31 @@ router.post("/", auth, async (request, response, next) => {
     if (!user) {
         return response.sendStatus(401)
     }
+
     const boardgame = {
         ...request.body,
         addedById: user.id
     }
+
     if (!validateBoardgame(boardgame)) {
-        return response.sendStatus(405)
-    } else {
-        try {
-            const bg = await Boardgame.create(boardgame)
-            logger.info(bg.toJSON())
-            return response.json(bg)
-        } catch(error) {
-            next(error)
-        }
+        return response.status(400).json({ error: "invalid boardgame" })
     }
+
+    try {
+        const bg = await Boardgame.create(boardgame)
+        const activity = await Activity.create({ 
+            description: `${user.name} added ${boardgame.name}`,
+            link: `/boardgames/${bg.id}`
+        })
+        
+        return response.json({
+            boardgame: bg.toJSON(),
+            activity: activity.toJSON()
+        })
+    } catch(error) {
+        next(error)
+    }
+    
 })
 
 router.put("/:id", auth, async (request, response) => {

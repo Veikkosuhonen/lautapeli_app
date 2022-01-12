@@ -71,6 +71,7 @@ const connectToDatabase = async () => {
         await sequelize.authenticate()
         await runMigrations()
         await createAdmin()
+        //debugTables()
         logger.debug("Database connected")
     } catch (error) {
         logger.error("connecting database failed")

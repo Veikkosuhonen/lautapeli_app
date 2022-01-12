@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt")
 const router = require("express").Router()
-const { User } = require("../models")
+const { User, Activity } = require("../models")
 const signupCodeService = require("../util/signupCodeService")
 
 router.post("/", async (req, res, next) => {
@@ -25,6 +25,7 @@ router.post("/", async (req, res, next) => {
         }
 
         const user = await User.create(userObject)
+        Activity.create({ description: `${user.name} joined. Welcome!`, link: "/" })
         res.json({ id: user.id, username: user.username, name: user.name, isAdmin: user.isAdmin })
     } catch(error) {
         next(error)

@@ -1,6 +1,6 @@
 const router = require("express").Router()
 
-const { PlaySession, Boardgame, Player, User } = require("../models")
+const { PlaySession, Boardgame, Player, User, Activity } = require("../models")
 const { auth } = require("../middleware/authorization")
 
 router.get("/", auth, async (request, response) => {
@@ -57,6 +57,12 @@ const validatePlaysession = (body) => {
     )
 }
 
+const createActivity = async (playSession) => {
+    const bg = await Boardgame.findByPk(playSession.boardgameId, { attributes: ["id", "name"] })
+
+    return await Activity.create({ description: `${bg.name} was played`, link: `/boardgames/${bg.id}`})
+}
+
 router.post("/", auth, async (request, response) => {
     const playSession = request.body
     if (!validatePlaysession(playSession)) {
@@ -75,13 +81,19 @@ router.post("/", auth, async (request, response) => {
         await Player.bulkCreate(playSession.players.map(player => 
             ({ userId: player.id, playSessionId: ps.id, score: player.score })
         ))
-
-        const result = await PlaySession.findByPk(ps.id, {
+        
+        const fullPs = PlaySession.findByPk(ps.id, {
             include: [{ model: User, as: "players", attributes: ["id", "name"], through: { attributes: ["score"] } }]
         })
+
+        const activity = await createActivity(ps)
+        const result = await fullPs
         
-        console.log(JSON.stringify(result))
-        return response.json(result)
+        const responseJSON = {
+            playSession: result.toJSON(),
+            activity: activity.toJSON(),
+        }
+        return response.json(responseJSON)
 
     } catch(error) {
         console.log(error)
