@@ -46,7 +46,7 @@ const Main = () => {
                 setUsers(usrs)
             })
             activityService.getAll().then(activities => {
-                setActivities(activities)
+                setActivities(activities.sort((a, b) => new Date(b.date) - new Date(a.date)))
             })
             setUser(user)
         }
@@ -82,7 +82,7 @@ const Main = () => {
     }
 
     const addActivity = (activity) => {
-        setActivities(activities.concat(activity))
+        setActivities([activity].concat(activities))
     }
 
     const handleLogin = async (credentials) => {

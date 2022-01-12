@@ -5,18 +5,24 @@ export default function Activities({
     activities
 }) {
     return (
-        <div className="w-64">
-            <h1 className="text-2xl font-light text-slate-400 py-4">Recent activity</h1>
-            <div className="flex flex-col space-y-2">
+        <Surface className="w-48 sm:w-64 py-2 pl-1 rounded-xl">
+            <h1 className="text-xl font-light text-slate-400 pb-4">Recent activity</h1>
+            <div className="flex flex-col space-y-6">
                 {activities.map(activity => (
                     <NavLink key={activity.id} to={activity.link} >
-                        <Surface className="p-1 text-slate-400 border-l-4 border-slate-800 transition duration-200
-                        hover:border-indigo-500">
-                            {activity.description}
-                        </Surface>
+                        <div className="flex flex-col pl-1 border-l-2 border-slate-700 transition duration-200
+                            hover:border-indigo-500"
+                        >
+                            <span className="text-slate-500 text-xs">
+                                {activity.date ? new Date(activity.date).toLocaleString() : "unknown date"}
+                            </span>
+                            <span className="text-slate-400 text-sm">
+                                {activity.description}
+                            </span>
+                        </div>
                     </NavLink>
                 ))}
             </div>
-        </div>
+        </Surface>
     )
 };

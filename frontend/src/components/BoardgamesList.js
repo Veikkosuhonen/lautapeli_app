@@ -4,9 +4,10 @@ import { Link } from "react-router-dom"
 
 const Boardgame = ({ boardgame }) => (
     <Surface className="
-    border-l-4 border-slate-800
-    transition duration-200
-    hover:border-indigo-500">
+        border-l-4 border-slate-800
+        transition duration-200
+        hover:border-indigo-500"
+    >
         <div className="grid grid-cols-2 justify-start px-2 gap-x-4 space-y-2">
             <div className="col-span-2">
                 <Link to={"/boardgames/" + boardgame.id}
@@ -25,7 +26,9 @@ const Boardgame = ({ boardgame }) => (
 const BoardgamesList = ({ 
     boardgames, onSelect,
  }) => (
-    <div className="grid grid-cols-1 p-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-y-4 gap-x-3">
+    <div className="
+        grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-y-2 gap-x-3"
+    >
         {boardgames.map(bg => 
             <Boardgame key={bg.id} boardgame={bg} onSelect={onSelect}/>
         )}

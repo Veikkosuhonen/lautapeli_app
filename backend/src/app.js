@@ -8,7 +8,7 @@ const requestLogger = require("./middleware/requestLogger"),
 
 const boardgameRouter = require("./controllers/boardgames"),
     playSessionRouter = require("./controllers/playSessions"),
-    activityRouter = require("./controllers/activity")
+    activityRouter = require("./controllers/activities")
     usersRouter = require("./controllers/users"),
     registerRouter = require("./controllers/register"),
     loginRouter = require("./controllers/login"),

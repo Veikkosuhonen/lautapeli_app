@@ -10,11 +10,11 @@ const Boardgames = ({
 }) => {
     
     return (
-        <div className="grid grid-cols-1 space-y-2">
-            <div className="flex flex-row pl-4 space-x-4 py-4 items-center">
-                <h1 className="text-2xl font-light text-slate-400">Boardgames</h1>
+        <div>
+            <div className="flex flex-row items-end space-x-2 p-2">
+                <h1 className="text-xl font-light text-slate-400">Boardgames</h1>
                 <NavLink to="/boardgames/new" >
-                    <PrimaryButton content={<PlusIcon className="h-5 w-5 text-slate-800"/>} />
+                    <PrimaryButton content={<PlusIcon className="h-4 w-4 text-slate-800"/>} />
                 </NavLink>
             </div>
             <Outlet />

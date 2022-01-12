@@ -78,7 +78,8 @@ const Boardgame = ({
                     </div>
                 </Surface>
                 <Surface>
-                    <ul className="text-slate-400 font-light">
+                    <h1 className="text-slate-400 text-xl font-light pb-4">Playsessions</h1>
+                    <ul className="flex flex-col space-y-4">
                         {boardgame && boardgame.playSessions.length !== 0 && boardgame.playSessions.map(ps => 
                             <PlaySession key={ps.id} playSession={ps}/>
                         )}

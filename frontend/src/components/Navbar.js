@@ -28,7 +28,7 @@ const Navbar = ({
     return (
         <Disclosure as="nav" className="backdrop-blur backdrop-brightness-75 bg-slate-700/50 mb-4">
             {({ open }) => (<>
-            <div className="max-w-auto mx-auto px-2 sm:px-6 lg:px-8 shadow-lg">
+            <div className="max-w-auto mx-auto px-2 sm:px-6 lg:px-8 shadow-md">
                 <div className="relative flex items-center justify-between h-16">
                     { /* Mobile only */ }
                     <div className="flex items-center sm:hidden">
