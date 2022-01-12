@@ -35,7 +35,7 @@ router.get("/:id", auth, async (request, response) => {
                         as: "players",
                         attributes: ["id", "name"],
                         through: {
-                            attributes: []
+                            attributes: ["score"]
                         }
                     }
                 ]

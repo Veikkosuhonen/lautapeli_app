@@ -20,6 +20,10 @@ Player.init({
         allowNull: false,
         references: { model: "playSessions", key: "id" },
     },
+    score: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    }
 }, {
     sequelize,
     timestamps: false,

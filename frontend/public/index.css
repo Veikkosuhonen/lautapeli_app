@@ -497,8 +497,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 1rem;
 }
 
-.mb-1 {
-  margin-bottom: 0.25rem;
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 
 .block {
@@ -549,58 +549,28 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 2.5rem;
 }
 
-.w-1\/4 {
-  width: 25%;
-}
-
 .w-5 {
   width: 1.25rem;
-}
-
-.w-2\/5 {
-  width: 40%;
-}
-
-.w-64 {
-  width: 16rem;
-}
-
-.w-32 {
-  width: 8rem;
 }
 
 .w-28 {
   width: 7rem;
 }
 
-.min-w-min {
-  min-width: -webkit-min-content;
-  min-width: min-content;
-}
-
-.max-w-min {
-  max-width: -webkit-min-content;
-  max-width: min-content;
+.max-w-sm {
+  max-width: 24rem;
 }
 
 .max-w-lg {
   max-width: 32rem;
 }
 
-.max-w-sm {
-  max-width: 24rem;
-}
-
-.max-w-md {
-  max-width: 28rem;
-}
-
 .flex-1 {
   flex: 1 1 0%;
 }
 
-.table-fixed {
-  table-layout: fixed;
+.flex-grow {
+  flex-grow: 1;
 }
 
 .grid-cols-2 {
@@ -627,10 +597,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   flex-direction: column;
 }
 
-.items-end {
-  align-items: flex-end;
-}
-
 .items-center {
   align-items: center;
 }
@@ -645,14 +611,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .justify-between {
   justify-content: space-between;
-}
-
-.justify-around {
-  justify-content: space-around;
-}
-
-.justify-items-start {
-  justify-items: start;
 }
 
 .gap-2 {
@@ -701,16 +659,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.space-y-3 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
-}
-
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.25rem * var(--tw-space-x-reverse));
   margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
 
 .divide-y-2 > :not([hidden]) ~ :not([hidden]) {
@@ -728,11 +686,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .divide-slate-700 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
   border-color: rgb(51 65 85 / var(--tw-divide-opacity));
-}
-
-.divide-slate-500 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-opacity: 1;
-  border-color: rgb(100 116 139 / var(--tw-divide-opacity));
 }
 
 .divide-slate-600 > :not([hidden]) ~ :not([hidden]) {
@@ -788,11 +741,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(249 115 22 / var(--tw-bg-opacity));
 }
 
-.bg-slate-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
-}
-
 .bg-slate-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(51 65 85 / var(--tw-bg-opacity));
@@ -806,18 +754,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(244 63 94 / 0.2);
 }
 
-.bg-transparent {
-  background-color: transparent;
-}
-
-.bg-slate-100 {
+.bg-slate-800 {
   --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
-}
-
-.bg-slate-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(71 85 105 / var(--tw-bg-opacity));
+  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-r {
@@ -892,12 +831,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 0.5rem;
 }
 
-.pt-2 {
-  padding-top: 0.5rem;
-}
-
-.pb-4 {
-  padding-bottom: 1rem;
+.pr-4 {
+  padding-right: 1rem;
 }
 
 .pl-4 {
@@ -1006,6 +941,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(241 245 249 / var(--tw-text-opacity));
 }
 
+.text-orange-500 {
+  --tw-text-opacity: 1;
+  color: rgb(249 115 22 / var(--tw-text-opacity));
+}
+
 .text-slate-600 {
   --tw-text-opacity: 1;
   color: rgb(71 85 105 / var(--tw-text-opacity));
@@ -1026,11 +966,6 @@ Ensure the default browser behavior of the `hidden` attribute.
           text-decoration-color: #818cf8;
 }
 
-.decoration-slate-600 {
-  -webkit-text-decoration-color: #475569;
-          text-decoration-color: #475569;
-}
-
 .decoration-dashed {
   -webkit-text-decoration-style: dashed;
           text-decoration-style: dashed;
@@ -1042,10 +977,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .underline-offset-2 {
   text-underline-offset: 2px;
-}
-
-.underline-offset-1 {
-  text-underline-offset: 1px;
 }
 
 .shadow-lg {
@@ -1078,10 +1009,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .outline-rose-500 {
   outline-color: #f43f5e;
-}
-
-.outline-slate-600 {
-  outline-color: #475569;
 }
 
 .filter {
@@ -1121,6 +1048,20 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .duration-100 {
   transition-duration: 100ms;
+}
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 .hover\:cursor-pointer:hover {
@@ -1168,16 +1109,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .hover\:outline-indigo-600:hover {
   outline-color: #4f46e5;
-}
-
-.focus\:underline:focus {
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
-}
-
-.focus\:decoration-indigo-500:focus {
-  -webkit-text-decoration-color: #6366f1;
-          text-decoration-color: #6366f1;
 }
 
 .focus\:outline-none:focus {

@@ -5,6 +5,7 @@ import InputField from './InputField';
 import DateInput from './DateInput';
 import Surface from "./Surface"
 import Select from "react-select"
+import { StarIcon } from '@heroicons/react/solid';
 
 const ScoreInput = (
     {value, onChange, ...props}
@@ -17,7 +18,7 @@ const ScoreInput = (
                 onChange={onChange}
                 type="number"
                 placeholder="0"
-                className="rounded bg-slate-600 p-1 my-2 focus:outline-none text-center w-28"
+                className="rounded bg-slate-700 p-1 my-2 focus:outline-none text-center w-28"
                 onBlur={props["onBlur"]}
             />
         </div>
@@ -26,12 +27,20 @@ const ScoreInput = (
 
 const PlayerSelector = ({ 
     users,
-    onChange
+    players,
+    setPlayers
  }) => {
 
-    const options = users.map(user => ({
-        value: user,
-        label: user.name
+    const options = users
+        .filter(u => !players.some(p => p.id === u.id))
+        .map(user => ({
+            value: { id: user.id, name: user.name, score: 0 },
+            label: user.name
+        }))
+    
+    const value = players.map(p => ({ 
+        value: p,
+        label: p.name
     }))
 
     const styles = {
@@ -64,15 +73,16 @@ const PlayerSelector = ({
 
     return (
         <Select 
+            value={value}
             options={options}
-            onChange={(values) => onChange(values)}
+            onChange={(values) => setPlayers(values.map(p => p.value))}
             placeholder="Select players"
             isMulti
             escapeClearsValue={false}
             backspaceRemovesValue={false}
             blurInputOnSelect
             isClearable={false}
-            menuPlacement="auto"
+            menuPlacement="top"
             styles={styles}
         />
     )
@@ -94,23 +104,12 @@ const PlaySessionForm = ({
             date,
             players: players.map(p => ({ id: p.id, score: p.score }))
         }
-        addPlaySession(playSession)
-    }
-    
-    const onPlayersChange = (usersSelected) => {
-        const newPlayers = usersSelected
-            .filter(u => ( // filter out the users already in the session
-                !players.some(player => player.id === u.value.id)
-            ))
-            .map(u => ({ // convert to player objects
-                id: u.value.id,
-                name: u.value.name, 
-                score: 0
-        }))
-        setPlayers(players
-            .filter(p => usersSelected.some(u => u.value.id === p.id)) // remove those that are not selected
-            .concat(newPlayers)
-        )
+        addPlaySession(playSession, () => {
+            // on success:
+            setDuration(0)
+            setDate(new Date())
+            setPlayers([])
+        })
     }
 
     const onScoreChange = (id, score) => {
@@ -120,6 +119,8 @@ const PlaySessionForm = ({
             : p
         ))
     }
+
+    const topScore = players.length > 0 ? players[0].score : -1
 
     const onScoreFocusLoss = () => { // sort players by score
         setPlayers(players.slice().sort((a, b) => b.score - a.score))
@@ -148,20 +149,26 @@ const PlaySessionForm = ({
 
                     <span className="pt-4 text-slate-400">Select players</span>
                     <div className="col-span-3 text-sm text-slate-400 font-light max-w-sm pb-2">
-                        <PlayerSelector users={users} onChange={onPlayersChange}/>
+                        <PlayerSelector players={players} users={users} setPlayers={setPlayers}/>
                     </div>
 
                     {players.length > 0 && 
                     <div className="col-span-3 space-y-2">
-                        <div className="grid grid-cols-2 items-center
-                        uppercase text-slate-500 text-xs">
-                            <span>Player</span>
-                            <span>Score</span>
+                        <div className="flex flex-row items-center
+                        uppercase text-slate-500 text-xs space-x-4">
+                            <span className="w-5"></span>
+                            <span className="flex-grow">Player</span>
+                            <span className="pr-4">Score</span>
                         </div>
                         {players.map(player => 
-                            <div key={player.id} className="grid grid-cols-2 items-center  
-                            text-slate-400 py-1 px-2 rounded bg-slate-700">
-                                <div>{player.name}</div>
+                            <div key={player.id} className="flex flex-row space-x-4 items-center  
+                            text-slate-400 py-1 px-2">
+                                <span className="w-5">
+                                    {player.score === topScore && 
+                                        <StarIcon className="w-5 h-5 text-orange-500"/>
+                                    }
+                                </span>
+                                <div className="flex-grow">{player.name}</div>
                                 <div>
                                     <ScoreInput 
                                         value={player.score} 

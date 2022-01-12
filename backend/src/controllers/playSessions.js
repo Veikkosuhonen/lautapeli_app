@@ -16,7 +16,7 @@ router.get("/", auth, async (request, response) => {
                 as: "players",
                 attributes: ["id", "name"],
                 through: {
-                    attributes: []
+                    attributes: ["score"]
                 }
             }
         ]
@@ -37,7 +37,7 @@ router.get("/:id", auth, async (request, response) => {
                 as: "players",
                 attributes: ["id", "name"],
                 through: {
-                    attributes: []
+                    attributes: ["score"]
                 }
             }
         ]
@@ -72,14 +72,14 @@ router.post("/", auth, async (request, response) => {
     try {
         const ps = await PlaySession.create(playSessionObject)
 
-        await Promise.all(playSession.players.map(async player => 
-            Player.create({ userId: player.id, playSessionId: ps.id })
+        await Player.bulkCreate(playSession.players.map(player => 
+            ({ userId: player.id, playSessionId: ps.id, score: player.score })
         ))
 
         const result = await PlaySession.findByPk(ps.id, {
-            include: [{ model: User, as: "players", attributes: ["id", "name"], through: { attributes: [] } }]
+            include: [{ model: User, as: "players", attributes: ["id", "name"], through: { attributes: ["score"] } }]
         })
-
+        
         console.log(JSON.stringify(result))
         return response.json(result)
 

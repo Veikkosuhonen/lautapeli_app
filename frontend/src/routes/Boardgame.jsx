@@ -38,7 +38,7 @@ const Boardgame = ({
     }, [user, id, navigate])
 
 
-    const addPlaySession = (playSession) => {
+    const addPlaySession = (playSession, clear) => {
         console.log("Adding " + JSON.stringify(playSession))
         const response = playSessionService.post(playSession)
 
@@ -53,6 +53,7 @@ const Boardgame = ({
                 ...boardgame, 
                 playSessions: boardgame.playSessions.concat(playSession)
             })
+            clear()
         }).catch(error => {
             console.log(error.message)
         })
