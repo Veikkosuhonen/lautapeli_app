@@ -25,7 +25,7 @@ import Navbar from "./components/Navbar";
 import Boardgame from "./routes/Boardgame";
 import Boardgames from "./routes/Boardgames";
 import NewBoardgame from "./routes/NewBoardgame";
-import ContentLayout from "./components/ContentLayout";
+import Footer from "./components/Footer";
 
 const Main = () => {
 
@@ -146,18 +146,14 @@ const Main = () => {
                     <Home user={user}/>
                 } />
                 <Route path="boardgames" element={
-                    <ContentLayout activities={activities}>
-                        <Boardgames boardgames={boardgames} />
-                    </ContentLayout>
+                    <Boardgames boardgames={boardgames} activities={activities} />
                 } >
                     <Route path="new" element={
                         <NewBoardgame addBoardgame={addBg} boardgames={boardgames} />
                     } />
                 </Route>
                 <Route path="boardgames/:boardgameId" element={
-                    <ContentLayout activities={activities}>
-                        <Boardgame user={user} users={users} addActivity={addActivity}/>
-                    </ContentLayout>
+                    <Boardgame user={user} users={users} addActivity={addActivity}/>
                 } />
                 <Route path="login" element={
                     <Login user={user} handleLogin={handleLogin}/>
@@ -175,6 +171,7 @@ const Main = () => {
                     <p className="text-rose-500 text-2xl font-sans">Hmm yes the screen is made of screen</p>
                 } />
             </Routes>
+            <Footer />
         </Router>
     )
 }

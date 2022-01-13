@@ -9,7 +9,7 @@ const PrimaryButton = ({
     <button
     disabled={disabled}
     className="font-medium text-slate-800 
-    bg-orange-500 hover:bg-orange-400 disabled:bg-orange-500/60 hover:shadow-md disabled:shadow-none hover:shadow-orange-400/40
+    bg-orange-500 disabled:bg-orange-500/60 shadow-md hover:shadow-xl shadow-orange-500/50 disabled:shadow-none
     px-4 py-1 rounded-lg
     transition duration-100"
     type={type || "button"}
@@ -23,8 +23,8 @@ const SecondaryButton = ({
     onClick
 }) => (
     <button
-    className="text-teal-500 outline outline-1 
-    hover:outline-2 outline-teal-500 hover:shadow-md hover:shadow-teal-500/40
+    className="font text-orange-400 outline outline-2 
+    hover:outline-3 outline-orange-500 hover:shadow-lg
     px-4 py-1 rounded-lg
     transition duration-100"
     type={type || "button"}

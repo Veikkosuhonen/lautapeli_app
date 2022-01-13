@@ -1,8 +1,10 @@
 import React from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import { Disclosure } from "@headlessui/react"
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import { HomeIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { SecondaryButton } from "./Buttons"
+import { PuzzleIcon } from "@heroicons/react/solid"
+import User from "./User"
 
 const NavbarLink = ({ path, children }) => {
     return (
@@ -26,9 +28,9 @@ const Navbar = ({
     }
 
     return (
-        <Disclosure as="nav" className="backdrop-blur backdrop-brightness-75 bg-slate-700/50 mb-4">
+        <Disclosure as="nav" className="backdrop-blur backdrop-brightness-75 bg-sky-700">
             {({ open }) => (<>
-            <div className="max-w-auto mx-auto px-2 sm:px-6 lg:px-8 shadow-md">
+            <div className="max-w-auto mx-auto px-2 sm:px-6 lg:px-8">
                 <div className="relative flex items-center justify-between h-16">
                     { /* Mobile only */ }
                     <div className="flex items-center sm:hidden">
@@ -42,9 +44,7 @@ const Navbar = ({
                     </div>
 
                     <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                        <NavbarLink path="/">
-                            <h1 className="text-slate-500 font-normal text-4xl">Lautapelit</h1>
-                        </NavbarLink>
+                        <PuzzleIcon className="w-6 h-6 text-orange-500 mr-2" />
                     </div>
 
                     <div className="hidden sm:block sm:ml-6 overflow-hidden p-1">
@@ -71,7 +71,7 @@ const Navbar = ({
                             }
                             { user && 
                             <div className="flex flex-row items-center space-x-2">
-                                <span className="text-slate-400 font-light text-md">{user.name}</span>
+                                <User user={user} />
                                 <SecondaryButton content="logout" onClick={onLogout}/>
                             </div>
                             }
@@ -81,7 +81,7 @@ const Navbar = ({
             </div>
 
             <Disclosure.Panel className="sm:hidden">
-                <div className="px-4 py-2 flex flex-col divide-y-2 divide-slate-700">
+                <div className="px-4 py-2 flex flex-col space-y-2">
                     { user && 
                     <NavbarLink path="/boardgames">
                         <h1 className="text-slate-300 font-normal text-lg py-2">Boardgames</h1>
@@ -104,7 +104,7 @@ const Navbar = ({
                     }
                     { user && 
                     <div className="flex flex-row items-center space-x-2 pt-4 pb-2">
-                        <span className="text-slate-400 font-light text-md">{user.name}</span>
+                        <User user={user} />
                         <SecondaryButton content="logout" onClick={onLogout}/>
                     </div>
                     }

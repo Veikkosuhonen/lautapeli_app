@@ -8,7 +8,7 @@ import playSessionService from '../services/playSessionService';
 
 import { toast } from 'react-toastify';
 import api from '../services/api';
-import { PlayIcon } from '@heroicons/react/outline';
+import { PuzzleIcon } from '@heroicons/react/outline';
 import Surface from '../components/Surface';
 
 const Boardgame = ({
@@ -73,12 +73,12 @@ const Boardgame = ({
             <div className="flex flex-col space-y-2 sm:space-y-4">
                 <Surface>
                     <div className="flex flex-row items-center space-x-2">
-                        <PlayIcon className="w-10 h-10 text-slate-400"/>
-                        <h1 className="text-slate-400 text-2xl">{boardgame.name}</h1>
+                        <PuzzleIcon className="w-6 h-6 text-orange-500 mr-2" />
+                        <h1 className="text-slate-400 text-xl">{boardgame.name}</h1>
                     </div>
                 </Surface>
                 <Surface>
-                    <h1 className="text-slate-400 text-xl font-light pb-4">Playsessions</h1>
+                    <h1 className="text-slate-400 text-md font-normal pb-6">Playsessions</h1>
                     <ul className="flex flex-col space-y-4">
                         {boardgame && boardgame.playSessions.length !== 0 && boardgame.playSessions.map(ps => 
                             <PlaySession key={ps.id} playSession={ps}/>

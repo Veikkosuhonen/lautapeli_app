@@ -1,5 +1,5 @@
 import React from "react"
-import { StarIcon } from "@heroicons/react/solid"
+import User from "./User"
 
 const PlaySession = ({ playSession }) => {
 
@@ -21,12 +21,7 @@ const PlaySession = ({ playSession }) => {
             </div>
             <div className="flex flex-row flex-wrap">
                 {playSession.players && playSession.players.map(player => (
-                    <div key={player.id} className="flex flex-row items-center bg-slate-700 p-1 m-1 rounded text-slate-400">
-                        {player.player.score === topScore && 
-                            <StarIcon className="w-5 h-5 text-orange-500" />
-                        }
-                        {player.name} <span className="pl-2 text-orange-500 font-serif">{player.player.score}</span>
-                    </div>
+                    <User user={player} score={player.player.score} winner={player.player.score === topScore} />
                 ))}
             </div>
         </li>
