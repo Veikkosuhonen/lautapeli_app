@@ -10,7 +10,7 @@
 | 18.12 | 3h | Tietokantaa käyttävien integraatiotestien kanssa painintaa |
 | 19.12 | 4h | ^ Tuota edelleen, ja onnistui viimein. Migraatiot. |
 | Yht: | 28h |
-| Viikko 2, joululomailua... |
+| Viikko 2 |
 | 20.12 | 2h | Pelisessioilla pelaajia |
 | - | 8h | Käyttäjien hallinnointijuttuja, autentikaatio jne |
 | Yht: | 10h |
@@ -23,6 +23,13 @@
 | Yht: | 18h |
 | Viikko 4 |
 | 2.1 | 4h | Frontendin autorisoidut näkymät, ui-devausta |
-| 3.1 | 4h | UI-devausta, mm. hieno popup-ikkuna |
-| 4.1 | 4h | UI-devausta, stylailua. |
+| 3.1 | 3h | UI-devausta, mm. hieno popup-ikkuna |
+| 4.1 | 3h | UI-devausta, stylailua. |
+| 7.1 | 4h | UI-devausta, formien validointia, otettu react-toastify käyttöön |
+| 8.1 | 5h | Frontendin rakenteen ja routejen parannusta, UI-devausta, otettu react-select käyttöön |
+| Yht: | 19h |
+| Viikko 5 |
+| 10.1 | 3h | UI-devausta |
+| 11.1 | 4h | Pelisessioiden pelaajat pisteineen otetaan viimein backendissä talteen |
+| 12.1 | 4h | Aktiviteetit backissa ja frontissa, ja yleistä UI-devausta |
 
