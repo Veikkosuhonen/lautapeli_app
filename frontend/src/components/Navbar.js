@@ -1,7 +1,7 @@
 import React from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import { Disclosure } from "@headlessui/react"
-import { HomeIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { SecondaryButton } from "./Buttons"
 import { PuzzleIcon } from "@heroicons/react/solid"
 import User from "./User"
