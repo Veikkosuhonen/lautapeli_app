@@ -27,7 +27,7 @@ const BoardgamesList = ({
     boardgames, onSelect,
  }) => (
     <div className="
-        grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-y-2 gap-x-3"
+        grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-y-4 gap-x-2"
     >
         {boardgames.map(bg => 
             <Boardgame key={bg.id} boardgame={bg} onSelect={onSelect}/>

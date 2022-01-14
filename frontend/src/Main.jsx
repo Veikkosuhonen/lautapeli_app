@@ -7,7 +7,7 @@ import {
 
 import { useState, useEffect } from "react"
 
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 import bgService from "./services/boardgameService"
@@ -17,15 +17,14 @@ import userService from "./services/userService";
 import activityService from "./services/activityService"
 import api from "./services/api"
 
-import Home from "./routes/Home";
+import Home from "./routes/Home"
 import Register from "./routes/Register";
 import Login from "./routes/Login";
 import Admin from "./routes/Admin";
-import Navbar from "./components/Navbar";
 import Boardgame from "./routes/Boardgame";
 import Boardgames from "./routes/Boardgames";
 import NewBoardgame from "./routes/NewBoardgame";
-import Footer from "./components/Footer";
+import Layout from "./components/Layout";
 
 const Main = () => {
 
@@ -110,13 +109,13 @@ const Main = () => {
         })  
     }
 
-    const handleLogout = (_event) => {
+    /*const handleLogout = (_event) => {
         console.log("...logging out")
         window.localStorage.removeItem("lautapeliAppUser")
         api.setToken(null)
         setUser(null)
         setBoardgames([])
-    }
+    }*/
 
     const handleRegister = (credentials) => {
         console.log("Registering " + JSON.stringify(credentials))
@@ -137,41 +136,40 @@ const Main = () => {
 
     return (
         <Router>
-            <Navbar user={user} handleLogout={handleLogout}/>
-            <ToastContainer 
-                position="top-center"
-            />
             <Routes>
                 <Route path="/" element={
-                    <Home user={user}/>
-                } />
-                <Route path="boardgames" element={
-                    <Boardgames boardgames={boardgames} activities={activities} />
-                } >
-                    <Route path="new" element={
-                        <NewBoardgame addBoardgame={addBg} boardgames={boardgames} />
+                    <Layout user={user} />
+                }>
+                    <Route path="/" element={
+                        <Home />
+                    } />
+                    <Route path="boardgames" element={
+                        <Boardgames boardgames={boardgames} activities={activities} />
+                    } >
+                        <Route path="new" element={
+                            <NewBoardgame addBoardgame={addBg} boardgames={boardgames} />
+                        } />
+                    </Route>
+                    <Route path="boardgames/:boardgameId" element={
+                        <Boardgame user={user} users={users} addActivity={addActivity}/>
+                    } />
+                    <Route path="login" element={
+                        <Login user={user} handleLogin={handleLogin}/>
+                    } />
+                    <Route path="register" element={
+                        <Register 
+                            handleRegister={handleRegister}
+                            user={user}
+                        />
+                    } />
+                    <Route path="admin" element={
+                        <Admin showError={showError} user={user}/>
+                    } />
+                    <Route path="*" element={
+                        <p className="text-rose-500 text-2xl font-sans">Hmm yes the screen is made of screen</p>
                     } />
                 </Route>
-                <Route path="boardgames/:boardgameId" element={
-                    <Boardgame user={user} users={users} addActivity={addActivity}/>
-                } />
-                <Route path="login" element={
-                    <Login user={user} handleLogin={handleLogin}/>
-                } />
-                <Route path="register" element={
-                    <Register 
-                        handleRegister={handleRegister}
-                        user={user}
-                    />
-                } />
-                <Route path="admin" element={
-                    <Admin showError={showError} user={user}/>
-                } />
-                <Route path="*" element={
-                    <p className="text-rose-500 text-2xl font-sans">Hmm yes the screen is made of screen</p>
-                } />
             </Routes>
-            <Footer />
         </Router>
     )
 }

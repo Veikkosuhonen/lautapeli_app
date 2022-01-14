@@ -23,8 +23,8 @@ const SecondaryButton = ({
     onClick
 }) => (
     <button
-    className="font text-orange-400 outline outline-2 
-    hover:outline-3 outline-orange-500 hover:shadow-lg
+    className="font text-orange-400 border-2 border-orange-500
+    hover:bg-orange-500 hover:text-slate-700 hover:shadow-lg
     px-4 py-1 rounded-lg
     transition duration-100"
     type={type || "button"}

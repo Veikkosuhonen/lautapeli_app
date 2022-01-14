@@ -63,7 +63,7 @@ const Admin = ({ user, showError }) => {
     }
 
     return (
-        <div className="p-4">
+        <div className="p-2">
             <h1 className="text-slate-100 text-2xl mb-4">Admin view</h1>
             <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-x-4">
                 <Surface>
@@ -81,8 +81,8 @@ const Admin = ({ user, showError }) => {
                         )}
                     </div>
                 </Surface>
-                <Surface className="md:col-span-2 xl:col-span-1">
-                    <div className="flex flex-col space-y-2 bg-slate-800 p-2">
+                <Surface className="md:col-span-2 xl:col-span-1 overflow-auto">
+                    <div className="flex flex-col space-y-2 bg-slate-800 p-0 sm:p-2">
                         <h2 className="text-slate-300 text-xl">Users</h2>
                         <SecondaryButton content={ usersVisible ? "hide users" : "show users"}
                         onClick={() => { setUsersVisible(!usersVisible)} } 

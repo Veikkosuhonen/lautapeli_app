@@ -5,8 +5,8 @@ import "react-datepicker/dist/react-datepicker.css";
 const Button = forwardRef(({ value, onClick }, ref) => (
     <button 
         className="
-        p-1 w-full rounded bg-slate-700 border
-        focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-offset-2 border-slate-600
+        p-1 w-full rounded bg-slate-700
+        focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-2 outline-offset-2
         font-serif text-slate-400"
         onClick={onClick} ref={ref}
         type="button" // somehow this defaulted to "submit" and caused issues

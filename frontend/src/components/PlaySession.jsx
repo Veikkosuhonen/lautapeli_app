@@ -11,7 +11,7 @@ const PlaySession = ({ playSession }) => {
         
         <li key={playSession.id} className="flex flex-col pl-2 border-l-2 border-slate-700 transition duration-200
         hover:border-indigo-500">
-            <div className="flex flex-col py-2"> 
+            <div className="flex flex-col pb-1"> 
                 <span className="text-xs text-slate-500">
                     {new Date(playSession.date).toLocaleString()}
                 </span>
@@ -19,9 +19,11 @@ const PlaySession = ({ playSession }) => {
                     Played {playSession.duration} minutes
                 </span>
             </div>
-            <div className="flex flex-row flex-wrap">
+            <div className="flex flex-row flex-wrap gap-2">
                 {playSession.players && playSession.players.map(player => (
+                    <>
                     <User user={player} score={player.player.score} winner={player.player.score === topScore} />
+                    </>
                 ))}
             </div>
         </li>

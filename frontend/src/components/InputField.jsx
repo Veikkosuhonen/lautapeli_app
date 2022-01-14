@@ -27,11 +27,12 @@ const InputField = ({
         onVisibleChange: setPopoverVisible,
     });
 
-    let className = "p-1 text-slate-300 w-full rounded bg-slate-700 border "
-    + "focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-offset-2 border-slate-600 "
+    let className = "p-1 text-slate-300 w-full rounded bg-slate-700 outline-2 "
+    + "focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-offset-2 "
     if (errorMessage) {
-        className += "outline outline-rose-500 focus:outline-rose-500"
+        className += "outline outline-rose-500 focus:outline-rose-500 "
     }
+    className += props.className
 
     const checkValidation = (value) => {
         if (typeof(validation) === "function") {

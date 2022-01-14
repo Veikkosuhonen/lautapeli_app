@@ -8,8 +8,8 @@ import playSessionService from '../services/playSessionService';
 
 import { toast } from 'react-toastify';
 import api from '../services/api';
-import { PuzzleIcon } from '@heroicons/react/outline';
 import Surface from '../components/Surface';
+import HeroSection from '../components/HeroSection';
 
 const Boardgame = ({
     user,
@@ -69,17 +69,19 @@ const Boardgame = ({
 
     return (
         <div className="basis-full">
+            <HeroSection>
+                {boardgame && 
+                <div className="flex flex-col justify-end space-y-4">
+                    <h1>{boardgame.name}</h1>
+                    <span className="text-lg text-slate-400">Added {boardgame.dateAdded}</span>
+                </div>
+                }
+            </HeroSection>
             {boardgame ? 
             <div className="flex flex-col space-y-2 sm:space-y-4">
                 <Surface>
-                    <div className="flex flex-row items-center space-x-2">
-                        <PuzzleIcon className="w-6 h-6 text-orange-500 mr-2" />
-                        <h1 className="text-slate-400 text-xl">{boardgame.name}</h1>
-                    </div>
-                </Surface>
-                <Surface>
                     <h1 className="text-slate-400 text-md font-normal pb-6">Playsessions</h1>
-                    <ul className="flex flex-col space-y-4">
+                    <ul className="flex flex-col space-y-6">
                         {boardgame && boardgame.playSessions.length !== 0 && boardgame.playSessions.map(ps => 
                             <PlaySession key={ps.id} playSession={ps}/>
                         )}
