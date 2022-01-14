@@ -5,7 +5,7 @@ import Activities from "../components/Activities"
 import { NavLink, Outlet } from "react-router-dom"
 import { Listbox, Transition } from "@headlessui/react"
 import { SecondaryButton } from "../components/Buttons"
-import { ArrowDownIcon, ArrowUpIcon, ChevronDownIcon, ChevronUpIcon, PlusIcon } from "@heroicons/react/outline"
+import { ArrowDownIcon, ArrowUpIcon, PlusIcon } from "@heroicons/react/outline"
 import HeroSection from "../components/HeroSection"
 import InputField from "../components/InputField"
 
