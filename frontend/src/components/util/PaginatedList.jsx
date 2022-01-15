@@ -16,6 +16,7 @@ const PaginatedList = ({
                 <div className="pr-4">
                     {title}
                 </div>
+                {children && <>
                 <button className="text-slate-400 hover:text-slate-300 disabled:text-slate-600"
                     disabled={page === 0}
                     onClick={() => {setPage(page - 1)}}
@@ -29,10 +30,10 @@ const PaginatedList = ({
                 >
                     <ChevronRightIcon className="w-6 h-6"/>
                 </button>
-
+                </> }
             </div>
             <div className="flex flex-col space-y-2 border-l border-slate-700">
-                {children.slice(start, end)}
+                {children ? children.slice(start, end) : <span className="text-sm text-slate-500">No items</span>}
             </div>
         </div>
     )

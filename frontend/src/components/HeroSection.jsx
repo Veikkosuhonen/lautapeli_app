@@ -1,5 +1,5 @@
 const HeroSection = ({ children }) => (
-    <div className="relative mb-6 md:mb-0">
+    <div className="relative mb-8 sm:mb-0 md:-mb-8 lg:-mb-16 xl:-mb-20 -z-10">
         <svg xmlns="http://www.w3.org/2000/svg" id="visual" viewBox="0 0 900 220" version="1.1">
             <path d="M0 128L15 129.3C30 130.7 60 133.3 90 130.7C120 128 150 120 180 116.3C210 112.7 240 113.3 270 119C300 124.7 330 135.3 360 140.7C390 146 420 146 450 137.3C480 128.7 510 111.3 540 108.7C570 106 600 118 630 122.8C660 127.7 690 125.3 720 120C750 114.7 780 106.3 810 103.7C840 101 870 104 885 105.5L900 107L900 0L885 0C870 0 840 0 810 0C780 0 750 0 720 0C690 0 660 0 630 0C600 0 570 0 540 0C510 0 480 0 450 0C420 0 390 0 360 0C330 0 300 0 270 0C240 0 210 0 180 0C150 0 120 0 90 0C60 0 30 0 15 0L0 0Z" 
             fill="#4e005c"/>
@@ -7,7 +7,10 @@ const HeroSection = ({ children }) => (
             fill="#0369a1"/> {/* sky-700 */}
         </svg>
         <div className="select-none
-            text-2xl sm:text-4xl md:text-6xl font-light text-slate-200 absolute bottom-5 sm:bottom-10 md:bottom-20 left-10 sm:left-15 md:left-20"
+            text-2xl sm:text-4xl md:text-6xl font-light text-slate-200 
+            absolute 
+            top-5 sm:top-10 md:top-20 
+            left-10 sm:left-15 md:left-20"
         >
             { children }
         </div>
