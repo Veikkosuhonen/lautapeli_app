@@ -12,7 +12,6 @@ const EditableParagraph = ({
 
     // https://codepen.io/liborgabrhel/pen/eyzwOx?editors=0010
     const handleChange = (event) => {
-        console.log("event")
 		const previousRows = event.target.rows;
         event.target.rows = minRows; // reset number of rows in textarea 
             
@@ -33,11 +32,10 @@ const EditableParagraph = ({
 
     useEffect(() => {
         const rows = ~~(document.getElementById(props.id).scrollHeight / lineHeight) 
-        console.log(rows)
         document.getElementById(props.id).rows = rows
         setRows(rows)
     }, [props.id])
-    console.log(className)
+
     return (
         <textarea
             rows={rows}
