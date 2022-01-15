@@ -16,6 +16,11 @@ Boardgame.init({
         unique: true,
         allowNull: false
     },
+    description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        defaultValue: ""
+    },
     dateAdded: {
         type: DataTypes.DATEONLY,
         allowNull: true,

@@ -1,6 +1,5 @@
 const supertest = require("supertest")
 const app = require("../app")
-const { sequelize, connectToDatabase } = require("../util/db")
 const { Boardgame } = require("../models")
 const testUtils = require("./testUtils")
 
