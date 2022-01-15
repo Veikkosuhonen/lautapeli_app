@@ -471,16 +471,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   position: relative;
 }
 
-.bottom-5 {
-  bottom: 1.25rem;
+.top-5 {
+  top: 1.25rem;
 }
 
 .left-10 {
   left: 2.5rem;
-}
-
-.top-5 {
-  top: 1.25rem;
 }
 
 .-z-10 {
@@ -517,8 +513,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: 0.25rem;
 }
 
-.mb-6 {
-  margin-bottom: 1.5rem;
+.mb-8 {
+  margin-bottom: 2rem;
 }
 
 .mb-4 {
@@ -527,22 +523,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mr-2 {
   margin-right: 0.5rem;
-}
-
-.-mb-16 {
-  margin-bottom: -4rem;
-}
-
-.-mb-0 {
-  margin-bottom: -0px;
-}
-
-.mb-0 {
-  margin-bottom: 0px;
-}
-
-.mb-8 {
-  margin-bottom: 2rem;
 }
 
 .block {
@@ -559,10 +539,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .grid {
   display: grid;
-}
-
-.contents {
-  display: contents;
 }
 
 .hidden {
@@ -585,12 +561,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 1.25rem;
 }
 
-.h-4 {
-  height: 1rem;
-}
-
 .h-7 {
   height: 1.75rem;
+}
+
+.h-4 {
+  height: 1rem;
 }
 
 .w-full {
@@ -613,20 +589,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 1.25rem;
 }
 
-.w-4 {
-  width: 1rem;
-}
-
-.w-1\/3 {
-  width: 33.333333%;
-}
-
-.w-96 {
-  width: 24rem;
-}
-
 .w-7 {
   width: 1.75rem;
+}
+
+.w-4 {
+  width: 1rem;
 }
 
 .max-w-sm {
@@ -684,10 +652,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .resize-none {
   resize: none;
-}
-
-.resize-y {
-  resize: vertical;
 }
 
 .grid-cols-2 {
@@ -794,12 +758,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
-.space-y-6 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
-}
-
 .space-y-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
@@ -842,10 +800,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   overflow: hidden;
 }
 
-.whitespace-normal {
-  white-space: normal;
-}
-
 .rounded {
   border-radius: 0.25rem;
 }
@@ -874,14 +828,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-left-width: 1px;
 }
 
-.border-b-2 {
-  border-bottom-width: 2px;
-}
-
-.border-b {
-  border-bottom-width: 1px;
-}
-
 .border-slate-800 {
   --tw-border-opacity: 1;
   border-color: rgb(30 41 59 / var(--tw-border-opacity));
@@ -895,21 +841,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border-orange-500 {
   --tw-border-opacity: 1;
   border-color: rgb(249 115 22 / var(--tw-border-opacity));
-}
-
-.border-slate-400 {
-  --tw-border-opacity: 1;
-  border-color: rgb(148 163 184 / var(--tw-border-opacity));
-}
-
-.border-slate-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(100 116 139 / var(--tw-border-opacity));
-}
-
-.border-slate-300 {
-  --tw-border-opacity: 1;
-  border-color: rgb(203 213 225 / var(--tw-border-opacity));
 }
 
 .bg-orange-800 {
@@ -1046,16 +977,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 1rem;
 }
 
+.pb-8 {
+  padding-bottom: 2rem;
+}
+
 .pb-4 {
   padding-bottom: 1rem;
 }
 
 .pt-6 {
   padding-top: 1.5rem;
-}
-
-.pb-8 {
-  padding-bottom: 2rem;
 }
 
 .text-left {
@@ -1222,11 +1153,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-shadow: var(--tw-shadow-colored);
 }
 
-.outline-none {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
 .outline {
   outline-style: solid;
 }
@@ -1247,12 +1173,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   outline-offset: 2px;
 }
 
-.outline-rose-500 {
-  outline-color: #f43f5e;
-}
-
 .outline-indigo-500 {
   outline-color: #6366f1;
+}
+
+.outline-rose-500 {
+  outline-color: #f43f5e;
 }
 
 .filter {
@@ -1396,14 +1322,6 @@ input[type=number] {
   outline-offset: 2px;
 }
 
-.focus\:outline:focus {
-  outline-style: solid;
-}
-
-.focus\:outline-dashed:focus {
-  outline-style: dashed;
-}
-
 .focus\:outline-2:focus {
   outline-width: 2px;
 }
@@ -1414,18 +1332,6 @@ input[type=number] {
 
 .focus\:outline-rose-500:focus {
   outline-color: #f43f5e;
-}
-
-.disabled\:w-6:disabled {
-  width: 1.5rem;
-}
-
-.disabled\:border-none:disabled {
-  border-style: none;
-}
-
-.disabled\:border-transparent:disabled {
-  border-color: transparent;
 }
 
 .disabled\:bg-orange-500\/60:disabled {
@@ -1449,20 +1355,16 @@ input[type=number] {
 }
 
 @media (min-width: 640px) {
-  .sm\:bottom-10 {
-    bottom: 2.5rem;
-  }
-
   .sm\:top-10 {
     top: 2.5rem;
   }
 
-  .sm\:ml-6 {
-    margin-left: 1.5rem;
-  }
-
   .sm\:mb-0 {
     margin-bottom: 0px;
+  }
+
+  .sm\:ml-6 {
+    margin-left: 1.5rem;
   }
 
   .sm\:block {
@@ -1534,40 +1436,16 @@ input[type=number] {
 }
 
 @media (min-width: 768px) {
-  .md\:bottom-20 {
-    bottom: 5rem;
+  .md\:top-20 {
+    top: 5rem;
   }
 
   .md\:left-20 {
     left: 5rem;
   }
 
-  .md\:top-20 {
-    top: 5rem;
-  }
-
   .md\:col-span-2 {
     grid-column: span 2 / span 2;
-  }
-
-  .md\:mb-0 {
-    margin-bottom: 0px;
-  }
-
-  .md\:-mb-16 {
-    margin-bottom: -4rem;
-  }
-
-  .md\:-mb-12 {
-    margin-bottom: -3rem;
-  }
-
-  .md\:-mb-14 {
-    margin-bottom: -3.5rem;
-  }
-
-  .md\:-mb-10 {
-    margin-bottom: -2.5rem;
   }
 
   .md\:-mb-8 {
@@ -1601,10 +1479,6 @@ input[type=number] {
 }
 
 @media (min-width: 1024px) {
-  .lg\:-mb-1 {
-    margin-bottom: -0.25rem;
-  }
-
   .lg\:-mb-16 {
     margin-bottom: -4rem;
   }
