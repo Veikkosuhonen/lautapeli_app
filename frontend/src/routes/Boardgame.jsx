@@ -8,7 +8,7 @@ import playSessionService from '../services/playSessionService';
 
 import { toast } from 'react-toastify';
 import api from '../services/api';
-import Surface from '../components/Surface';
+import Surface from '../components/util/Surface';
 import HeroSection from '../components/HeroSection';
 
 const Boardgame = ({

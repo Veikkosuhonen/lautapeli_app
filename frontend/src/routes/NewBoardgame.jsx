@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { multiValidation } from "../util/validation"
-import InputField from "../components/InputField"
-import { PrimaryButton } from "../components/Buttons"
-import Surface from "../components/Surface"
+import InputField from "../components/util/InputField"
+import { PrimaryButton } from "../components/util/Buttons"
+import Surface from "../components/util/Surface"
 
 
 export default function NewBoardgame({

@@ -1,4 +1,4 @@
-import { StarIcon } from "@heroicons/react/solid"
+import { StarIcon } from "@heroicons/react/solid"
 
 const User = ({ user, score, winner }) => (
     <div key={user.id} className="flex flex-row items-center bg-slate-600/50 py-1 px-2 rounded">

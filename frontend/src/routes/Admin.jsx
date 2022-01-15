@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { PrimaryButton, SecondaryButton } from "../components/Buttons";
-import Surface from "../components/Surface";
+import { PrimaryButton, SecondaryButton } from "../components/util/Buttons";
+import Surface from "../components/util/Surface";
 import adminService from "../services/adminService";
 import userService from "../services/userService"
 

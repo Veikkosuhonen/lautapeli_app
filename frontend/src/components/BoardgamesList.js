@@ -1,5 +1,5 @@
 import React from "react"
-import Surface from "./Surface"
+import Surface from "./util/Surface"
 import { Link } from "react-router-dom"
 
 const Boardgame = ({ boardgame }) => (

@@ -1,8 +1,8 @@
 import React from "react"
 import { useState } from "react"
-import { PrimaryButton } from "./Buttons"
-import Surface from "./Surface"
-import InputField from "./InputField"
+import { PrimaryButton } from "./util/Buttons"
+import Surface from "./util/Surface"
+import InputField from "./util/InputField"
 
 const LoginForm = ({
     handleLogin,

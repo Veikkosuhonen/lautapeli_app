@@ -2,7 +2,7 @@ import React from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import { Disclosure } from "@headlessui/react"
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import { SecondaryButton } from "./Buttons"
+import { SecondaryButton } from "./util/Buttons"
 import { PuzzleIcon } from "@heroicons/react/solid"
 import User from "./User"
 

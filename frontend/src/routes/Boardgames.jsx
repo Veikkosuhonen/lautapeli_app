@@ -3,44 +3,15 @@ import React, { useState } from "react"
 import BoardgamesList from '../components/BoardgamesList'
 import Activities from "../components/Activities"
 import { NavLink, Outlet } from "react-router-dom"
-import { Listbox, Transition } from "@headlessui/react"
-import { SecondaryButton } from "../components/Buttons"
+import { SecondaryButton } from "../components/util/Buttons"
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon } from "@heroicons/react/outline"
 import HeroSection from "../components/HeroSection"
-import InputField from "../components/InputField"
+import InputField from "../components/util/InputField"
+import SelectInput from "../components/util/SelectInput"
 
 const sortOptions = [
     "name", "date added", "last played"
 ]
-
-const Selector = ({ value, setValue }) => {
-    return (
-        <div className="text-slate-300">
-            <Listbox value={value} onChange={setValue}>
-                <Listbox.Button className="py-1 px-2 rounded-lg bg-slate-800 hover:bg-slate-700">{value}</Listbox.Button>
-                <Transition
-                    enter="transition duration-100 ease-out"
-                    enterFrom="transform scale-95 opacity-0"
-                    enterTo="transform scale-100 opacity-100"
-                    leave="transition duration-75 ease-out"
-                    leaveFrom="transform scale-100 opacity-100"
-                    leaveTo="transform scale-95 opacity-0"
-                ></Transition>
-                <Listbox.Options className="absolute z-10 bg-slate-800 shadow-md rounded border border-slate-700">
-                    {sortOptions.map((option, idx) => (
-                    <Listbox.Option
-                        className="hover:bg-slate-700 select-none cursor-default p-2"
-                        key={idx}
-                        value={option}
-                    >
-                        {option}
-                    </Listbox.Option>
-                    ))}
-                </Listbox.Options>
-            </Listbox>
-        </div>
-    )
-}
 
 const Boardgames = ({
     boardgames, activities
@@ -84,7 +55,7 @@ const Boardgames = ({
                         </div>
                         <div className="flex flex-row space-x-1 items-center">
                             <span className="hidden sm:block text-slate-400 text-sm">Sort by</span>
-                            <Selector value={sortBy} setValue={setSortBy}/>
+                            <SelectInput value={sortBy} setValue={setSortBy} options={sortOptions}/>
                             <button className="text-slate-400 hover:text-slate-200" onClick={(event) => setDesc(!desc)}>
                                 {desc ? <ArrowDownIcon className="w-5 h-5"/> : <ArrowUpIcon className="w-5 h-5"/>}
                             </button>
