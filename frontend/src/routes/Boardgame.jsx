@@ -75,8 +75,8 @@ const Boardgame = ({
         const response = boardgameService.put(boardgame.id, { description: newDescription })
 
         toast.promise(response, {
-            pending: "Updating description...",
-            success: "Success",
+            pending: "Updating...",
+            success: "Description updated",
             error: { render({data}) { return data.message }}
         })
 
@@ -122,20 +122,20 @@ const Boardgame = ({
                             id="description"
                         />
                         { !editing ? 
-                        <button onClick={() => { setEditing(true) }}>
-                            <PencilIcon className="text-slate-400 hover:text-slate-200 w-6 h-6"/>
+                        <button onClick={() => { setEditing(true) }} className="text-slate-400 hover:text-slate-200  p-2">
+                            <PencilIcon className="w-6 h-6"/>
                         </button> 
                         : <>
                             <button 
                                 disabled={!descriptionEdited}
                                 onClick={() => { setEditing(false); updateDescription() }}
-                                className="text-slate-400 hover:text-slate-200  disabled:text-slate-600"
+                                className="text-slate-400 hover:text-slate-200  disabled:text-slate-600 p-2"
                             >
                                 <CheckIcon className="w-7 h-7"/>
                             </button>
                             <button 
                                 onClick={() => { setEditing(false); setNewDescription(boardgame.description) }}
-                                className="text-slate-400 hover:text-slate-200"
+                                className="text-slate-400 hover:text-slate-200 p-2"
                             >
                                 <XIcon className="w-7 h-7"/>
                             </button>
