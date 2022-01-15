@@ -18,7 +18,7 @@ const Boardgame = ({ boardgame }) => (
                 </Link>
             </div>
             <p className="text-slate-500 text-xs">Added {new Date(boardgame.dateAdded).toLocaleDateString()} by {boardgame.addedBy && boardgame.addedBy.name}</p>
-            <p className="text-slate-500 text-xs">Played {boardgame.timesPlayed} times</p>
+            <p className="text-slate-500 text-xs">Played {boardgame.playSessions.length} times</p>
         </div>
     </Surface>
 )

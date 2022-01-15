@@ -8,8 +8,8 @@ import playSessionService from '../services/playSessionService';
 
 import { toast } from 'react-toastify';
 import api from '../services/api';
-import Surface from '../components/util/Surface';
 import HeroSection from '../components/HeroSection';
+import PaginatedList from '../components/util/PaginatedList';
 
 const Boardgame = ({
     user,
@@ -26,10 +26,11 @@ const Boardgame = ({
         console.log("Getting boardgame " + id)
         api.setToken(user.token)
         bgService.getOne(id).then(bg => {
-            setBoardgame(bg)
-            console.log(JSON.stringify(bg))
+            setBoardgame({
+                ...bg,
+                playSessions: bg.playSessions.sort((c1, c2) => new Date(c2.date) - new Date(c1.date))
+            })
         }).catch(error => {
-            console.log(JSON.stringify(error.status))
             if (error.status === 404) {
                 navigate("/oopsie")
             } else {
@@ -40,7 +41,6 @@ const Boardgame = ({
 
 
     const addPlaySession = (playSession, clear) => {
-        console.log("Adding " + JSON.stringify(playSession))
         const response = playSessionService.post(playSession)
 
         toast.promise(response, {
@@ -50,7 +50,6 @@ const Boardgame = ({
         })
 
         response.then(data => {
-            console.log(JSON.stringify(data))
 
             const playSession = data.playSession
 
@@ -78,18 +77,17 @@ const Boardgame = ({
                 }
             </HeroSection>
             {boardgame ? 
-            <div className="flex flex-col space-y-2 sm:space-y-4">
-                <Surface>
-                    <h1 className="text-slate-400 text-md font-normal pb-6">Playsessions</h1>
-                    <ul className="flex flex-col space-y-6">
-                        {boardgame && boardgame.playSessions.length !== 0 && boardgame.playSessions.map(ps => 
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 p-2 sm:p-4 md:p-8">
+                <PaginatedList 
+                    className="basis-1/4"
+                    title={<h1 className="text-slate-400 text-md font-normal">Playsessions</h1>}
+                >
+                    {boardgame && boardgame.playSessions.length !== 0 && boardgame.playSessions.map(ps => 
+                        <div className="py-2">
                             <PlaySession key={ps.id} playSession={ps}/>
-                        )}
-                    </ul>
-                    {boardgame && boardgame.playSessions.length === 0 &&
-                        <p className="text-sm text-slate-500">Not yet played</p>
-                    }
-                </Surface>
+                        </div>
+                    )}
+                </PaginatedList>
                 <PlaySessionForm user={user} boardgame={boardgame} addPlaySession={addPlaySession} users={users}/>
             </div>
             : <>

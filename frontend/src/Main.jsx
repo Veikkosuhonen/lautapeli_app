@@ -50,7 +50,7 @@ const Main = () => {
         }
     }, [])
 
-    const postBg = (name) => {
+    const addBg = (name) => {
         const bg = { name: name }
 
         const response = bgService.post(bg)
@@ -62,17 +62,12 @@ const Main = () => {
         })
 
         response.then(data => {
-            console.log("Received response to post: " + JSON.stringify(bg))
+            // console.log("Received response to post: " + JSON.stringify(bg))
             setBoardgames(boardgames.concat(data.boardgame))
             addActivity(data.activity)
         }).catch(error => {
             console.log(error)
         })
-    }
-
-    const addBg = (newBg) => {
-        console.log("Adding " + newBg)
-        postBg(newBg)
     }
 
     const addActivity = (activity) => {
