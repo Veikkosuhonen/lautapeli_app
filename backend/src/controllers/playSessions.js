@@ -9,7 +9,7 @@ router.get("/", auth, async (request, response) => {
         include: [
             {
                 model: Boardgame,
-                attributes: { exclude: ["timesPlayed", "dateAdded", "addedById"] }
+                attributes: { exclude: ["dateAdded", "addedById"] }
             },
             {
                 model: User,
@@ -30,7 +30,7 @@ router.get("/:id", auth, async (request, response) => {
         include: [
             {
                 model: Boardgame,
-                attributes: { exclude: ["timesPlayed", "dateAdded", "addedById"] }
+                attributes: { exclude: ["dateAdded", "addedById"] }
             },
             {
                 model: User,
@@ -59,9 +59,9 @@ const validatePlaysession = (body) => {
 
 const createActivity = async (playSession) => {
     const winnerId = playSession.players.reduce((acc, player) => 
-            (player.player.score > acc.score ? { id: player.id, score: player.player.score } : acc), 
-            { id: -1, score: -1 }
-        ).id
+        (player.player.score > acc.score ? { id: player.id, score: player.player.score } : acc), 
+    { id: -1, score: -1 }
+    ).id
 
     const winnerQuery = User.findByPk(winnerId, { attributes: ["name"] })
 

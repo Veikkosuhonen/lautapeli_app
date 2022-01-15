@@ -19,7 +19,7 @@ afterEach(async () => {
 })
 
 test("New user can register with code", async () => {
-    const code = signupCodeService.createNew()
+    const code = signupCodeService.createNew().code
 
     const response = await api.post("/api/register")
         .send({ 
@@ -34,7 +34,7 @@ test("New user can register with code", async () => {
 })
 
 test("Registration with invalid code fails", async () => {
-    const code = { code: 123 }
+    const code = 123
 
     await api.post("/api/register")
         .send({ 
@@ -47,14 +47,14 @@ test("Registration with invalid code fails", async () => {
 })
 
 test("Cannot use code twice", async () => {
-    const code = signupCodeService.createNew()
+    const code = signupCodeService.createNew().code
 
     await api.post("/api/register")
         .send({ 
             username: "me",
             name: "veik",
             password: "123",
-            code: code
+            code
         })
         .expect(200)
     
@@ -63,7 +63,7 @@ test("Cannot use code twice", async () => {
             username: "we",
             name: "veik",
             password: "123",
-            code: code
+            code
         })
         .expect(401)
 })
@@ -74,7 +74,7 @@ test("Registration fails if username taken", async () => {
             username: "me",
             name: "veik",
             password: "123",
-            code: signupCodeService.createNew()
+            code: signupCodeService.createNew().code
         })
         .expect(200)
     
@@ -83,7 +83,7 @@ test("Registration fails if username taken", async () => {
             username: "me",
             name: "veik",
             password: "123",
-            code: signupCodeService.createNew()
+            code: signupCodeService.createNew().code
         })
         .expect(400)
 })

@@ -102,7 +102,6 @@ router.put("/:id", auth, async (request, response) => {
         return response.sendStatus(404)
     }
     bg.name = newBg.name || bg.name
-    bg.timesPlayed = newBg.timesPlayed || bg.timesPlayed
     await bg.save()
     logger.info(bg.toJSON())
     response.json(bg)

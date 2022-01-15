@@ -16,10 +16,6 @@ Boardgame.init({
         unique: true,
         allowNull: false
     },
-    timesPlayed: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-    },
     dateAdded: {
         type: DataTypes.DATEONLY,
         allowNull: true,

@@ -36,11 +36,14 @@
   "devDependencies": {
     "eslint": "^8.4.1",
     "jest": "^27.4.5",
+    "sequelize-cli": "^6.4.1",
     "supertest": "^6.1.6"
   },
   "jest": {
     "testEnvironment": "node",
-    "setupFilesAfterEnv": ["./src/tests/suiteSetup.js"],
+    "setupFilesAfterEnv": [
+      "./src/tests/suiteSetup.js"
+    ],
     "coverageDirectory": "./coverage/",
     "collectCoverage": false
   }

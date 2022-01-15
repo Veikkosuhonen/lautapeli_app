@@ -105,8 +105,8 @@ test("Put modifies boardgame", async () => {
     const response = await api
         .put("/api/boardgames/" + id)
         .set("authorization", testUtils.getToken())
-        .send({ timesPlayed: 1 })
+        .send({ name: "Azul: Summer Pavilion" })
     expect(response.status).toBe(200)
-    expect(response.body).toHaveProperty("timesPlayed", 1)
+    expect(response.body).toHaveProperty("name", "Azul: Summer Pavilion")
 })
 
