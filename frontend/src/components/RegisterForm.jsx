@@ -3,6 +3,7 @@ import { PrimaryButton } from "./util/Buttons"
 import Surface from "./util/Surface"
 import InputField from "./util/InputField"
 import { validation } from "../util/validation"
+import { NavLink } from "react-router-dom"
 
 const RegisterForm = ({
     handleSubmit
@@ -64,21 +65,28 @@ const RegisterForm = ({
 
     return (
         <div className="flex flex-row justify-center py-2 px-6 w-full">
-            <Surface>
+            <Surface className="w-4/5 sm:w-full sm:basis-2/3 md:basis-1/2 lg:basis:2/5">
                 <form 
                 onSubmit={submitHandler}
-                className="flex flex-col gap-2 m-1">
-                    <div className="flex flex-row mb-4">
-                        <h1 className="text-lg text-slate-100 font-medium">Register</h1>
+                className="flex flex-col gap-4 p-2">
+                    <div className="flex flex-row pb-4 gap-x-2 items-end">
+                        <h1 className="text-lg text-slate-100 font-medium mr-auto">Register</h1>
+                        <span className="text-slate-200">Or</span>
+                        <NavLink to="/login">
+                            <span className="hidden sm:block text-indigo-400 font-medium hover:text-indigo-300">login with an existing account</span>
+                            <span className="block sm:hidden text-indigo-400 font-medium hover:text-indigo-300">login</span>
+                        </NavLink>
                     </div>
                     <div className="flex flex-row">
                         <InputField type="text" placeholder="username" value={username} 
                         onChange={(event) => {setUsername(event.target.value)}} 
+                        autoComplete="off"
                         validation={validateUsername}/>
                     </div>
                     <div className="flex flex-row mb-4">
                         <InputField type="text" placeholder="name" value={name} 
                         onChange={(event) => {setName(event.target.value)}}
+                        autoComplete="off"
                         validation={validateName}/>
                     </div>
                     <div className="flex flex-row">
@@ -95,6 +103,7 @@ const RegisterForm = ({
                     <div className="flex flex-row mb-4">
                         <InputField type="number" placeholder="code" value={code} 
                         onChange={(event) => {setCode(event.target.value)}}
+                        autoComplete="off"
                         validation={validateCode} />
                     </div>
                     <PrimaryButton type="submit" content="Register" disabled={!isValid()}/>

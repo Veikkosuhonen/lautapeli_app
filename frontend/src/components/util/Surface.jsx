@@ -1,7 +1,7 @@
 import React from "react";
 
 const Surface = (props) => (
-    <div className={"w-full bg-gradient-to-r from-gray-800 to-slate-800 py-2 pl-1 sm:p-2 md:p-4 rounded shadow " + props.className}>
+    <div className={"w-full bg-gradient-to-b from-sky-600/10 to-indigo-600/10 py-3 px-2 sm:p-3 md:p-4 md:py-5 rounded shadow " + props.className}>
         {props.children}
     </div>
 )

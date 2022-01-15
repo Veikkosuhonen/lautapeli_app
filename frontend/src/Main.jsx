@@ -32,27 +32,29 @@ const Main = () => {
     const [users, setUsers] = useState([])
     const [user, setUser] = useState(null)
 
+    const loadData = () => {
+        bgService.getAll().then(bgs => {
+            setBoardgames(bgs)
+        })
+        userService.getAll().then(usrs => {
+            setUsers(usrs)
+        })
+        activityService.getAll().then(activities => {
+            setActivities(activities.sort((a, b) => new Date(b.date) - new Date(a.date)))
+        })
+    }
+
     useEffect(() => {
         const userJSON = window.localStorage.getItem("lautapeliAppUser")
         if (userJSON && userJSON !== "undefined") {
             const user = JSON.parse(userJSON)
             api.setToken(user.token)
-            bgService.getAll().then(bgs => {
-                setBoardgames(bgs)
-            })
-            userService.getAll().then(usrs => {
-                setUsers(usrs)
-            })
-            activityService.getAll().then(activities => {
-                setActivities(activities.sort((a, b) => new Date(b.date) - new Date(a.date)))
-            })
+            loadData()
             setUser(user)
         }
     }, [])
 
-    const addBg = (name) => {
-        const bg = { name: name }
-
+    const addBg = (bg) => {
         const response = bgService.post(bg)
 
         toast.promise(response, {
@@ -86,9 +88,7 @@ const Main = () => {
 
         response.then(user => {
             api.setToken(user.token)
-            bgService.getAll().then(bgs => {
-                setBoardgames(bgs)
-            })
+            loadData()
             setUser(user)
             window.localStorage.setItem(
                 "lautapeliAppUser", JSON.stringify(user)
@@ -105,6 +105,7 @@ const Main = () => {
         api.setToken(null)
         setUser(null)
         setBoardgames([])
+        setActivities([])
     }
 
     return (

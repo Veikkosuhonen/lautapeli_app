@@ -103,15 +103,13 @@ const Boardgame = ({
                 <div className="flex flex-col justify-end space-y-4">
                     <h1>{boardgame.name}</h1>
                     <span className="text-lg text-slate-400">Added {boardgame.dateAdded}</span>
-
-                    
                 </div>
                 }
             </HeroSection>
 
             {boardgame ?
             <div className="p-2 sm:p-4 md:p-8">
-                <div className="flex flex-row w-full items-start gap-4 self-align-end pb-8 md:pb-10 lg:pb-16 xl:pb-20">
+                <div className="flex flex-row w-full items-start gap-4 self-align-end pb-12 md:pb-16 lg:pb-20">
                     <>
                         <EditableParagraph 
                             value={newDescription} 
@@ -143,14 +141,14 @@ const Boardgame = ({
                         }
                     </>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+                <div className="flex flex-col md:flex-row gap-y-10 gap-x-6">
                     <PaginatedList 
-                        className="basis-1/4"
+                        className="basis-1/4 sm:basis-2/5"
                         title={<h1 className="text-slate-400 text-md font-normal">Playsessions</h1>}
                     >
                         {hasPlaySessions && boardgame.playSessions.map(ps => 
-                            <div className="py-2">
-                                <PlaySession key={ps.id} playSession={ps}/>
+                            <div className="py-2" key={ps.id}>
+                                <PlaySession playSession={ps}/>
                             </div>
                         )}
                     </PaginatedList>

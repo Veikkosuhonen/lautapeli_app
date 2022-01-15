@@ -6,6 +6,7 @@ import DateInput from './util/DateInput';
 import Surface from "./util/Surface"
 import Select from "react-select"
 import { StarIcon } from '@heroicons/react/solid';
+import { validation } from "../util/validation"
 
 const ScoreInput = (
     {value, onChange, ...props}
@@ -95,6 +96,7 @@ const PlaySessionForm = ({
     const [duration, setDuration] = useState(0)
     const [date, setDate] = useState(new Date())
     const [players, setPlayers] = useState([])
+    const [durationValid, setDurationValid] = useState(false)
 
     const onSubmit = (event) => {
         event.preventDefault()
@@ -120,6 +122,16 @@ const PlaySessionForm = ({
         ))
     }
 
+    const isValid = () => {
+        return durationValid && players.length > 0
+    }
+
+    const durationValidation = validation(
+        setDurationValid,
+        (value) => value > 0,
+        "Should be a positive number"
+    )
+
     const topScore = players.length > 0 ? players[0].score : -1
 
     const onScoreFocusLoss = () => { // sort players by score
@@ -128,26 +140,27 @@ const PlaySessionForm = ({
 
     return (
         <Surface className="flex flex-col space-y-3">
-            <h1 className="text-lg text-slate-400 pb-2">New playsession</h1>
+            <h1 className="text-slate-300 pb-2">New playsession</h1>
             <form onSubmit={onSubmit}>
-                <div className="grid grid-cols-3 gap-2 items-center text-slate-500">
+                <div className="grid grid-cols-3 gap-2 items-center text-slate-400">
 
-                    <span>Date</span>
+                    <span className="text-right">Date</span>
                     <div className="col-span-2">
                         <DateInput date={date} setDate={setDate}/>
                     </div>
 
-                    <span>Duration</span>
+                    <span className="text-right">Duration</span>
                     <div className="col-span-2">
                         <InputField 
                             value={duration} 
                             onChange={(event) => { setDuration(event.target.value) }} 
                             placeholder="duration (min)"
                             type="number"
+                            validation={durationValidation}
                         />
                     </div>
 
-                    <span className="pt-4 text-slate-400">Select players</span>
+                    <span className="pt-2 sm:pt-4 text-slate-400">Select players</span>
                     <div className="col-span-3 text-sm text-slate-400 font-light max-w-sm pb-2">
                         <PlayerSelector players={players} users={users} setPlayers={setPlayers}/>
                     </div>
@@ -183,7 +196,7 @@ const PlaySessionForm = ({
                     }
 
                     <div className="col-span-3 pt-4">
-                        <PrimaryButton type="submit" content="add playsession" />
+                        <PrimaryButton type="submit" content="add playsession" disabled={!isValid()}/>
                     </div>
                 </div>
             </form>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
 const EditableParagraph = ({
     value, setValue, className, ...props
@@ -30,19 +30,13 @@ const EditableParagraph = ({
         setRows(currentRows < maxRows ? currentRows : maxRows)
 	}
 
-    useEffect(() => {
-        const rows = ~~(document.getElementById(props.id).scrollHeight / lineHeight) 
-        document.getElementById(props.id).rows = rows
-        setRows(rows)
-    }, [props.id])
-
     return (
         <textarea
             rows={rows}
             value={value}
             onChange={handleChange}
             className={"bg-transparent outline-1 outline-dashed outline-indigo-500 focus:outline-2 p-2 rounded disabled:outline-none " +
-                "text-slate-300 text-lg line resize-none " + className}
+                "text-slate-300 text-base sm:text-lg line resize-none placeholder:text-slate-400 " + className}
             disabled={props.disabled}
             placeholder={props.placeholder}
             id={props.id}
