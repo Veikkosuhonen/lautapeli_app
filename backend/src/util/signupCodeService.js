@@ -26,10 +26,13 @@ const removeDatedCodes = () => {
 }
 
 const useCode = (code) => {
+    console.log("Using code: " + code)
+    console.log(codes)
     removeDatedCodes()
-    const isValid = codes.some(c => c.code === code.code)
+    console.log(codes)
+    const isValid = codes.some(c => c.code === code)
     if (isValid) {
-        codes = codes.filter(c => c.code !== code.code)
+        codes = codes.filter(c => c.code !== code)
         return true
     }
     return false

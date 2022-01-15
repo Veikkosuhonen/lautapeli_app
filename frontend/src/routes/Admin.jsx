@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PrimaryButton, SecondaryButton } from "../components/util/Buttons";
 import Surface from "../components/util/Surface";
+import HeroSection from "../components/HeroSection"
 import adminService from "../services/adminService";
 import userService from "../services/userService"
 
@@ -63,9 +64,10 @@ const Admin = ({ user, showError }) => {
     }
 
     return (
+        <>
+        <HeroSection><h1>Admin view</h1></HeroSection>
         <div className="p-2">
-            <h1 className="text-slate-100 text-2xl mb-4">Admin view</h1>
-            <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-x-4">
+            <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
                 <Surface>
                     <div className="flex flex-col space-y-2 bg-slate-800 p-2">
                         <h2 className="text-slate-300 text-xl">Codes</h2>
@@ -116,6 +118,7 @@ const Admin = ({ user, showError }) => {
                 </Surface>
             </div>
         </div>
+        </>
     )
 }
 

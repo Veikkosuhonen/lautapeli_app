@@ -2,7 +2,7 @@ import React from "react"
 import {
     BrowserRouter as Router,
     Routes,
-    Route,
+    Route
 } from "react-router-dom";
 
 import { useState, useEffect } from "react"
@@ -12,7 +12,6 @@ import "react-toastify/dist/ReactToastify.css"
 
 import bgService from "./services/boardgameService"
 import loginService from "./services/loginService"
-import registerService from "./services/registerService"
 import userService from "./services/userService";
 import activityService from "./services/activityService"
 import api from "./services/api"
@@ -50,10 +49,6 @@ const Main = () => {
             setUser(user)
         }
     }, [])
-
-    const showError = (message) => {
-        toast(message)
-    }
 
     const postBg = (name) => {
         const bg = { name: name }
@@ -109,36 +104,19 @@ const Main = () => {
         })  
     }
 
-    /*const handleLogout = (_event) => {
+    const handleLogout = (_event) => {
         console.log("...logging out")
         window.localStorage.removeItem("lautapeliAppUser")
         api.setToken(null)
         setUser(null)
         setBoardgames([])
-    }*/
-
-    const handleRegister = (credentials) => {
-        console.log("Registering " + JSON.stringify(credentials))
-        const response = registerService.register(credentials)
-
-        toast.promise(response, {
-            pending: "Checking credentials",
-            success: { render({data}) { return `Welcome, ${data.name}!`} },
-            error: { render({data}) { return data.message }}
-        })
-
-        response.then(data => {
-            console.log(JSON.stringify(data))
-        }).catch(error => {
-            console.log(error.message)
-        })
     }
 
     return (
         <Router>
             <Routes>
                 <Route path="/" element={
-                    <Layout user={user} />
+                    <Layout user={user} handleLogout={handleLogout} />
                 }>
                     <Route path="/" element={
                         <Home />
@@ -157,13 +135,10 @@ const Main = () => {
                         <Login user={user} handleLogin={handleLogin}/>
                     } />
                     <Route path="register" element={
-                        <Register 
-                            handleRegister={handleRegister}
-                            user={user}
-                        />
+                        <Register user={user} />
                     } />
                     <Route path="admin" element={
-                        <Admin showError={showError} user={user}/>
+                        <Admin showError={toast} user={user}/>
                     } />
                     <Route path="*" element={
                         <p className="text-rose-500 text-2xl font-sans">Hmm yes the screen is made of screen</p>

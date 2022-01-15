@@ -1,5 +1,6 @@
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import HeroSection from "../components/HeroSection"
 import LoginForm from "../components/LoginForm"
 
 const Login = ({
@@ -15,7 +16,10 @@ const Login = ({
     })
     
     return (
-        <LoginForm handleLogin={handleLogin}/>
+        <>
+            <HeroSection />
+            <LoginForm handleLogin={handleLogin}/>
+        </>
     )
 }
 

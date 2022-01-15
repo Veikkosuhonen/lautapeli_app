@@ -3,9 +3,9 @@ import { ToastContainer } from "react-toastify"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
 
-const Layout = ({ user }) => (
+const Layout = ({ user, handleLogout }) => (
     <>
-        <Navbar user={user}/>
+        <Navbar user={user} handleLogout={handleLogout}/>
         <ToastContainer position="top-center"/>
         <Outlet />
         <Footer />

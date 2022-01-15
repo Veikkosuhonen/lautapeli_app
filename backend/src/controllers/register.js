@@ -10,6 +10,7 @@ router.post("/", async (req, res, next) => {
         return res.status(400).json({ error: "invalid registration credentials" })
     }
     if (!signupCodeService.useCode(body.code)) {
+        console.log("Tried to use code '" + body.code + "' but it was invalid")
         return res.status(401).json({ error: "code expired or invalid" })
     }
 
