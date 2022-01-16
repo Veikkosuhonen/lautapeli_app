@@ -32,4 +32,7 @@
 | 10.1 | 3h | UI-devausta |
 | 11.1 | 4h | Pelisessioiden pelaajat pisteineen otetaan viimein backendissä talteen |
 | 12.1 | 4h | Aktiviteetit backissa ja frontissa, ja yleistä UI-devausta |
+| 13.1 | 4h | Parannuksia, pvm:t aktiviteeteille |
+| 14.1 | 4h | Stylausta ja parannuksia, filtteröinti/järjestys päänäkymään |
+| 15.1 | 5h | Lautapeleille muokattavissa oleva kuvaus. Edelleen UI-parannuksia. |
 
