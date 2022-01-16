@@ -17,7 +17,7 @@ const LoginForm = ({
 
     return (
         <div className="flex flex-row justify-center py-2 px-6 w-full">
-            <Surface className="w-4/5 sm:w-full sm:basis-1/2 md:basis-2/5 lg:basis:1/4">
+            <Surface className="w-4/5 sm:w-full sm:basis-1/2 md:basis-2/5 lg:basis-1/4 xl:basis-1/5">
                 <form 
                     onSubmit={submitHandler}
                     className="flex flex-col gap-4 p-2 py-4"

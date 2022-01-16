@@ -2059,6 +2059,10 @@ input[type=number] {
     margin-bottom: -4rem;
   }
 
+  .lg\:basis-1\/4 {
+    flex-basis: 25%;
+  }
+
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
@@ -2088,6 +2092,14 @@ input[type=number] {
 
   .xl\:-mb-20 {
     margin-bottom: -5rem;
+  }
+
+  .xl\:basis-1\/5 {
+    flex-basis: 20%;
+  }
+
+  .xl\:basis-1 {
+    flex-basis: 0.25rem;
   }
 
   .xl\:grid-cols-3 {
