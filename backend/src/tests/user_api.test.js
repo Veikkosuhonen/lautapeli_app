@@ -36,15 +36,15 @@ test("Admin can create valid user and returns fields", async () => {
     const response = await api.post("/api/users")
         .set("authorization", testUtils.getToken())
         .send({
-            username: "zyl",
-            name: "Veikko",
+            username: "zyl543",
+            name: "Veikko123",
             password: "yykaakoonee"
         }).expect(200)
 
     const body = response.body
 
-    expect(body.username).toBe("zyl")
-    expect(body.name).toBe("Veikko")
+    expect(body.username).toBe("zyl543")
+    expect(body.name).toBe("Veikko123")
     expect(body.id).toBeDefined()
 })
 

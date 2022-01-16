@@ -152,7 +152,9 @@ const Boardgame = ({
                             </div>
                         )}
                     </PaginatedList>
-                    <PlaySessionForm user={user} boardgame={boardgame} addPlaySession={addPlaySession} users={users}/>
+                    <div className="w-full">
+                        <PlaySessionForm user={user} boardgame={boardgame} addPlaySession={addPlaySession} users={users}/>
+                    </div>
                 </div>
             </div>
             : <>

@@ -61,7 +61,7 @@ test("Cannot use code twice", async () => {
     await api.post("/api/register")
         .send({ 
             username: "we",
-            name: "veik",
+            name: "veik123",
             password: "123",
             code
         })

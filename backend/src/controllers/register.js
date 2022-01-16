@@ -9,6 +9,17 @@ router.post("/", async (req, res, next) => {
     if (!(body.username && body.name && body.password && body.code)) {
         return res.status(400).json({ error: "invalid registration credentials" })
     }
+
+    const usernameInUse = await User.findOne({ where: { username: body.username }})
+    if (usernameInUse) {
+        return res.status(400).json({ error: "Account with that username already exists" })
+    }
+
+    const nameTaken = await User.findOne({ where: { name: body.name }})
+    if (nameTaken) {
+        return res.status(400).json({ error: `Name '${body.name}' is taken` })
+    }
+
     if (!signupCodeService.useCode(body.code)) {
         console.log("Tried to use code '" + body.code + "' but it was invalid")
         return res.status(401).json({ error: "code expired or invalid" })
@@ -28,7 +39,11 @@ router.post("/", async (req, res, next) => {
         const user = await User.create(userObject)
         Activity.create({ description: `${user.name} joined. Welcome!`, link: "/" })
         res.json({ id: user.id, username: user.username, name: user.name, isAdmin: user.isAdmin })
+        
     } catch(error) {
+        if (error.name === "SequelizeUniqueConstraintError" | "SequelizeValidationError") {
+            return res.status(400).send({ status: 400, error: "Invalid registration credentials" })
+        }
         next(error)
     }
 })

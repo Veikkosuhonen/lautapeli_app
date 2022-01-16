@@ -139,18 +139,18 @@ const PlaySessionForm = ({
     }
 
     return (
-        <Surface className="flex flex-col space-y-3">
-            <h1 className="text-slate-300 pb-2">New playsession</h1>
+        <Surface className="flex flex-col space-y-3 px-2 py-8">
+            <h1 className="text-slate-300 pb-6">New playsession</h1>
             <form onSubmit={onSubmit}>
-                <div className="grid grid-cols-3 gap-2 items-center text-slate-400">
+                <div className="grid grid-cols-3 items-center text-slate-400">
 
-                    <span className="text-right">Date</span>
-                    <div className="col-span-2">
+                    <span>Date</span>
+                    <div className="col-span-3 pb-4">
                         <DateInput date={date} setDate={setDate}/>
                     </div>
 
-                    <span className="text-right">Duration</span>
-                    <div className="col-span-2">
+                    <span>Duration</span>
+                    <div className="col-span-3 pb-6">
                         <InputField 
                             value={duration} 
                             onChange={(event) => { setDuration(event.target.value) }} 
@@ -160,8 +160,8 @@ const PlaySessionForm = ({
                         />
                     </div>
 
-                    <span className="pt-2 sm:pt-4 text-slate-400">Select players</span>
-                    <div className="col-span-3 text-sm text-slate-400 font-light max-w-sm pb-2">
+                    <span className="text-slate-400">Select players</span>
+                    <div className="col-span-3 text-sm text-slate-400 font-light pb-4">
                         <PlayerSelector players={players} users={users} setPlayers={setPlayers}/>
                     </div>
 
