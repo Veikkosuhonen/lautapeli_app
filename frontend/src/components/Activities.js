@@ -2,11 +2,11 @@ import { NavLink } from "react-router-dom"
 import PaginatedList from "./util/PaginatedList"
 
 export default function Activities({
-    activities
+    activities, itemsPerPage
 }) {
 
     return (
-        <PaginatedList className="basis-1/4" itemsPerPage={4} title={
+        <PaginatedList className="basis-1/4" itemsPerPage={itemsPerPage || 4} title={
             <h1 className="text-slate-400 text-md">Recent activity</h1>
         }>
             {activities.map(activity => (

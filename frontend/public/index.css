@@ -675,6 +675,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 2rem;
 }
 
+.w-1\/2 {
+  width: 50%;
+}
+
 .max-w-sm {
   max-width: 24rem;
 }
@@ -697,6 +701,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .basis-full {
   flex-basis: 100%;
+}
+
+.basis-1 {
+  flex-basis: 0.25rem;
 }
 
 .scale-95 {
@@ -1245,6 +1253,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 3rem;
 }
 
+.pt-10 {
+  padding-top: 2.5rem;
+}
+
+.pt-16 {
+  padding-top: 4rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -1784,6 +1800,10 @@ input[type=number] {
     width: 100%;
   }
 
+  .sm\:w-1\/2 {
+    width: 50%;
+  }
+
   .sm\:basis-2\/3 {
     flex-basis: 66.666667%;
   }
@@ -1865,6 +1885,14 @@ input[type=number] {
 
   .sm\:pt-4 {
     padding-top: 1rem;
+  }
+
+  .sm\:pt-20 {
+    padding-top: 5rem;
+  }
+
+  .sm\:pt-24 {
+    padding-top: 6rem;
   }
 
   .sm\:text-4xl {
@@ -1978,6 +2006,18 @@ input[type=number] {
     padding-bottom: 4rem;
   }
 
+  .md\:pt-32 {
+    padding-top: 8rem;
+  }
+
+  .md\:pt-36 {
+    padding-top: 9rem;
+  }
+
+  .md\:pt-40 {
+    padding-top: 10rem;
+  }
+
   .md\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
@@ -2004,6 +2044,14 @@ input[type=number] {
 
   .lg\:pb-20 {
     padding-bottom: 5rem;
+  }
+
+  .lg\:pt-32 {
+    padding-top: 8rem;
+  }
+
+  .lg\:pt-24 {
+    padding-top: 6rem;
   }
 }
 

@@ -117,7 +117,7 @@ const Main = () => {
                     <Layout user={user} />
                 }>
                     <Route path="/" element={
-                        <Home />
+                        <Home user={user} activities={activities} boardgames={boardgames} users={users}/>
                     } />
                     <Route path="boardgames" element={
                         <Boardgames boardgames={boardgames} activities={activities} />
