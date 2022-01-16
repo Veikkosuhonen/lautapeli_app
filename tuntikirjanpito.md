@@ -1,5 +1,7 @@
 # Fullstack-harjoitustyön tuntikirjanpito
 
+En ole laskenut tarkasti, nämä ovat suuntaa antavia arvioita.
+
 | Pvm | Tuntimäärä | Aihe |
 | :-: | :--------: | :--- |
 | Viikko 1 |
@@ -35,4 +37,8 @@
 | 13.1 | 4h | Parannuksia, pvm:t aktiviteeteille |
 | 14.1 | 4h | Stylausta ja parannuksia, filtteröinti/järjestys päänäkymään |
 | 15.1 | 5h | Lautapeleille muokattavissa oleva kuvaus. Edelleen UI-parannuksia. |
+| 16.1 | 5h | Korjailua, refaktorointia, landing page, parannuksia käyttäjän luontiin |
+| Yht: | 29h |
+
+Kokonaistuntimäärä arviolta 104 h
 
