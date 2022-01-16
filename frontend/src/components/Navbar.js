@@ -8,7 +8,7 @@ import User from "./User"
 const NavbarLink = ({ path, children }) => {
     return (
         <NavLink 
-            className={({ isActive }) => isActive ? "px-2 py-1 rounded-lg shadow-inner bg-sky-900/40 cursor-default" : "px-2 py-1 rounded-lg shadow-md bg-sky-300/10 hover:shadow-lg hover:bg-sky-300/20"}
+            className={({ isActive }) => isActive ? "px-2 py-1 rounded-md shadow-inner bg-sky-900/40 cursor-default" : "px-2 py-1 rounded-lg shadow-md bg-sky-300/10 hover:shadow-lg hover:bg-sky-300/20"}
             to={path}
         >{children}</NavLink>
     )
