@@ -16,7 +16,7 @@ test("Generates correct codes", () => {
 test("Expired codes cannot be used", () => {
     service.codes.push({
         code: "1234",
-        date: Date.now() - 1000 * 120
+        date: Date.now() - 1000 * service.EXPIRATION_SECONDS
     })
     expect(service.useCode(1234)).toBeFalsy()
 })

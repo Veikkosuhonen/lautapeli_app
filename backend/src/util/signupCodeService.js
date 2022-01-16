@@ -1,4 +1,4 @@
-const EXPIRATION_SECONDS = 120
+const EXPIRATION_SECONDS = 3600 * 48
 const CODE_LENGTH = 4
 
 let codes = []
@@ -35,4 +35,4 @@ const useCode = (code) => {
     return false
 }
 
-module.exports = { codes, createNew, useCode } 
+module.exports = { EXPIRATION_SECONDS, codes, createNew, useCode } 

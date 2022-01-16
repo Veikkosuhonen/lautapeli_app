@@ -58,12 +58,13 @@ const Admin = ({ user }) => {
         })
     }
 
+    const expirationTime = 3600 * 48
     const expirationStatus = (date) => {
         const diff = (date - Date.now()) / 1000
-        if (diff + 120 < 0) {
+        if (diff + expirationTime < 0) {
             return "expired"
         } else {
-            return "expires in " + (120 + diff) + " seconds"
+            return "expires in " + ~~((expirationTime + diff)/60) + " minutes"
         }
     }
 

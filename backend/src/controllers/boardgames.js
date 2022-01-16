@@ -23,7 +23,11 @@ router.get("/", auth, async (request, response) => {
 })
 
 router.get("/:id", auth, async (request, response) => {
-    const bg = await Boardgame.findByPk(request.params.id, {
+    const id = Number(request.params.id)
+    if (!id) {
+        return response.sendStatus(404)
+    }
+    const bg = await Boardgame.findByPk(id, {
         attributes: { exclude: ["addedById"] },
         include: [
             {
@@ -93,11 +97,13 @@ router.post("/", auth, async (request, response, next) => {
 })
 
 router.put("/:id", auth, async (request, response) => {
-    const bg = await Boardgame.findByPk(request.params.id)
+    const id = Number(request.params.id)
+    if (!id) return response.sendStatus(404)
     const newBg = request.body
     if (!newBg) {
         return response.sendStatus(405)
     }
+    const bg = await Boardgame.findByPk(id)
     if (!bg) {
         return response.sendStatus(404)
     }
