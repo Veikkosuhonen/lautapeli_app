@@ -6,6 +6,25 @@ Web-app for logging your groups boardgame sessions. Go see it at https://lautape
 
 _Tämä on myös HY:n fullstack-harjoitustyöni_:  [_Tuntikirjanpito_](https://github.com/Veikkosuhonen/lautapeli_app/blob/master/tuntikirjanpito.md)
 
+## Features
+
+- Users can create an account using a numeric code with a 48 hour expiration time
+- The admin user generates these codes from the admin interface in the app
+- Users see all added boardgames and can filter and sort these.
+- Users can add new boardgames with a name and a description. The description can be freely edited later
+- Users can open each boardgames' page and see its playsessions.
+- Users can log their playsessions
+- Playsessions contain information about when it happened, what the duration was and who were playing and what each players scores were
+- Events such as playsessions, users joining and boardgames getting added, show up on the activity feed
+
+### Planned
+
+- Discussions: users can comment on playsessions and boardgames. 
+- A separate discussion activity feed for comments shows up besides the normal activity feed.
+- Tags: boardgames can have tags, users can create new tags. Users can search boardgames by tags.
+- Score types: boardgames can have different scoring systems in addition to the default numeric scoring, such as win-lose.
+- Images: boardgames have an image gallery. Users can upload images from the boardgames' page. 
+- Most recently added images show up in a carousel on the landing page.
 
 ## How to...
 
