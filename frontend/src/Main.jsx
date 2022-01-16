@@ -24,6 +24,7 @@ import Boardgame from "./routes/Boardgame";
 import Boardgames from "./routes/Boardgames";
 import NewBoardgame from "./routes/NewBoardgame";
 import Layout from "./components/Layout";
+import Logout from "./routes/Logout";
 
 const Main = () => {
 
@@ -135,6 +136,9 @@ const Main = () => {
                     } />
                     <Route path="admin" element={
                         <Admin showError={toast} user={user}/>
+                    } />
+                    <Route path="logout" element={
+                        <Logout handleLogout={handleLogout}/>
                     } />
                     <Route path="*" element={
                         <p className="text-rose-500 text-2xl font-sans">Hmm yes the screen is made of screen</p>

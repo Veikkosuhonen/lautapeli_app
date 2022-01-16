@@ -65,15 +65,15 @@ const RegisterForm = ({
 
     return (
         <div className="flex flex-row justify-center py-2 px-6 w-full">
-            <Surface className="w-4/5 sm:w-full sm:basis-2/3 md:basis-1/2 lg:basis:2/5">
+            <Surface className="w-4/5 sm:w-full sm:basis-1/2 md:basis-1/2 lg:basis:1/4">
                 <form 
                 onSubmit={submitHandler}
-                className="flex flex-col gap-4 p-2">
-                    <div className="flex flex-row pb-4 gap-x-2 items-end">
+                className="flex flex-col gap-4 p-2 py-4">
+                    <div className="flex flex-row pb-4 gap-x-2 items-center">
                         <h1 className="text-lg text-slate-100 font-medium mr-auto">Register</h1>
-                        <span className="text-slate-200">Or</span>
+                        <span className="hidden md:block text-slate-300">or</span>
                         <NavLink to="/login">
-                            <span className="hidden sm:block text-indigo-400 font-medium hover:text-indigo-300">login with an existing account</span>
+                            <span className="hidden sm:block whitespace-nowrap text-indigo-400 font-medium hover:text-indigo-300">login with an existing account</span>
                             <span className="block sm:hidden text-indigo-400 font-medium hover:text-indigo-300">login</span>
                         </NavLink>
                     </div>
