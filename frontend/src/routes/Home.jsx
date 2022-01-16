@@ -18,14 +18,14 @@ const Home = ({
             </HeroSection>
 
             { user && 
-            <div className="px-2 pt-12 sm:pt-20 md:pt-32 lg:pt-24 flex flex-row justify-center">
+            <div className="px-2 pt-8 sm:pt-16 md:pt-24 lg:pt-8 flex flex-row justify-center">
                 <div>
                     <span className="text-lg font-base text-slate-400">{user ? "Here is the latest status report:" : "Currently we have"}</span>
                     <div className="flex flex-row flex-wrap gap-2 text-slate-200 font-medium text-base sm:text-lg">
                         <span className="select-none rounded border border-slate-700 p-2">
                             {users ? users.length : "?"} users
                         </span>
-                        <a href="/boardgames" className="rounded border border-slate-700 hover:bg-slate-800 p-2">
+                        <a href="/boardgames" className="rounded border border-orange-500 text-orange-300 hover:bg-slate-800/50 p-2">
                             {boardgames ? boardgames.length : "?"} boardgames
                         </a>
                         <span className="select-none rounded border border-slate-700 p-2">
@@ -36,7 +36,7 @@ const Home = ({
             </div>
             }
 
-            <div className="flex flex-row justify-center pt-16">
+            <div className="flex flex-row justify-center pt-16 md:pt-20">
             {user ?
             <>
                 <div className="w-full sm:w-1/2">
