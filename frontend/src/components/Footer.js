@@ -1,19 +1,19 @@
-import { NavLink } from "react-router-dom"
-
 const links = [
     { path: "/", label: "Home" },
     { path: "/boardgames", label: "Boardgames" },
-    { path: "/logout", label: "Logout" }
+    { path: "/logout", label: "Logout" },
+    { path: "https://github.com/Veikkosuhonen/lautapeli_app", label: "Github" },
+    { path: "https://github.com/Veikkosuhonen/lautapeli_app/issues/new", label: "Submit an issue" },
 ]
 
 const FooterLink = ({ link }) => (
-    <NavLink to={link.path}>
-        <span className="text-slate-200 text-sm">{link.label}</span>
-    </NavLink>
+    <a href={link.path}>
+        <span className="text-slate-200 text-sm hover:underline">{link.label}</span>
+    </a>
 )
 
 const Footer = () => (
-    <div className="w-full -z-10 -mt-10">
+    <div className="w-full -z-10 -mt-16 -mb-10">
         <svg xmlns="http://www.w3.org/2000/svg" id="visual" viewBox="0 0 900 600" version="1.1">
             <path d="M0 416L113 457L225 409L338 465L450 444L563 473L675 421L788 408L900 458L900 601L788 601L675 601L563 601L450 601L338 601L225 601L113 601L0 601Z" 
             fill="#f5730a"/>
@@ -28,7 +28,7 @@ const Footer = () => (
         </svg>
 
         <div className="bg-orange-800 pb-16 px-4">
-            <div className="grid grid-cols-3 justify-center justify-items-center">
+            <div className="grid grid-cols-3 justify-center justify-items-center gap-y-8">
                 {links.map((link, idx) => <FooterLink key={idx} link={link}/>)}
             </div>
         </div>

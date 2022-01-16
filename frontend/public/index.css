@@ -579,6 +579,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 4rem;
 }
 
+.-mt-16 {
+  margin-top: -4rem;
+}
+
+.-mb-10 {
+  margin-bottom: -2.5rem;
+}
+
 .block {
   display: block;
 }
@@ -833,6 +841,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .gap-x-6 {
   -webkit-column-gap: 1.5rem;
           column-gap: 1.5rem;
+}
+
+.gap-y-8 {
+  row-gap: 2rem;
 }
 
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
