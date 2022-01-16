@@ -25,6 +25,7 @@ import Boardgames from "./routes/Boardgames";
 import NewBoardgame from "./routes/NewBoardgame";
 import Layout from "./components/Layout";
 import Logout from "./routes/Logout";
+import NotFound from "./routes/NotFound";
 
 const Main = () => {
 
@@ -36,13 +37,13 @@ const Main = () => {
     const loadData = () => {
         bgService.getAll().then(bgs => {
             setBoardgames(bgs)
-        })
+        }).catch(error => { toast(error.message || "Error: " + error.status) })
         userService.getAll().then(usrs => {
             setUsers(usrs)
-        })
+        }).catch(error => { toast(error.message || "Error: " + error.status) })
         activityService.getAll().then(activities => {
             setActivities(activities.sort((a, b) => new Date(b.date) - new Date(a.date)))
-        })
+        }).catch(error => { toast(error.message || "Error: " + error.status) })
     }
 
     useEffect(() => {
@@ -113,7 +114,7 @@ const Main = () => {
         <Router>
             <Routes>
                 <Route path="/" element={
-                    <Layout user={user} handleLogout={handleLogout} />
+                    <Layout user={user} />
                 }>
                     <Route path="/" element={
                         <Home />
@@ -135,13 +136,13 @@ const Main = () => {
                         <Register user={user} />
                     } />
                     <Route path="admin" element={
-                        <Admin showError={toast} user={user}/>
+                        <Admin user={user}/>
                     } />
                     <Route path="logout" element={
                         <Logout handleLogout={handleLogout}/>
                     } />
                     <Route path="*" element={
-                        <p className="text-rose-500 text-2xl font-sans">Hmm yes the screen is made of screen</p>
+                        <NotFound />
                     } />
                 </Route>
             </Routes>

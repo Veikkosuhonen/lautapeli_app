@@ -1,34 +1,38 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"
 import { PrimaryButton, SecondaryButton } from "../components/util/Buttons";
 import Surface from "../components/util/Surface";
 import HeroSection from "../components/HeroSection"
 import adminService from "../services/adminService";
 import userService from "../services/userService"
+import { toast } from "react-toastify";
 
-const Admin = ({ user, showError }) => {
+const Admin = ({ user }) => {
     const [codes, setCodes] = useState([])
     const [usersVisible, setUsersVisible] = useState(false)
     const [users, setUsers] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (!user) return // user credentials not yet loaded
+        if (!user.isAdmin) {
+            navigate("/")
+            toast("Sorry, you are not authorized to go there")
+            return
+        }
         adminService.getCodes().then(codes => {
             setCodes(codes.sort((c1, c2) => c2.date - c1.date))
         }).catch(error => {
-            showError(error.message)
+            toast(error.message)
             setCodes([])
         })
-    }, [user, showError])
-
-    useEffect(() => {
-        if (!user) return // user credentials not yet loaded
         userService.getAll().then(users => {
             setUsers(users)
         }).catch(error => {
-            showError(error.message)
+            toast(error.message)
             setUsers([])
         })
-    }, [user, showError])
+    }, [user, navigate])
 
     const toggleDisabled = (user) => {
         if (!window.confirm("Are you sure you want to set disabled on user '" + user.name + "' to '" + !user.disabled + "'?"))
@@ -42,7 +46,7 @@ const Admin = ({ user, showError }) => {
                 }: u
             ))
         }).catch(error => {
-            showError(error.message)
+            toast(error.message)
         })
     }
 
@@ -50,7 +54,7 @@ const Admin = ({ user, showError }) => {
         adminService.genCode().then(code => {
             setCodes(codes.concat(code).sort((c1, c2) => c2.date - c1.date))
         }).catch(error => {
-            showError(error.message)
+            toast(error.message)
         })
     }
 
