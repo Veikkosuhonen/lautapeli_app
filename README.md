@@ -6,6 +6,8 @@ Web-app for logging your groups boardgame sessions. Go see it at https://lautape
 
 _Tämä on myös HY:n fullstack-harjoitustyöni_:  [_Tuntikirjanpito_](https://github.com/Veikkosuhonen/lautapeli_app/blob/master/tuntikirjanpito.md)
 
+[_Käyttöohje_](https://github.com/Veikkosuhonen/lautapeli_app/blob/master/kayttoohje.md)
+
 ## Features
 
 - Users can create an account using a numeric code with a 48 hour expiration time
