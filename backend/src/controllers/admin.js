@@ -11,6 +11,7 @@ router.get("/", adminAuth, (request, response) => {
 
 router.post("/codes", adminAuth, (request, response) => {
     const code = signupCodeService.createNew()
+    logger.debug("New code generated, currently we have " + signupCodeService.codes.map(code => code.code) )
     response.json(code)
 })
 

@@ -1,3 +1,5 @@
+const logger = require("./logger")
+
 const EXPIRATION_SECONDS = 3600 * 48
 const CODE_LENGTH = 4
 
@@ -12,6 +14,7 @@ const generateCode = () => {
 }
 
 const createNew = () => {
+    //removeDatedCodes()
     const newCode = {
         code: generateCode(),
         date: Date.now()

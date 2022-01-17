@@ -31,7 +31,7 @@ const runMigrations = async () => {
         },
     })
     const migrations = await migrator.up()
-    logger.debug("Migrations up to date", {
+    logger.info("Migrations up to date", {
         files: migrations.length,
     })
 }
@@ -72,7 +72,7 @@ const connectToDatabase = async () => {
         await runMigrations()
         await createAdmin()
         //debugTables()
-        logger.debug("Database connected")
+        logger.info("Database connected")
     } catch (error) {
         logger.error("connecting database failed")
         logger.error(error)
