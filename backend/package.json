@@ -6,7 +6,7 @@
   "scripts": {
     "test:container": "docker-compose -f test-compose.yml up --exit-code-from node-test-env",
     "wait_test": "sleep 2 && npm run test",
-    "test": "NODE_ENV=test jest --verbose --runInBand --detectOpenHandles",
+    "test": "NODE_ENV=test jest --verbose --runInBand --detectOpenHandles && npm run lint",
     "start": "NODE_ENV=production node src/index.js",
     "dev": "NODE_ENV=development nodemon --legacy-watch src/index.js",
     "lint": "npx eslint .",
