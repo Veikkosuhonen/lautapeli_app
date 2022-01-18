@@ -44,6 +44,7 @@ app.use("/api/admin", adminRouter)
 
 // https://ui.dev/react-router-cannot-get-url-refresh/
 app.get("/*", function(req, res) {
+    // eslint-disable-next-line no-undef
     res.sendFile(path.join(__dirname, "../build/index.html"), function(err) {
         if (err) {
             res.status(500).send(err)

@@ -1,3 +1,5 @@
+const { DataTypes } = require("sequelize")
+
 module.exports = {
     up: async ({ context: sequelize }) => {
         await sequelize.getQueryInterface().removeColumn("boardgames", "timesPlayed")

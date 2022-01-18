@@ -1,8 +1,6 @@
 const router = require("express").Router()
 
-const { User } = require("../models")
-const logger = require("../util/logger")
-const { adminAuth, getLoggedInUser } = require("../middleware/authorization")
+const { adminAuth } = require("../middleware/authorization")
 const signupCodeService = require("../util/signupCodeService")
 
 router.get("/", adminAuth, (request, response) => {

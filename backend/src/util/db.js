@@ -27,6 +27,7 @@ const runMigrations = async () => {
             tableName: "migrations",
         },
         migrations: {
+            // eslint-disable-next-line no-undef
             glob: ["../migrations/*.js", { cwd: __dirname }],
         },
     })
@@ -41,8 +42,8 @@ const createAdmin = async () => {
         logger.error("ADMIN_USER or ADMIN_PASSWORD env vars undefined")
         return
     }
-    const [exists, meta] = await sequelize.query(
-        `SELECT id FROM users WHERE username=? AND "isAdmin"`,
+    const [exists, ] = await sequelize.query(
+        "SELECT id FROM users WHERE username=? AND \"isAdmin\"",
         { replacements: [ADMIN_USER]} )
     if (exists.length !== 0) {
         logger.info("Admin already exists")
@@ -82,6 +83,7 @@ const connectToDatabase = async () => {
     return null
 }
 
+// eslint-disable-next-line no-unused-vars
 const debugTables = async () => {
     const tables = await sequelize.query("SELECT * \
     FROM pg_catalog.pg_tables \
