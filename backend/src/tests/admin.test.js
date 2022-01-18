@@ -4,11 +4,16 @@ const { User } = require("../models")
 const testUtils = require("./testUtils")
 const { ADMIN_USER, ADMIN_PASSWORD } = require("../util/config")
 const signupCodeService = require("../util/signupCodeService")
+const { Code } = require("../models")
 
 const api = supertest(app)
 
 beforeAll((done) => {
     app.on("dbReady", () => done())
+})
+
+beforeEach(async () => {
+    await Code.destroy({ where: { } })
 })
 
 afterEach(() => {
@@ -43,7 +48,8 @@ test("Can create codes", async () => {
         .expect(200)
     expect(response.body.code).toBeDefined()
 
-    expect(signupCodeService.codes).toHaveLength(1)
+    const codes = await signupCodeService.getAll()
+    expect(codes).toHaveLength(1)
 
     const codesResponse = await api.get("/api/admin/codes")
         .set("Authorization", testUtils.getToken())

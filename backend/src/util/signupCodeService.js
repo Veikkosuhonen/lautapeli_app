@@ -1,9 +1,9 @@
-const logger = require("./logger")
+const { Code } = require("../models")
+const { Op } = require("sequelize")
 
 const EXPIRATION_SECONDS = 3600 * 48
 const CODE_LENGTH = 4
 
-let codes = []
 
 const generateCode = () => {
     let code = ""
@@ -13,29 +13,62 @@ const generateCode = () => {
     return code
 }
 
-const createNew = () => {
+const createNew = async () => {
     //removeDatedCodes()
-    const newCode = {
-        code: generateCode(),
-        date: Date.now()
+    let created = false
+    let code
+    let tries = 0
+
+    while (!created) {
+        if (tries > 10) {
+            throw new Error("Code generation failed after 10 attempts")
+        }
+
+        const newCode = {
+            code: generateCode(),
+            date: Date.now()
+        }
+        try {
+            code = await Code.create(newCode)
+            created = true
+        } catch (e) {
+            if (e.name !== "SequelizeUniqueConstraintError") {
+                throw e
+            }
+            tries += 1
+        }
     }
-    codes.push(newCode)
-    return newCode
+    
+    return code
 }
 
-const removeDatedCodes = () => {
+const removeDatedCodes = async () => {
     const now = Date.now()
-    codes = codes.filter(c => now - c.date < 1000 * EXPIRATION_SECONDS)
+    await Code.destroy({ where: 
+        { 
+            date: { 
+                [Op.lt]: now - 1000 * EXPIRATION_SECONDS
+            }
+        } 
+    })
 }
 
-const useCode = (code) => {
-    removeDatedCodes()
-    const isValid = codes.some(c => c.code === code)
+const useCode = async (code) => {
+    await removeDatedCodes()
+    const isValid = await Code.findOne({ where: {
+        code: code
+    }})
     if (isValid) {
-        codes = codes.filter(c => c.code !== code)
+        await Code.destroy({ where: {
+            code: code
+        }})
         return true
     }
     return false
 }
 
-module.exports = { EXPIRATION_SECONDS, codes, createNew, useCode } 
+const getAll = async () => {
+    return await Code.findAll()
+}
+
+module.exports = { EXPIRATION_SECONDS, createNew, useCode, getAll } 

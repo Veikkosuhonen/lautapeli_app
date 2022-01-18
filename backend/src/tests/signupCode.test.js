@@ -1,31 +1,34 @@
 const service = require("../util/signupCodeService")
+const { Code } = require("../models")
 
 beforeEach(() => {
     service.codes = []
 })
 
-test("Generates correct codes", () => {
-    for (let i = 0; i < 500; i++) {
-        let code = service.createNew().code
+test("Generates correct codes", async () => {
+    for (let i = 0; i < 50; i++) {
+        let codeObject = await service.createNew()
+        let code = String(codeObject.code)
         expect(code).toHaveLength(4)
-        expect(service.useCode(code)).toBeTruthy()
-        expect(service.useCode(code)).toBeFalsy()
+        expect(await service.useCode(code)).toBeTruthy()
+        expect(await service.useCode(code)).toBeFalsy()
     }
 })
 
-test("Expired codes cannot be used", () => {
-    service.codes.push({
+test("Expired codes cannot be used", async () => {
+    await Code.create({
         code: "1234",
         date: Date.now() - 1000 * service.EXPIRATION_SECONDS
     })
-    expect(service.useCode(1234)).toBeFalsy()
+    const result = await service.useCode("1234")
+    expect(result).toBeFalsy()
 })
 
-test("Multiple codes can be used", () => {
-    const code1 = service.createNew().code
-    const code2 = service.createNew().code
-    const code3 = service.createNew().code
-    expect(service.useCode(code2)).toBeTruthy()
-    expect(service.useCode(code1)).toBeTruthy()
-    expect(service.useCode(code3)).toBeTruthy()
+test("Multiple codes can be used", async () => {
+    const code1 = await service.createNew()
+    const code2 = await service.createNew()
+    const code3 = await service.createNew()
+    expect(await service.useCode(code2.code)).toBeTruthy()
+    expect(await service.useCode(code1.code)).toBeTruthy()
+    expect(await service.useCode(code3.code)).toBeTruthy()
 })

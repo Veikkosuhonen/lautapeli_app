@@ -9,14 +9,14 @@ router.get("/", adminAuth, (request, response) => {
     response.json({ message: "Hello, admin" })
 })
 
-router.post("/codes", adminAuth, (request, response) => {
-    const code = signupCodeService.createNew()
-    logger.debug("New code generated, currently we have " + signupCodeService.codes.map(code => code.code) )
+router.post("/codes", adminAuth, async (request, response) => {
+    const code = await signupCodeService.createNew()
     response.json(code)
 })
 
-router.get("/codes", adminAuth, (request, response) => {
-    response.json(signupCodeService.codes)
+router.get("/codes", adminAuth, async (request, response) => {
+    const codes = await signupCodeService.getAll()
+    response.json(codes)
 })
 
 module.exports = router

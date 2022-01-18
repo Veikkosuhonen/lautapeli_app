@@ -2,6 +2,7 @@ const supertest = require("supertest")
 const app = require("../app")
 const testUtils = require("./testUtils")
 const signupCodeService = require("../util/signupCodeService")
+const { Code } = require("../models")
 
 const api = supertest(app)
 
@@ -11,7 +12,7 @@ beforeAll((done) => {
 })
 
 beforeEach(async () => {
-    
+    await Code.destroy({ where: { } })
 })
 
 afterEach(async () => {
@@ -19,14 +20,14 @@ afterEach(async () => {
 })
 
 test("New user can register with code", async () => {
-    const code = signupCodeService.createNew().code
+    const code = await signupCodeService.createNew()
 
     const response = await api.post("/api/register")
         .send({ 
             username: "me",
             name: "veik",
             password: "123",
-            code: code
+            code: code.code
         })
         .expect(200)
 
@@ -34,7 +35,7 @@ test("New user can register with code", async () => {
 })
 
 test("Registration with invalid code fails", async () => {
-    const code = 123
+    const code = "123"
 
     await api.post("/api/register")
         .send({ 
@@ -47,7 +48,7 @@ test("Registration with invalid code fails", async () => {
 })
 
 test("Cannot use code twice", async () => {
-    const code = signupCodeService.createNew().code
+    const code = (await signupCodeService.createNew()).code
 
     await api.post("/api/register")
         .send({ 
@@ -69,21 +70,23 @@ test("Cannot use code twice", async () => {
 })
 
 test("Registration fails if username taken", async () => {
+    let code = await signupCodeService.createNew()
     await api.post("/api/register")
         .send({ 
             username: "me",
             name: "veik",
             password: "123",
-            code: signupCodeService.createNew().code
+            code: code.code
         })
         .expect(200)
     
+    code = await signupCodeService.createNew()
     await api.post("/api/register")
         .send({ 
             username: "me",
             name: "veik",
             password: "123",
-            code: signupCodeService.createNew().code
+            code: code.code
         })
         .expect(400)
 })

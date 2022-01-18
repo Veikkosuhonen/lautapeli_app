@@ -3,7 +3,7 @@ const router = require("express").Router()
 const { User, Activity } = require("../models")
 const signupCodeService = require("../util/signupCodeService")
 
-router.post("/", async (req, res, next) => {
+router.post("/", async (req, res, next) => { 
 
     const body = req.body
     if (!(body.username && body.name && body.password && body.code)) {
@@ -20,7 +20,8 @@ router.post("/", async (req, res, next) => {
         return res.status(400).json({ error: `Name '${body.name}' is taken` })
     }
 
-    if (!signupCodeService.useCode(body.code)) {
+    const codeValid = await signupCodeService.useCode(body.code)
+    if (!codeValid) {
         console.log("Tried to use code '" + body.code + "' but it was invalid")
         return res.status(401).json({ error: "code expired or invalid" })
     }
