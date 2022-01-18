@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt")
 const router = require("express").Router()
 const { User, Activity } = require("../models")
 const signupCodeService = require("../util/signupCodeService")
+const logger = require("../util/logger")
 
 router.post("/", async (req, res, next) => { 
 
@@ -22,7 +23,7 @@ router.post("/", async (req, res, next) => {
 
     const codeValid = await signupCodeService.useCode(body.code)
     if (!codeValid) {
-        console.log("Tried to use code '" + body.code + "' but it was invalid")
+        logger.info("Tried to use code '" + body.code + "' but it was invalid")
         return res.status(401).json({ error: "code expired or invalid" })
     }
 

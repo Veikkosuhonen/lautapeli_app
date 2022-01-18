@@ -77,9 +77,7 @@ const createActivity = async (playSession) => {
             description = `${winner.name} won in ${bg.name}`
         }
     }
-
-    console.log(description)
-
+    
     return await Activity.create({ 
         description: description, 
         link: `/boardgames/${bg.id}`
