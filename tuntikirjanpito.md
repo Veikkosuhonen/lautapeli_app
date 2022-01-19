@@ -41,4 +41,4 @@ En ole laskenut tarkasti, nämä ovat suuntaa antavia arvioita.
 | Yht: | 29h |
 | Viikko 6 |
 | 18.1 | 3h | Rekisteröintikoodit tietokantaan, lint pipeen |
-
+| 19.1 | 2h | Aloitettiin frontendin refaktorointi hookien ja react-queryn käyttöön |
