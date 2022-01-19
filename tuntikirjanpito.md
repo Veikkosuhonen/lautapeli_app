@@ -39,6 +39,6 @@ En ole laskenut tarkasti, nämä ovat suuntaa antavia arvioita.
 | 15.1 | 5h | Lautapeleille muokattavissa oleva kuvaus. Edelleen UI-parannuksia. |
 | 16.1 | 5h | Korjailua, refaktorointia, landing page, parannuksia käyttäjän luontiin |
 | Yht: | 29h |
-
-Kokonaistuntimäärä arviolta 104 h
+| Viikko 6 |
+| 18.1 | 3h | Rekisteröintikoodit tietokantaan, lint pipeen |
 
