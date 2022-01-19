@@ -32,9 +32,10 @@ const Boardgames = ({
         }
     }
 
-    const getBoardgames = () => boardgames
+    const getBoardgames = () => boardgames.isSuccess ? boardgames.data
         .filter(bg => bg.name.includes(searchTerm))
         .sort(desc ? sorter : (a, b) => sorter(b, a))
+        : []
 
     return (
         <div>

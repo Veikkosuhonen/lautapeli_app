@@ -1,9 +1,4 @@
 import React from "react"
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route
-} from "react-router-dom";
 
 import { useState, useEffect } from "react"
 
@@ -16,28 +11,35 @@ import userService from "./services/userService";
 import activityService from "./services/activityService"
 import api from "./services/api"
 
-import Home from "./routes/Home"
-import Register from "./routes/Register";
-import Login from "./routes/Login";
-import Admin from "./routes/Admin";
-import Boardgame from "./routes/Boardgame";
-import Boardgames from "./routes/Boardgames";
-import NewBoardgame from "./routes/NewBoardgame";
-import Layout from "./components/Layout";
-import Logout from "./routes/Logout";
-import NotFound from "./routes/NotFound";
+import Routes from "./routes/Routes"
+import { QueryClientProvider, QueryClient } from "react-query"
+import { ReactQueryDevtools } from "react-query/devtools"
+import useBoardgames from "./hooks/useBoardgames"
+
+const queryClient = new QueryClient()
+
+const App = () => {
+    return (
+        <QueryClientProvider client={queryClient}>
+            <Main/>
+            <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+    )
+}
 
 const Main = () => {
 
-    const [boardgames, setBoardgames] = useState([])
+    //const queryClient = useQueryClient()
+
+    const boardgames = useBoardgames()
     const [activities, setActivities] = useState([])
     const [users, setUsers] = useState([])
     const [user, setUser] = useState(null)
 
     const loadData = () => {
-        bgService.getAll().then(bgs => {
-            setBoardgames(bgs)
-        }).catch(error => { toast(error.message || "Error: " + error.status) })
+        //bgService.getAll().then(bgs => {
+        //    setBoardgames(bgs)
+        //}).catch(error => { toast(error.message || "Error: " + error.status) })
         userService.getAll().then(usrs => {
             setUsers(usrs)
         }).catch(error => { toast(error.message || "Error: " + error.status) })
@@ -56,7 +58,7 @@ const Main = () => {
         }
     }, [])
 
-    const addBg = (bg) => {
+    const addBoardgame = (bg) => {
         const response = bgService.post(bg)
 
         toast.promise(response, {
@@ -67,7 +69,7 @@ const Main = () => {
 
         response.then(data => {
             // console.log("Received response to post: " + JSON.stringify(bg))
-            setBoardgames(boardgames.concat(data.boardgame))
+            //setBoardgames(boardgames.concat(data.boardgame))
             addActivity(data.activity)
         }).catch(error => {
             console.log(error)
@@ -106,48 +108,22 @@ const Main = () => {
         window.localStorage.removeItem("lautapeliAppUser")
         api.setToken(null)
         setUser(null)
-        setBoardgames([])
+        //setBoardgames([])
         setActivities([])
     }
 
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={
-                    <Layout user={user} />
-                }>
-                    <Route path="/" element={
-                        <Home user={user} activities={activities} boardgames={boardgames} users={users}/>
-                    } />
-                    <Route path="boardgames" element={
-                        <Boardgames boardgames={boardgames} activities={activities} />
-                    } >
-                        <Route path="new" element={
-                            <NewBoardgame addBoardgame={addBg} boardgames={boardgames} />
-                        } />
-                    </Route>
-                    <Route path="boardgames/:boardgameId" element={
-                        <Boardgame user={user} users={users} addActivity={addActivity}/>
-                    } />
-                    <Route path="login" element={
-                        <Login user={user} handleLogin={handleLogin}/>
-                    } />
-                    <Route path="register" element={
-                        <Register user={user} />
-                    } />
-                    <Route path="admin" element={
-                        <Admin user={user}/>
-                    } />
-                    <Route path="logout" element={
-                        <Logout handleLogout={handleLogout}/>
-                    } />
-                    <Route path="*" element={
-                        <NotFound />
-                    } />
-                </Route>
-            </Routes>
-        </Router>
+        <Routes 
+            user={user}
+            activities={activities}
+            boardgames={boardgames}
+            users={users}
+            addBoardgame={addBoardgame}
+            addActivity={addActivity}
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
+        /> 
     )
 }
 
-export default Main
+export default App
