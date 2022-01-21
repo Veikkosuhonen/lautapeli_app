@@ -6,9 +6,8 @@ const useCurrentUser = () => {
     if (userJSON && userJSON !== "undefined") {
         const user = JSON.parse(userJSON)
         api.setToken(user.token)
+        return user
     }
-    
-    return userJSON
 }
 
 export default useCurrentUser;

@@ -28,7 +28,7 @@ export default function NewBoardgame({
             message: "Name must not be empty"
         },
         {
-            condition: (name) => !boardgames.some(board => board.name === name),
+            condition: (name) => !boardgames.data.some(board => board.name === name),
             message: "Boardgame already exists"
         }
     )

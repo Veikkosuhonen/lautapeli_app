@@ -5,18 +5,17 @@ import { useState, useEffect } from "react"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
-import bgService from "./services/boardgameService"
 import loginService from "./services/loginService"
-import userService from "./services/userService";
-import activityService from "./services/activityService"
 import api from "./services/api"
 
 import Routes from "./routes/Routes"
-import { QueryClientProvider, QueryClient } from "react-query"
+import { QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
 import useBoardgames from "./hooks/useBoardgames"
-
-const queryClient = new QueryClient()
+import useUsers from "./hooks/useUsers"
+import useActivities from "./hooks/useActivities"
+import queryClient from "./services/queryClient"
+import useAddBoardgame from "./hooks/useAddBoardgame"
 
 const App = () => {
     return (
@@ -29,55 +28,29 @@ const App = () => {
 
 const Main = () => {
 
-    //const queryClient = useQueryClient()
-
     const boardgames = useBoardgames()
-    const [activities, setActivities] = useState([])
-    const [users, setUsers] = useState([])
+    const addBoardgameMutation = useAddBoardgame()
+    const users = useUsers()
+    const activities = useActivities()
     const [user, setUser] = useState(null)
-
-    const loadData = () => {
-        //bgService.getAll().then(bgs => {
-        //    setBoardgames(bgs)
-        //}).catch(error => { toast(error.message || "Error: " + error.status) })
-        userService.getAll().then(usrs => {
-            setUsers(usrs)
-        }).catch(error => { toast(error.message || "Error: " + error.status) })
-        activityService.getAll().then(activities => {
-            setActivities(activities.sort((a, b) => new Date(b.date) - new Date(a.date)))
-        }).catch(error => { toast(error.message || "Error: " + error.status) })
-    }
 
     useEffect(() => {
         const userJSON = window.localStorage.getItem("lautapeliAppUser")
         if (userJSON && userJSON !== "undefined") {
             const user = JSON.parse(userJSON)
             api.setToken(user.token)
-            loadData()
             setUser(user)
         }
     }, [])
 
-    const addBoardgame = (bg) => {
-        const response = bgService.post(bg)
+    const addBoardgame = (boardgame) => {
+        const response = addBoardgameMutation.mutateAsync(boardgame)
 
         toast.promise(response, {
             pending: "Adding boardgame",
             success: "Success",
             error: { render({data}) { return data.message }}
         })
-
-        response.then(data => {
-            // console.log("Received response to post: " + JSON.stringify(bg))
-            //setBoardgames(boardgames.concat(data.boardgame))
-            addActivity(data.activity)
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-
-    const addActivity = (activity) => {
-        setActivities([activity].concat(activities))
     }
 
     const handleLogin = async (credentials) => {
@@ -92,7 +65,6 @@ const Main = () => {
 
         response.then(user => {
             api.setToken(user.token)
-            loadData()
             setUser(user)
             window.localStorage.setItem(
                 "lautapeliAppUser", JSON.stringify(user)
@@ -108,8 +80,6 @@ const Main = () => {
         window.localStorage.removeItem("lautapeliAppUser")
         api.setToken(null)
         setUser(null)
-        //setBoardgames([])
-        setActivities([])
     }
 
     return (
@@ -119,7 +89,7 @@ const Main = () => {
             boardgames={boardgames}
             users={users}
             addBoardgame={addBoardgame}
-            addActivity={addActivity}
+            addActivity={() => { }}
             handleLogin={handleLogin}
             handleLogout={handleLogout}
         /> 
