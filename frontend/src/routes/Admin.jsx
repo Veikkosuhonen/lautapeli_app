@@ -5,7 +5,7 @@ import Surface from "../components/util/Surface";
 import HeroSection from "../components/HeroSection"
 import adminService from "../services/adminService";
 import userService from "../services/userService"
-import { toast } from "react-toastify";
+import toaster from "../util/toaster";
 
 const Admin = ({ user }) => {
     const [codes, setCodes] = useState([])
@@ -17,19 +17,19 @@ const Admin = ({ user }) => {
         if (!user) return // user credentials not yet loaded
         if (!user.isAdmin) {
             navigate("/")
-            toast("Sorry, you are not authorized to go there")
+            toaster.errorMessage("Sorry, you are not authorized to go there")
             return
         }
         adminService.getCodes().then(codes => {
             setCodes(codes.sort((c1, c2) => c2.date - c1.date))
         }).catch(error => {
-            toast(error.message)
+            toaster.errorMessage(error.message)
             setCodes([])
         })
         userService.getAll().then(users => {
             setUsers(users)
         }).catch(error => {
-            toast(error.message)
+            toaster.errorMessage(error.message)
             setUsers([])
         })
     }, [user, navigate])
@@ -46,7 +46,7 @@ const Admin = ({ user }) => {
                 }: u
             ))
         }).catch(error => {
-            toast(error.message)
+            toaster.errorMessage(error.message)
         })
     }
 
@@ -54,7 +54,7 @@ const Admin = ({ user }) => {
         adminService.genCode().then(code => {
             setCodes(codes.concat(code).sort((c1, c2) => c2.date - c1.date))
         }).catch(error => {
-            toast(error.message)
+            toaster.errorMessage(error.message)
         })
     }
 

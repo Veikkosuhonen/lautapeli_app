@@ -32,8 +32,8 @@ const PlayerSelector = ({
     setPlayers
  }) => {
 
-    const options = users
-        .filter(u => !players.some(p => p.id === u.id))
+    const options = users.data
+        ?.filter(u => !players.some(p => p.id === u.id))
         .map(user => ({
             value: { id: user.id, name: user.name, score: 0 },
             label: user.name

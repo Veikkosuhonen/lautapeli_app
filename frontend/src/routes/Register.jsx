@@ -4,7 +4,7 @@ import HeroSection from "../components/HeroSection"
 import RegisterForm from "../components/RegisterForm"
 
 import registerService from '../services/registerService'
-import { toast } from "react-toastify"
+import toaster from "../util/toaster"
 
 const Register = ({
     user
@@ -21,11 +21,7 @@ const Register = ({
         console.log("Registering " + JSON.stringify(credentials))
         const response = registerService.register(credentials)
 
-        toast.promise(response, {
-            pending: "Checking credentials",
-            success: { render({data}) { return `Welcome, ${data.name}! You can now log in`} },
-            error: { render({data}) { return data.message }}
-        })
+        toaster.registerMessage(response)
 
         response.then(data => {
             navigate("/login")

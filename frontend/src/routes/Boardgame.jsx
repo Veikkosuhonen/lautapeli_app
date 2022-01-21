@@ -6,7 +6,7 @@ import PlaySessionForm from '../components/PlaySessionForm';
 import boardgameService from '../services/boardgameService';
 import playSessionService from '../services/playSessionService';
 
-import { toast } from 'react-toastify';
+import toaster from '../util/toaster';
 import api from '../services/api';
 import HeroSection from '../components/HeroSection';
 import PaginatedList from '../components/util/PaginatedList';
@@ -39,7 +39,7 @@ const Boardgame = ({
             if (error.status === 404) {
                 navigate("/oopsie")
             } else {
-                toast(error.message)
+                toaster.errorMessage(error.message)
             }
         })
     }, [user, id, navigate])
@@ -48,11 +48,7 @@ const Boardgame = ({
     const addPlaySession = (playSession, clear) => {
         const response = playSessionService.post(playSession)
 
-        toast.promise(response, {
-            pending: "Adding playsession",
-            success: "Success",
-            error: { render({data}) { return data.message }}
-        })
+        toaster.playSessionAddMessage(response)
 
         response.then(data => {
 
@@ -74,14 +70,9 @@ const Boardgame = ({
     const updateDescription = () => {
         const response = boardgameService.put(boardgame.id, { description: newDescription })
 
-        toast.promise(response, {
-            pending: "Updating...",
-            success: "Description updated",
-            error: { render({data}) { return data.message }}
-        })
+        toaster.descriptionUpdateMessage(response)
 
         response.then(updated => {
-
             setBoardgame({ 
                 ...boardgame,
                 description: updated.description

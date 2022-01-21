@@ -6,18 +6,22 @@ import Surface from "../components/util/Surface"
 import { NavLink } from "react-router-dom"
 import { XIcon } from "@heroicons/react/solid"
 import EditableParagraph from "../components/util/EditableParagraph"
-
+import useAddBoardgame from "../hooks/useAddBoardgame"
+import toaster from "../util/toaster"
 
 export default function NewBoardgame({
-    addBoardgame, boardgames
+    boardgames
 }) {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [valid, setValid] = useState(false)
 
+    const addBoardgameMutation = useAddBoardgame()
+
     const submitHandler = (event) => {
         event.preventDefault()
-        addBoardgame({ name, description })
+        const response = addBoardgameMutation.mutateAsync({ name, description })
+        toaster.boardgameAddMessage(response);
         setName("")
     }
 
