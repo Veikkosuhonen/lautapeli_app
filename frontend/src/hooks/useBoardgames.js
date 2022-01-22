@@ -1,17 +1,14 @@
 import { useQuery } from "react-query"
 
-import bgService from "../services/boardgameService"
-import useCurrentUser from "./useCurrentUser"
+import boardgameService from "../services/boardgameService"
 
 const useBoardgames = () => {
 
-    useCurrentUser()
-
     const queryKey = ["boardgames"]
 
-    const { data, ...rest } = useQuery(queryKey, bgService.getAll)
+    const { data, ...rest } = useQuery(queryKey, boardgameService.getAll)
 
-    return { data, ...rest }
+    return { boardgames: data, ...rest }
 }
 
 export default useBoardgames;

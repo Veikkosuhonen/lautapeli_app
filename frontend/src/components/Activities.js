@@ -4,14 +4,11 @@ import PaginatedList from "./util/PaginatedList"
 export default function Activities({
     activities, itemsPerPage
 }) {
-    if (activities.isLoading) {
-        return (<div></div>)
-    }
     return (
         <PaginatedList className="basis-1/4" itemsPerPage={itemsPerPage || 4} title={
             <h1 className="text-slate-400 text-md">Recent activity</h1>
         }>
-            {activities.data?.map(activity => (
+            {activities?.map(activity => (
                 <NavLink key={activity.id} to={activity.link} >
                     <div className="flex flex-col ml-1 pl-1 py-2 transition duration-200
                         rounded hover:bg-slate-800"

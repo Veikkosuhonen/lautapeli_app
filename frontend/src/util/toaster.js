@@ -1,43 +1,60 @@
 import { toast } from "react-toastify"
 
-const loginMessage = (request) => {
+const promise = (request, pending, success) => {
     toast.promise(request, {
-        pending: "Checking credentials",
-        success: { render({data}) { return `Welcome back, ${data.name}!`} },
+        pending,
+        success,
         error: { render({data}) { return data.message }}
     })
+}
+
+const loginMessage = (request) => {
+    promise(request, 
+        "Checking credentials", 
+        { render({data}) { return `Welcome back, ${data.name}!`} },
+    )
 }
 
 const registerMessage = (request) => {
-    toast.promise(request, {
-        pending: "Checking credentials",
-        success: { render({data}) { return `Welcome, ${data.name}! You can now log in`} },
-        error: { render({data}) { return data.message }}
-    })
+    promise(request, 
+        "Checking credentials",
+        { render({data}) { return `Welcome, ${data.name}! You can now log in`} }
+    )
 }
 
 const boardgameAddMessage = (request) => {
-    toast.promise(request, {
-        pending: "Adding boardgame",
-        success: "Success",
-        error: { render({data}) { return data.message }}
-    })
+    promise(request, 
+        "Adding boardgame",
+        "Success",
+    )
 }
 
 const playSessionAddMessage = (request) => {
-    toast.promise(request, {
-        pending: "Adding playsession",
-        success: "Success",
-        error: { render({data}) { return data.message }}
-    })
+    promise(request, 
+        "Adding playsession",
+        "Success"
+    )
 }
 
 const descriptionUpdateMessage = (request) => {
-    toast.promise(request, {
-        pending: "Updating...",
-        success: "Description updated",
-        error: { render({data}) { return data.message }}
-    })
+    promise(request, 
+        "Updating...",
+        "Description updated",
+    )
+}
+
+const userDisableMessage = (request) => {
+    promise(request, 
+        "Update disabled state...",
+        "Success",
+    )
+}
+
+const generateCodeMessage = (request) => {
+    promise(request, 
+        "Generating code...",
+        "Success",
+    )
 }
 
 const errorMessage = (error) => {
@@ -50,6 +67,8 @@ const toaster = {
     boardgameAddMessage,
     playSessionAddMessage,
     descriptionUpdateMessage,
+    userDisableMessage,
+    generateCodeMessage,
     errorMessage
 }
 

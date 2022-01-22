@@ -6,9 +6,9 @@ const PaginatedList = ({
 }) => {
     itemsPerPage = itemsPerPage || 4
     const [page, setPage] = useState(0)
-    const pages = Math.ceil(children.length / itemsPerPage)
-    const start = Math.min(page * itemsPerPage, children.length)
-    const end = Math.min((page + 1) * itemsPerPage, children.length)
+    const pages = children ? Math.ceil(children.length / itemsPerPage) : 1
+    const start = children ? Math.min(page * itemsPerPage, children.length) : 1
+    const end = children ? Math.min((page + 1) * itemsPerPage, children.length) : 1
 
     return (
         <div className={"p-2 overflow-hidden " + className}>

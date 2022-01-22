@@ -32,8 +32,8 @@ const Boardgames = ({
         }
     }
 
-    const getBoardgames = () => boardgames.isSuccess ? boardgames.data
-        .filter(bg => bg.name.includes(searchTerm))
+    const getBoardgames = () => boardgames ? boardgames
+        .filter(bg => bg.name.toLowerCase().includes(searchTerm.toLowerCase()))
         .sort(desc ? sorter : (a, b) => sorter(b, a))
         : []
 

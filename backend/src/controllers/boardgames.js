@@ -53,7 +53,6 @@ router.get("/:id", auth, async (request, response) => {
     })
 
     if (bg) {
-        logger.info(bg.toJSON())
         response.json(bg)
     } else {
         response.status(404).json({ error: "Invalid id" })

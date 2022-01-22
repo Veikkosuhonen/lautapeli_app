@@ -1,61 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"
+import React, { useState } from "react";
 import { PrimaryButton, SecondaryButton } from "../components/util/Buttons";
 import Surface from "../components/util/Surface";
 import HeroSection from "../components/HeroSection"
-import adminService from "../services/adminService";
-import userService from "../services/userService"
+import useUsers from "../hooks/useUsers";
 import toaster from "../util/toaster";
+import useUpdateUser from "../hooks/useUpdateUser";
+import useCodes from "../hooks/useCodes";
+import useGenerateCode from "../hooks/useGenerateCode";
 
-const Admin = ({ user }) => {
-    const [codes, setCodes] = useState([])
+const Admin = () => {
+
+    const { codes } = useCodes()
     const [usersVisible, setUsersVisible] = useState(false)
-    const [users, setUsers] = useState([])
-    const navigate = useNavigate()
+    const { users } = useUsers()
 
-    useEffect(() => {
-        if (!user) return // user credentials not yet loaded
-        if (!user.isAdmin) {
-            navigate("/")
-            toaster.errorMessage("Sorry, you are not authorized to go there")
-            return
-        }
-        adminService.getCodes().then(codes => {
-            setCodes(codes.sort((c1, c2) => c2.date - c1.date))
-        }).catch(error => {
-            toaster.errorMessage(error.message)
-            setCodes([])
-        })
-        userService.getAll().then(users => {
-            setUsers(users)
-        }).catch(error => {
-            toaster.errorMessage(error.message)
-            setUsers([])
-        })
-    }, [user, navigate])
+    const updateUser = useUpdateUser()
+    const generateCode = useGenerateCode()
 
     const toggleDisabled = (user) => {
         if (!window.confirm("Are you sure you want to set disabled on user '" + user.name + "' to '" + !user.disabled + "'?"))
             return
-        userService.put(user.id, { disabled: !user.disabled }).then(data => {
-            console.log("Ok, user's disabled status set to " + data.disabled)
-            setUsers(users.map(u => u.id === user.id
-                ? {
-                    ...u,
-                    disabled: data.disabled
-                }: u
-            ))
-        }).catch(error => {
-            toaster.errorMessage(error.message)
-        })
+        const response = updateUser({ ...user, disabled: !user.disabled })
+        toaster.userDisableMessage(response)
     }
 
     const genCode = () => {
-        adminService.genCode().then(code => {
-            setCodes(codes.concat(code).sort((c1, c2) => c2.date - c1.date))
-        }).catch(error => {
-            toaster.errorMessage(error.message)
-        })
+        const response = generateCode()
+        toaster.generateCodeMessage(response)
     }
 
     const expirationTime = 3600 * 48
@@ -80,7 +51,7 @@ const Admin = ({ user }) => {
                         content="Generate new code"
                         onClick={genCode}
                         />
-                        {codes.map( code =>
+                        {codes?.map( code =>
                             <div key={code.code} className="flex flex-row space-x-2 items-center">
                                 <p className="text-slate-200">{code.code}</p>
                                 <div className="text-xs text-slate-400">{expirationStatus(code.date)}</div>

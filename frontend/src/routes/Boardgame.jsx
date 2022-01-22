@@ -1,90 +1,42 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom';
 import PlaySession from '../components/PlaySession';
 import PlaySessionForm from '../components/PlaySessionForm';
 
-import boardgameService from '../services/boardgameService';
-import playSessionService from '../services/playSessionService';
-
 import toaster from '../util/toaster';
-import api from '../services/api';
 import HeroSection from '../components/HeroSection';
 import PaginatedList from '../components/util/PaginatedList';
 import { CheckIcon, PencilIcon, XIcon } from '@heroicons/react/outline';
 import EditableParagraph from '../components/util/EditableParagraph';
+import useCurrentUser from '../hooks/useCurrentUser';
+import useUsers from '../hooks/useUsers';
+import useBoardgame from '../hooks/useBoardgame';
+import useUpdateDescription from '../hooks/useUpdateDescription';
 
-const Boardgame = ({
-    user,
-    users,
-    addActivity
-}) => {
+const Boardgame = () => {
 
-    const [boardgame, setBoardgame] = useState(null)
+    const user = useCurrentUser()
+    const { users } = useUsers()
+    const id = useParams().boardgameId
+    const { boardgame } = useBoardgame(id)
+
     const [editing, setEditing] = useState(false)
     const [newDescription, setNewDescription] = useState("")
-    const navigate = useNavigate()
-    const id = useParams().boardgameId
 
-    useEffect(() => {
-        if (!user) return
-        console.log("Getting boardgame " + id)
-        api.setToken(user.token)
-        boardgameService.getOne(id).then(bg => {
-            setBoardgame({
-                ...bg,
-                playSessions: bg.playSessions.sort((c1, c2) => new Date(c2.date) - new Date(c1.date))
-            })
-            setNewDescription(bg.description)
-        }).catch(error => {
-            if (error.status === 404) {
-                navigate("/oopsie")
-            } else {
-                toaster.errorMessage(error.message)
-            }
+    const updateDescription = useUpdateDescription()
+
+    const handleDescriptionUpdate = () => {
+        const response = updateDescription({
+            ...boardgame,
+            description: newDescription
         })
-    }, [user, id, navigate])
-
-
-    const addPlaySession = (playSession, clear) => {
-        const response = playSessionService.post(playSession)
-
-        toaster.playSessionAddMessage(response)
-
-        response.then(data => {
-
-            const playSession = data.playSession
-
-            addActivity(data.activity)
-
-            setBoardgame({
-                ...boardgame, 
-                playSessions: boardgame.playSessions.concat(playSession)
-            })
-            
-            clear()
-        }).catch(error => {
-            console.log(error.message)
-        })
-    }
-
-    const updateDescription = () => {
-        const response = boardgameService.put(boardgame.id, { description: newDescription })
 
         toaster.descriptionUpdateMessage(response)
-
-        response.then(updated => {
-            setBoardgame({ 
-                ...boardgame,
-                description: updated.description
-            })
-            
-        }).catch(error => {
-            console.log(error.message)
-        })
     }
 
     const descriptionEdited = boardgame && newDescription !== boardgame.description
-    const hasPlaySessions = boardgame && boardgame.playSessions.length !== 0
+
+    const playSessions = boardgame ? [...boardgame.playSessions].sort((a, b) => new Date(b.date) - new Date(a.date)) : []
 
     return (
         <div className="basis-full">
@@ -117,7 +69,7 @@ const Boardgame = ({
                         : <>
                             <button 
                                 disabled={!descriptionEdited}
-                                onClick={() => { setEditing(false); updateDescription() }}
+                                onClick={() => { setEditing(false); handleDescriptionUpdate() }}
                                 className="text-slate-400 hover:text-slate-200  disabled:text-slate-600 p-2"
                             >
                                 <CheckIcon className="w-7 h-7"/>
@@ -137,14 +89,14 @@ const Boardgame = ({
                         className="basis-1/4 sm:basis-2/5"
                         title={<h1 className="text-slate-400 text-md font-normal">Playsessions</h1>}
                     >
-                        {hasPlaySessions && boardgame.playSessions.map(ps => 
+                        {playSessions.map(ps => 
                             <div className="py-2" key={ps.id}>
                                 <PlaySession playSession={ps}/>
                             </div>
                         )}
                     </PaginatedList>
                     <div className="w-full">
-                        <PlaySessionForm user={user} boardgame={boardgame} addPlaySession={addPlaySession} users={users}/>
+                        <PlaySessionForm user={user} boardgame={boardgame} users={users}/>
                     </div>
                 </div>
             </div>

@@ -14,12 +14,12 @@ const post = (boardgame) => {
     return api.post(baseUrl, boardgame)
 }
 
-const put = (id, boardgame) => {
-    return api.put(baseUrl + "/" + id, boardgame)
+const put = (boardgame) => {
+    return api.put(baseUrl + "/" + boardgame.id, boardgame)
 }
 
-const bgService = {
+const boardgameService = {
     getAll, getOne, post, put
 }
 
-export default bgService
+export default boardgameService

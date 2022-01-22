@@ -20,9 +20,9 @@ const App = () => {
 
 const Main = () => {
 
-    const boardgames = useBoardgames()
-    const users = useUsers()
-    const activities = useActivities()
+    const { boardgames } = useBoardgames()
+    const { users } = useUsers()
+    const { activities } = useActivities()
     const { user, login, logout } = useCurrentUser()
 
     return (
@@ -31,7 +31,6 @@ const Main = () => {
             activities={activities}
             boardgames={boardgames}
             users={users}
-            addActivity={() => { }}
             handleLogin={login}
             handleLogout={logout}
         /> 

@@ -13,7 +13,6 @@ const boardgameRouter = require("./controllers/boardgames"),
     usersRouter = require("./controllers/users"),
     registerRouter = require("./controllers/register"),
     loginRouter = require("./controllers/login"),
-    profileRouter = require("./controllers/myprofile"),
     adminRouter = require("./controllers/admin"),
     unknownEndpointRouter = require("./controllers/unknownEndpoint")
 
@@ -39,7 +38,6 @@ app.use("/api/activities", activityRouter)
 app.use("/api/users", usersRouter)
 app.use("/api/register", registerRouter)
 app.use("/api/login", loginRouter)
-app.use("/api/myprofile", profileRouter)
 app.use("/api/admin", adminRouter)
 
 // https://ui.dev/react-router-cannot-get-url-refresh/

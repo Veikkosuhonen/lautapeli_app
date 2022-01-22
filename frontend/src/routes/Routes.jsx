@@ -16,7 +16,7 @@ import Logout from "./Logout";
 import NotFound from "./NotFound";
 
 const Routes = ({
-    user, activities, boardgames, users, addActivity, handleLogin, handleLogout
+    user, activities, boardgames, users, handleLogin, handleLogout
 }) => (
     <Router>
         <AllRoutes>
@@ -34,7 +34,7 @@ const Routes = ({
                     } />
                 </Route>
                 <Route path="boardgames/:boardgameId" element={
-                    <Boardgame user={user} users={users} addActivity={addActivity}/>
+                    <Boardgame user={user} users={users} />
                 } />
                 <Route path="login" element={
                     <Login user={user} handleLogin={handleLogin}/>

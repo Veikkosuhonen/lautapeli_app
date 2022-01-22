@@ -7,6 +7,8 @@ import Surface from "./util/Surface"
 import Select from "react-select"
 import { StarIcon } from '@heroicons/react/solid';
 import { validation } from "../util/validation"
+import useAddPlaySession from '../hooks/useAddPlaySession';
+import toaster from '../util/toaster';
 
 const ScoreInput = (
     {value, onChange, ...props}
@@ -32,7 +34,7 @@ const PlayerSelector = ({
     setPlayers
  }) => {
 
-    const options = users.data
+    const options = users
         ?.filter(u => !players.some(p => p.id === u.id))
         .map(user => ({
             value: { id: user.id, name: user.name, score: 0 },
@@ -90,8 +92,10 @@ const PlayerSelector = ({
 }
 
 const PlaySessionForm = ({
-    users, boardgame, addPlaySession
+    users, boardgame
 }) => {
+
+    const addPlaySession = useAddPlaySession()
 
     const [duration, setDuration] = useState(0)
     const [date, setDate] = useState(new Date())
@@ -106,12 +110,8 @@ const PlaySessionForm = ({
             date,
             players: players.map(p => ({ id: p.id, score: p.score }))
         }
-        addPlaySession(playSession, () => {
-            // on success:
-            setDuration(0)
-            setDate(new Date())
-            setPlayers([])
-        })
+        const response = addPlaySession(playSession)
+        toaster.playSessionAddMessage(response)
     }
 
     const onScoreChange = (id, score) => {

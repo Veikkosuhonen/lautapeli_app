@@ -1,7 +1,5 @@
 # Fullstack-harjoitustyön tuntikirjanpito
 
-En ole laskenut tarkasti, nämä ovat suuntaa antavia arvioita.
-
 | Pvm | Tuntimäärä | Aihe |
 | :-: | :--------: | :--- |
 | Viikko 1 |
@@ -31,7 +29,7 @@ En ole laskenut tarkasti, nämä ovat suuntaa antavia arvioita.
 | 8.1 | 5h | Frontendin rakenteen ja routejen parannusta, UI-devausta, otettu react-select käyttöön |
 | Yht: | 19h |
 | Viikko 5 |
-| 10.1 | 3h | UI-devausta |
+| 10.1 | 3h | UI-devausta |
 | 11.1 | 4h | Pelisessioiden pelaajat pisteineen otetaan viimein backendissä talteen |
 | 12.1 | 4h | Aktiviteetit backissa ja frontissa, ja yleistä UI-devausta |
 | 13.1 | 4h | Parannuksia, pvm:t aktiviteeteille |
@@ -42,3 +40,8 @@ En ole laskenut tarkasti, nämä ovat suuntaa antavia arvioita.
 | Viikko 6 |
 | 18.1 | 3h | Rekisteröintikoodit tietokantaan, lint pipeen |
 | 19.1 | 2h | Aloitettiin frontendin refaktorointi hookien ja react-queryn käyttöön |
+| 21.1 | 3h | Lisää hookeja ja react-queryn mutaatioita |
+| 22.1 | 3h | Nyt query hookit käytössä kaikissa api-kutsuissa |
+| 23.1 | xh | |
+| Yht: | 11h |
+| Viikko 7 |

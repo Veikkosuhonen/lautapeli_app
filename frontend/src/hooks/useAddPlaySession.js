@@ -1,12 +1,12 @@
 import { useMutation } from "react-query"
-import boardgameService from "../services/boardgameService"
+import playSessionService from "../services/playSessionService"
 import queryClient from "../services/queryClient"
 
-const useAddBoardgame = () => {
-    return useMutation(boardgameService.post, {
+const useAddPlaySession = () => {
+    return useMutation(playSessionService.post, {
         onSuccess: (result, variables, context) => {
-            queryClient.setQueryData("boardgames",
-                boardgames => boardgames.concat(result.boardgame)
+            queryClient.setQueryData(["boardgame", Number(variables.boardgameId)],
+                result.boardgame
             )
             queryClient.setQueryData("activities",
                 activities => [result.activity].concat(activities)
@@ -15,4 +15,4 @@ const useAddBoardgame = () => {
     }).mutateAsync
 }
 
-export default useAddBoardgame
+export default useAddPlaySession

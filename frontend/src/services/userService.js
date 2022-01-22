@@ -10,8 +10,8 @@ const getOne = (id) => {
     return api.get(baseUrl + "/" + id)
 }
 
-const put = (id, data) => {
-    return api.put(baseUrl + "/" + id, data)
+const put = (data) => {
+    return api.put(baseUrl + "/" + data.id, data)
 }
 
 const userService = {

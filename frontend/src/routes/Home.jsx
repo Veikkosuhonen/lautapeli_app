@@ -7,7 +7,7 @@ const Home = ({
     user, activities, users, boardgames
 }) => {
 
-    const playSessions = boardgames.data?.map(boardgame => boardgame.playSessions.length).reduce((a, b) => a + b, 0)
+    const playSessions = boardgames?.map(boardgame => boardgame.playSessions.length).reduce((a, b) => a + b, 0)
 
     return (
         <div>
@@ -27,7 +27,7 @@ const Home = ({
                             {users ? users.length : "?"} users
                         </span>
                         <NavLink to="/boardgames" className="rounded border border-orange-500 text-orange-300 hover:bg-slate-800/50 p-2">
-                            {boardgames.data ? boardgames.data.length : "?"} boardgames
+                            {boardgames ? boardgames.length : "?"} boardgames
                         </NavLink>
                         <span className="select-none rounded border border-slate-700 p-2">
                             {playSessions} games played

@@ -16,13 +16,14 @@ export default function NewBoardgame({
     const [description, setDescription] = useState("")
     const [valid, setValid] = useState(false)
 
-    const addBoardgameMutation = useAddBoardgame()
+    const addBoardgame = useAddBoardgame()
 
     const submitHandler = (event) => {
         event.preventDefault()
-        const response = addBoardgameMutation.mutateAsync({ name, description })
+        const response = addBoardgame({ name, description })
         toaster.boardgameAddMessage(response);
         setName("")
+        setDescription("")
     }
 
     const validateName = multiValidation(
@@ -32,7 +33,7 @@ export default function NewBoardgame({
             message: "Name must not be empty"
         },
         {
-            condition: (name) => !boardgames.data.some(board => board.name === name),
+            condition: (name) => !boardgames?.some(board => board.name === name),
             message: "Boardgame already exists"
         }
     )
