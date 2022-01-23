@@ -121,23 +121,36 @@ router.post("/", auth, async (request, response) => {
     }
 })
 
-
-// Currently unused
-router.post("/:id/players", auth, async (request, response) => {
-    const playSession = await PlaySession.findByPk(request.params.id)
+router.delete("/:id", auth, async (request, response) => {
+    const id = Number(request.params.id)
+    if (!Number.isInteger(id)) {
+        return request.sendStatus(404)
+    }
+    const playSession = await PlaySession.findByPk(id, {
+        include: [
+            {
+                model: User,
+                as: "players",
+                attributes: ["id"],
+                through: {
+                    attributes: ["score"]
+                }
+            }
+        ]}
+    )
     if (!playSession) {
         return response.sendStatus(404)
     }
-    const playerId = request.body.playerId
-    const user = await User.findByPk(playerId)
-    if (!playerId || !user) {
-        return response.status(400).json({ error: "missing or invalid playerId" })
+    const user = request.user
+    const isPlayer = await playSession.hasPlayer(user)
+    if (!isPlayer) {
+        return response.status(401).json({ error: "Only users who participated in the playsession can delete it" })
     }
-    if ((await playSession.hasPlayer(user))) {
-        return response.status(400).json({ error: "player already in playSession" })
-    }
-    await playSession.addPlayer(user)
-    return response.status(200).json({ playerId })
+
+    await Player.destroy({ where: { playSessionId: id }})
+    await playSession.destroy()
+
+    return response.status(200).json(playSession.toJSON())
 })
 
 module.exports = router

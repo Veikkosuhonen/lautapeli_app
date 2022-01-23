@@ -4,6 +4,8 @@ const { ADMIN_USER, ADMIN_PASSWORD } = require("../util/config")
 
 let token = null
 
+let currentUser = null
+
 const createUser = async (api, username, name, password) => {
     await login(api, ADMIN_USER, ADMIN_PASSWORD)
     username = username || "veikmaster"
@@ -18,16 +20,21 @@ const login = async (api, username, password) => {
     if (!username) username = "veikmaster"
     if (!password) password = "yykaakoonee"
 
-    response = await api.post("/api/login").send({
+    const response = await api.post("/api/login").send({
         username,
         password
     })
     token = response.body.token
+    currentUser = response.body
     return response
 }
 
 const getToken = () => {
     return "bearer " + token
+}
+
+const getCurrentUser = () => {
+    return currentUser
 }
 
 const clearUsers = async () => {
@@ -42,6 +49,6 @@ const clearUsers = async () => {
     }
 }
 
-const testUtils = { createUser, login, getToken, clearUsers }
+const testUtils = { createUser, login, getToken, clearUsers, getCurrentUser }
 
 module.exports = testUtils

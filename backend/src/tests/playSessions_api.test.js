@@ -81,18 +81,59 @@ test("Playsessions can be posted", async () => {
     expect(bgsResponse.body.playSessions).toHaveLength(3)
 })
 
-test("Players can be posted to playsessions", async () => {
-    const user = await User.findOne()
-    const playSession = await PlaySession.findOne()
-    const response = await api.post("/api/playsessions/"+ playSession.id + "/players")
-        .send({ playerId: user.id })
+test("Playsessions can be deleted", async () => {
+    // create a new one
+    const bg = await Boardgame.findOne()
+    let response = await api.post("/api/playsessions/")
+        .send({
+            boardgameId: bg.id,
+            duration: 180,
+            date: new Date(),
+            players: [{ id: testUtils.getCurrentUser().id, score: 0 }]
+        })
         .set("authorization", testUtils.getToken())
         .expect(200)
     
-    expect(response.body.playerId).toBeDefined()
-
-    const psResponse = await api.get("/api/playsessions/" + playSession.id)
-        .set("authorization", testUtils.getToken())
+    const id = response.body.playSession.id
     
-    expect(psResponse.body.players).toHaveLength(1)
+    // delete it
+    response = await api.delete("/api/playsessions/" + id)
+        .set("authorization", testUtils.getToken())
+        .expect(200)
+        .expect("Content-Type", /application\/json/)
+    
+    expect(response.body.id).toBe(id)
+    
+    // check that it no longer exists
+    response = await api.get("/api/playsessions/")
+        .set("authorization", testUtils.getToken())
+        .expect(200)
+        .expect("Content-Type", /application\/json/)
+    
+    const exists = response.body.map(ps => ps.id).includes(id)
+    expect(exists).toBe(false)
+})
+
+test("Only players can delete playSession", async () => {
+    // create a user
+    const user = (await testUtils.createUser(api, "new", "password")).body
+
+    // create a new session one
+    const bg = await Boardgame.findOne()
+    let response = await api.post("/api/playsessions/")
+        .send({
+            boardgameId: bg.id,
+            duration: 180,
+            date: new Date(),
+            players: [{ id: user.id, score: 0 }]
+        })
+        .set("authorization", testUtils.getToken())
+        .expect(200)
+    
+    const id = response.body.playSession.id
+    
+    // try to delete it
+    response = await api.delete("/api/playsessions/" + id)
+        .set("authorization", testUtils.getToken())
+        .expect(401)
 })

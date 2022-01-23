@@ -33,6 +33,7 @@ const auth = (request, response, next) => {
         if (user.disabled) {
             return response.status(401).json({ status: 401, error: "account disabled" })
         }
+        request.user = user
         next()
     }).catch(error => {
         logger.error(error)
@@ -45,6 +46,7 @@ const adminAuth = (request, response, next) => {
         if (!user || !user.isAdmin) {
             return response.status(401).json({ status: 401, error: "Unauthorized" })
         }
+        request.user = user
         next()
     }).catch(error => {
         logger.error(error)
