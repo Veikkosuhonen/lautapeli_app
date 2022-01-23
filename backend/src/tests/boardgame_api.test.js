@@ -1,6 +1,6 @@
 const supertest = require("supertest")
 const app = require("../app")
-const { Boardgame } = require("../models")
+const { Boardgame, PlaySession, Player } = require("../models")
 const testUtils = require("./testUtils")
 
 const api = supertest(app)
@@ -19,6 +19,8 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
+    await Player.destroy({ where: { }})
+    await PlaySession.destroy({ where: { }})
     await Boardgame.destroy({ where: { } })
 })
 
@@ -109,3 +111,53 @@ test("Put modifies boardgame", async () => {
     expect(response.body).toHaveProperty("name", "Azul: Summer Pavilion")
 })
 
+test("Creator can delete boardgame", async () => {
+    const postResponse = await api
+        .post("/api/boardgames")
+        .set("authorization", testUtils.getToken())
+        .send({ name: "Azul" })
+    const id = postResponse.body.boardgame.id
+    const response = await api
+        .delete("/api/boardgames/" + id)
+        .set("authorization", testUtils.getToken())
+        .expect(200)
+    expect(response.body.id).toBe(id)
+})
+
+test("Not creator cannot delete boardgame", async () => {
+    const postResponse = await api
+        .post("/api/boardgames")
+        .set("authorization", testUtils.getToken())
+        .send({ name: "Azul" })
+    const id = postResponse.body.boardgame.id
+    // login as someone else
+    await testUtils.createUser(api, "Other", "person123")
+    await testUtils.login(api, "Other", "person123")
+    await api
+        .delete("/api/boardgames/" + id)
+        .set("authorization", testUtils.getToken())
+        .expect(401)
+})
+
+test("Cannot delete if has playSessions", async () => {
+    const postResponse = await api
+        .post("/api/boardgames")
+        .set("authorization", testUtils.getToken())
+        .send({ name: "Azul" })
+    const id = postResponse.body.boardgame.id
+
+    const user = testUtils.getCurrentUser()
+    await api.post("/api/playsessions/")
+        .send({
+            boardgameId: id,
+            duration: 180,
+            date: new Date(),
+            players: [{ id: user.id, score: 0 }]
+        })
+        .set("authorization", testUtils.getToken())
+        .expect(200)
+    
+    await api.delete("/api/boardgames/" + id)
+        .set("authorization", testUtils.getToken())
+        .expect(403)
+})

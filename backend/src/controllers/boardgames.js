@@ -121,4 +121,23 @@ router.put("/:id", auth, async (request, response) => {
     response.json(bg)
 })
 
+router.delete("/:id", auth, async (request, response) => {
+    const id = Number(request.params.id)
+    if (!id) return response.sendStatus(404)
+    const boardgame = await Boardgame.findByPk(id)
+    if (!boardgame) {
+        return response.sendStatus(404)
+    }
+    const user = request.user
+    if (user.id !== boardgame.addedById && !user.idAdmin) {
+        return response.status(401).json({ error: "Not authorized to delete this boardgame" })
+    }
+    if ((await boardgame.countPlaySessions()) !== 0) {
+        return response.status(403).json({ error: "Cannot delete, boardgame has playsessions" })
+    }
+    await boardgame.destroy()
+
+    return response.status(200).json({ id })
+})
+
 module.exports = router

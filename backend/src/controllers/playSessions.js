@@ -144,7 +144,7 @@ router.delete("/:id", auth, async (request, response) => {
     const user = request.user
     const isPlayer = await playSession.hasPlayer(user)
     if (!isPlayer) {
-        return response.status(401).json({ error: "Only users who participated in the playsession can delete it" })
+        return response.status(401).json({ error: "Not authorized to delete this playsession" })
     }
 
     await Player.destroy({ where: { playSessionId: id }})
