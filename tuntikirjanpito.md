@@ -41,7 +41,8 @@
 | 18.1 | 3h | Rekisteröintikoodit tietokantaan, lint pipeen |
 | 19.1 | 2h | Aloitettiin frontendin refaktorointi hookien ja react-queryn käyttöön |
 | 21.1 | 3h | Lisää hookeja ja react-queryn mutaatioita |
-| 22.1 | 3h | Nyt query hookit käytössä kaikissa api-kutsuissa |
-| 23.1 | xh | |
-| Yht: | 11h |
+| 22.1 | 3h | Nyt query- ja mutaatio-hookit käytössä kaikissa api-kutsuissa |
+| 23.1 | 6h | Lautapelien ja pelisessioiden poistamistoiminto |
+| Yht: | 17h |
 | Viikko 7 |
+
