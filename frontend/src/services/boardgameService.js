@@ -18,8 +18,12 @@ const put = (boardgame) => {
     return api.put(baseUrl + "/" + boardgame.id, boardgame)
 }
 
+const deleteBoardgame = (boardgame) => {
+    return api.del(baseUrl + "/" + boardgame.id)
+}
+
 const boardgameService = {
-    getAll, getOne, post, put
+    getAll, getOne, post, put, deleteBoardgame
 }
 
 export default boardgameService

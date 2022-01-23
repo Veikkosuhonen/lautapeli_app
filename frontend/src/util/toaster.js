@@ -43,6 +43,13 @@ const descriptionUpdateMessage = (request) => {
     )
 }
 
+const deleteBoardgameMessage = (request) => {
+    promise(request,
+        "Deleting...",
+        "Success"    
+    )
+}
+
 const userDisableMessage = (request) => {
     promise(request, 
         "Update disabled state...",
@@ -58,7 +65,7 @@ const generateCodeMessage = (request) => {
 }
 
 const errorMessage = (error) => {
-    toast(error)
+    toast.error(error)
 }
 
 const toaster = {
@@ -67,6 +74,7 @@ const toaster = {
     boardgameAddMessage,
     playSessionAddMessage,
     descriptionUpdateMessage,
+    deleteBoardgameMessage,
     userDisableMessage,
     generateCodeMessage,
     errorMessage

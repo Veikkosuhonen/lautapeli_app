@@ -47,7 +47,8 @@ const post = (url, data) => processResponse(axios.post(url, data, getOptions()))
 
 const put = (url, data) => processResponse(axios.put(url, data, getOptions()))
 
+const del = (url) => processResponse(axios.delete(url, getOptions()))
 
-const api = { setToken, get, post, put }
+const api = { setToken, get, post, put, del }
 
 export default api
