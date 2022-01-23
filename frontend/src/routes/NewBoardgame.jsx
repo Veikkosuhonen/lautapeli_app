@@ -8,10 +8,12 @@ import { XIcon } from "@heroicons/react/solid"
 import EditableParagraph from "../components/util/EditableParagraph"
 import useAddBoardgame from "../hooks/useAddBoardgame"
 import toaster from "../util/toaster"
+import useBoardgames from "../hooks/useBoardgames"
 
-export default function NewBoardgame({
-    boardgames
-}) {
+export default function NewBoardgame() {
+
+    const { boardgames } = useBoardgames()
+    
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [valid, setValid] = useState(false)

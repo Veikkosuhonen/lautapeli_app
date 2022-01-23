@@ -2,11 +2,17 @@ import React from "react"
 import { NavLink } from "react-router-dom"
 import Activities from "../components/Activities"
 import HeroSection from "../components/HeroSection"
+import useActivities from "../hooks/useActivities"
+import useBoardgames from "../hooks/useBoardgames"
+import useUsers from "../hooks/useUsers"
 
 const Home = ({
-    user, activities, users, boardgames
+    user
 }) => {
-
+    const { boardgames } = useBoardgames()
+    const { activities } = useActivities()
+    const { users } = useUsers()
+    
     const playSessions = boardgames?.map(boardgame => boardgame.playSessions.length).reduce((a, b) => a + b, 0)
 
     return (

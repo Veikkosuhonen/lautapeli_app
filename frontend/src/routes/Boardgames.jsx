@@ -8,15 +8,18 @@ import { ArrowDownIcon, ArrowUpIcon, PlusIcon } from "@heroicons/react/outline"
 import HeroSection from "../components/HeroSection"
 import InputField from "../components/util/InputField"
 import SelectInput from "../components/util/SelectInput"
+import useBoardgames from "../hooks/useBoardgames"
+import useActivities from "../hooks/useActivities"
 
 const sortOptions = [
     "name", "date added", "last played"
 ]
 
-const Boardgames = ({
-    boardgames, activities
-}) => {
+const Boardgames = () => {
     
+    const { boardgames } = useBoardgames()
+    const { activities } = useActivities()
+
     const [searchTerm, setSearchTerm] = useState("")
     const [sortBy, setSortBy] = useState(sortOptions[0])
     const [desc, setDesc] = useState(true)

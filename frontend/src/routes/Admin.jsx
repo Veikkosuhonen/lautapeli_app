@@ -31,7 +31,7 @@ const Admin = () => {
 
     const expirationTime = 3600 * 48
     const expirationStatus = (date) => {
-        const diff = (date - Date.now()) / 1000
+        const diff = (Date.parse(date) - Date.now()) / 1000
         if (diff + expirationTime < 0) {
             return "expired"
         } else {

@@ -84,11 +84,19 @@ router.post("/", auth, async (request, response, next) => {
             description: `${user.name} added ${boardgame.name}`,
             link: `/boardgames/${bg.id}`
         })
-        
-        return response.json({
-            boardgame: bg.toJSON(),
+
+        const responseObject = {
+            boardgame: {
+                ...bg.toJSON(),
+                addedBy: {
+                    id: user.id,
+                    name: user.name
+                }
+            },
             activity: activity.toJSON()
-        })
+        }
+        
+        return response.json(responseObject)
     } catch(error) {
         next(error)
     }
