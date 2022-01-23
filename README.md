@@ -21,6 +21,8 @@ _Tämä on myös HY:n fullstack-harjoitustyöni_:  [_Tuntikirjanpito_](https://g
 
 ### Planned
 
+- Playsessions can be edited and deleted by the creator or admin.
+- Boardgame can be deleted by the creator or admin if it has no playsessions.
 - Discussions: users can comment on playsessions and boardgames. 
 - A separate discussion activity feed for comments shows up besides the normal activity feed.
 - Tags: boardgames can have tags, users can create new tags. Users can search boardgames by tags.
