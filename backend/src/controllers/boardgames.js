@@ -48,6 +48,11 @@ router.get("/:id", auth, async (request, response) => {
                 model: User,
                 as: "addedBy",
                 attributes: ["id", "name"],
+            },
+            {
+                model: User,
+                as: "likes",
+                attributes: ["id", "name"]
             }
         ]
     })
@@ -138,6 +143,27 @@ router.delete("/:id", auth, async (request, response) => {
     await boardgame.destroy()
 
     return response.status(200).json({ id })
+})
+
+router.post("/:id/like", auth, async (request, response) => {
+    const id = Number(request.params.id)
+    if (!id) return response.sendStatus(404)
+    const boardgame = await Boardgame.findByPk(id)
+    if (!boardgame) {
+        return response.sendStatus(404)
+    }
+    const isLike = request.body?.like
+    const user = request.user
+    
+    if (isLike === true) {
+        await boardgame.addLike(user)
+    } else if (isLike === false) {
+        await boardgame.removeLike(user)
+    } else {
+        return response.sendStatus(400)
+    }
+
+    return response.status(200).json({ like: isLike })
 })
 
 module.exports = router

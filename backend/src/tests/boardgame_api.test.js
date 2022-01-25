@@ -1,6 +1,7 @@
 const supertest = require("supertest")
 const app = require("../app")
-const { Boardgame, PlaySession, Player } = require("../models")
+const { Boardgame, PlaySession, Player, User } = require("../models")
+const Like = require("../models/like")
 const testUtils = require("./testUtils")
 
 const api = supertest(app)
@@ -19,6 +20,7 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
+    await Like.destroy({ where: { } })
     await Player.destroy({ where: { }})
     await PlaySession.destroy({ where: { }})
     await Boardgame.destroy({ where: { } })
@@ -160,4 +162,47 @@ test("Cannot delete if has playSessions", async () => {
     await api.delete("/api/boardgames/" + id)
         .set("authorization", testUtils.getToken())
         .expect(403)
+})
+
+test("Can like a boardgame", async () => {
+    const postResponse = await api
+        .post("/api/boardgames")
+        .set("authorization", testUtils.getToken())
+        .send({ name: "Azul" })
+    const id = postResponse.body.boardgame.id
+
+    await api.post("/api/boardgames/" + id + "/like")
+        .send({ like: true })
+        .set("authorization", testUtils.getToken())
+        .expect(200)
+    
+    const boardgame = await Boardgame.findByPk(id)
+    const user = await User.findByPk(testUtils.getCurrentUser().id)
+    const succeeded = await boardgame.hasLike(user)
+
+    expect(succeeded).toBe(true)
+})
+
+test("Can un-like a boardgame", async () => {
+    const postResponse = await api
+        .post("/api/boardgames")
+        .set("authorization", testUtils.getToken())
+        .send({ name: "Azul" })
+    const id = postResponse.body.boardgame.id
+
+    await api.post("/api/boardgames/" + id + "/like")
+        .send({ like: true })
+        .set("authorization", testUtils.getToken())
+        .expect(200)
+    
+    await api.post("/api/boardgames/" + id + "/like")
+        .send({ like: false })
+        .set("authorization", testUtils.getToken())
+        .expect(200)
+    
+    const boardgame = await Boardgame.findByPk(id)
+    const user = await User.findByPk(testUtils.getCurrentUser().id)
+    const succeeded = !(await boardgame.hasLike(user))
+
+    expect(succeeded).toBe(true)
 })
