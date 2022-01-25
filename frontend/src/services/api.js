@@ -9,6 +9,9 @@ class ApiError extends Error {
     }
 }
 
+
+const baseUrl = "/api"
+
 let token = null
 
 const setToken = (newToken) => {
@@ -41,13 +44,13 @@ const processResponse = (response) => {
         })
 }
 
-const get = (url) => processResponse(axios.get(url, getOptions()))
+const get = (url) => processResponse(axios.get(baseUrl + url, getOptions()))
 
-const post = (url, data) => processResponse(axios.post(url, data, getOptions()))
+const post = (url, data) => processResponse(axios.post(baseUrl + url, data, getOptions()))
 
-const put = (url, data) => processResponse(axios.put(url, data, getOptions()))
+const put = (url, data) => processResponse(axios.put(baseUrl + url, data, getOptions()))
 
-const del = (url) => processResponse(axios.delete(url, getOptions()))
+const del = (url) => processResponse(axios.delete(baseUrl + url, getOptions()))
 
 const api = { setToken, get, post, put, del }
 

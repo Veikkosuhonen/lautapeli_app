@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import api from "../services/api"
-import loginService from "../services/loginService"
 import toaster from "../util/toaster"
 
 const useCurrentUser = () => {
@@ -17,7 +16,7 @@ const useCurrentUser = () => {
 
     const login = (credentials) => {
         console.log("Logging in...")
-        const response = loginService.login(credentials)
+        const response = api.post("/login", credentials)
         
         toaster.loginMessage(response)
 

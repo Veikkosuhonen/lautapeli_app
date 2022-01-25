@@ -1,9 +1,12 @@
 import { useMutation } from "react-query"
-import boardgameService from "../services/boardgameService"
+import api from "../services/api"
 import queryClient from "../services/queryClient"
 
 const useDeleteBoardgame = () => {
-    return useMutation(boardgameService.deleteBoardgame, {
+
+    const mutationFn = async (id) => api.del("/boardgames/" + id)
+
+    return useMutation(mutationFn, {
         onSuccess: (result, variables, context) => {
             queryClient.setQueryData("boardgames",
                 boardgames => boardgames?.filter(boardgame => boardgame.id !== result.id)

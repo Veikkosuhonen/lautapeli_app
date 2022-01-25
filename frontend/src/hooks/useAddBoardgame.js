@@ -1,9 +1,12 @@
 import { useMutation } from "react-query"
-import boardgameService from "../services/boardgameService"
+import api from "../services/api"
 import queryClient from "../services/queryClient"
 
 const useAddBoardgame = () => {
-    return useMutation(boardgameService.post, {
+
+    const mutationFn = async (boardgame) => api.post("/boardgames", boardgame)
+
+    return useMutation(mutationFn, {
         onSuccess: (result, variables, context) => {
             queryClient.setQueryData("boardgames",
                 boardgames => boardgames.concat(result.boardgame)

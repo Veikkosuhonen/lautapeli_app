@@ -2,8 +2,8 @@ import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import HeroSection from "../components/HeroSection"
 import RegisterForm from "../components/RegisterForm"
+import api from "../services/api"
 
-import registerService from '../services/registerService'
 import toaster from "../util/toaster"
 
 const Register = ({
@@ -19,7 +19,7 @@ const Register = ({
 
     const handleRegister = (credentials) => {
         console.log("Registering " + JSON.stringify(credentials))
-        const response = registerService.register(credentials)
+        const response = api.post("/register", credentials)
 
         toaster.registerMessage(response)
 

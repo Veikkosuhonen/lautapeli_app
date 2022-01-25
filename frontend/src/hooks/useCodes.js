@@ -1,12 +1,13 @@
 import { useQuery } from "react-query"
-
-import adminService from "../services/adminService"
+import api from "../services/api"
 
 const useCodes = () => {
 
     const queryKey = ["codes"]
 
-    const { data, ...rest } = useQuery(queryKey, adminService.getCodes)
+    const queryFn = async () => api.get("/admin/codes")
+
+    const { data, ...rest } = useQuery(queryKey, queryFn)
 
     return { codes: data, ...rest }
 }

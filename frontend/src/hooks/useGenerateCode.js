@@ -1,9 +1,12 @@
 import { useMutation } from "react-query"
-import adminService from "../services/adminService"
+import api from "../services/api"
 import queryClient from "../services/queryClient"
 
 const useGenerateCode = () => {
-    return useMutation(adminService.genCode, {
+
+    const mutationFn = async () => api.post("/admin/codes")
+
+    return useMutation(mutationFn, {
         onSuccess: (result, variables, context) => {
             queryClient.setQueryData("codes",
                 codes => codes.concat(result)

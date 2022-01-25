@@ -1,9 +1,12 @@
 import { useMutation } from "react-query"
-import playSessionService from "../services/playSessionService"
+import api from "../services/api"
 import queryClient from "../services/queryClient"
 
 const useAddPlaySession = () => {
-    return useMutation(playSessionService.post, {
+
+    const mutationFn = async (playSession) => api.post("/playsessions", playSession)
+
+    return useMutation(mutationFn, {
         onSuccess: (result, variables, context) => {
             queryClient.setQueryData(["boardgame", Number(variables.boardgameId)],
                 result.boardgame
