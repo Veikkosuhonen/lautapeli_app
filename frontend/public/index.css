@@ -477,10 +477,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   z-index: -10;
 }
 
-.z-10 {
-  z-index: 10;
-}
-
 .z-20 {
   z-index: 20;
 }

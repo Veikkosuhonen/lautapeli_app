@@ -35,6 +35,10 @@ export default function NewBoardgame() {
             message: "Name must not be empty"
         },
         {
+            condition: (name) => name.length <= 48,
+            message: "Length must be no more than 48"
+        },
+        {
             condition: (name) => !boardgames?.some(board => board.name === name),
             message: "Boardgame already exists"
         }
