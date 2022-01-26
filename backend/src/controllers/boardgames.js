@@ -1,12 +1,17 @@
 const router = require("express").Router()
+const Sequelize = require("sequelize")
 
 const { Boardgame, PlaySession, User, Activity } = require("../models")
 const logger = require("../util/logger")
 const { auth, getLoggedInUser } = require("../middleware/authorization")
+const Like = require("../models/like")
 
 router.get("/", auth, async (request, response) => {
     const bgs = await Boardgame.findAll({
-        attributes: { exclude: ["addedById"] },
+        attributes: {
+            include: [[Sequelize.fn("COUNT", Sequelize.col("likes.id")), "numLikes"]], 
+            exclude: ["addedById"]
+        },
         include: [
             {
                 model: PlaySession,
@@ -16,8 +21,13 @@ router.get("/", auth, async (request, response) => {
                 model: User,
                 as: "addedBy",
                 attributes: ["id", "name"],
+            },
+            {
+                model: Like,
+                attributes: []
             }
-        ]
+        ],
+        group: ["boardgame.id", "playSessions.id", "addedBy.id"]
     })
     response.json(bgs)
 })
@@ -50,9 +60,8 @@ router.get("/:id", auth, async (request, response) => {
                 attributes: ["id", "name"],
             },
             {
-                model: User,
-                as: "likes",
-                attributes: ["id", "name"]
+                model: Like,
+                attributes: ["boardgameId"]
             }
         ]
     })
@@ -163,7 +172,7 @@ router.post("/:id/like", auth, async (request, response) => {
         return response.sendStatus(400)
     }
 
-    return response.status(200).json({ like: isLike })
+    return response.status(200).json({ like: isLike, boardgameId: id, userId: user.id })
 })
 
 module.exports = router

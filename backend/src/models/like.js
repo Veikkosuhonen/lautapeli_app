@@ -5,6 +5,11 @@ const { sequelize } = require("../util/db")
 class Like extends Model {}
 
 Like.init({
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -13,7 +18,7 @@ Like.init({
     boardgameId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: "playSessions", key: "id" },
+        references: { model: "boardgames", key: "id" },
     },
 }, {
     sequelize,

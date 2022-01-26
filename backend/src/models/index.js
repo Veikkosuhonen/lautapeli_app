@@ -17,6 +17,10 @@ Boardgame.belongsTo(User, { foreignKey: "addedById", as: "addedBy" })
 
 User.belongsToMany(Boardgame, { through: Like, as: "likes" } )
 Boardgame.belongsToMany(User, { through: Like, as: "likes" } )
+User.hasMany(Like)
+Boardgame.hasMany(Like)
+Like.belongsTo(User)
+Like.belongsTo(Boardgame)
 
 module.exports = {
     Boardgame, User, PlaySession, Player, Activity, Code
