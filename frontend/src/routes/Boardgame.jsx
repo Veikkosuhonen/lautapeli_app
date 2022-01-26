@@ -19,14 +19,13 @@ import DeleteButton from '../components/DeleteButton';
 import useUpdateLike from '../hooks/useUpdateLike';
 
 const Boardgame = () => {
-
-    const user = useCurrentUser()
-    const { users } = useUsers()
-    const id = useParams().boardgameId
-    const { boardgame } = useBoardgame(id)
-
     const [editing, setEditing] = useState(false)
     const [newDescription, setNewDescription] = useState("")
+
+    const { user } = useCurrentUser()
+    const { users } = useUsers()
+    const id = useParams().boardgameId
+    const { boardgame } = useBoardgame(id, { onSuccess: (data) => setNewDescription(data.description) })
 
     const updateDescription = useUpdateDescription()
     const deleteBoardgame = useDeleteBoardgame()
@@ -47,10 +46,10 @@ const Boardgame = () => {
 
     const playSessions = boardgame ? [...boardgame.playSessions].sort((a, b) => new Date(b.date) - new Date(a.date)) : []
 
-    const isOwner = boardgame?.addedById === user.id
+    const isOwner = boardgame?.addedById === user?.id
 
-    const isLiked = boardgame?.likes.some(like => like.userId === user.id)
-
+    const isLiked = boardgame?.likes.some(like => like.userId === user?.id)
+    
     const canDelete = playSessions?.length === 0
 
     const handleDelete = () => {

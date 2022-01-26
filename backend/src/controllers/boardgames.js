@@ -61,7 +61,7 @@ router.get("/:id", auth, async (request, response) => {
             },
             {
                 model: Like,
-                attributes: ["boardgameId"]
+                attributes: ["userId"]
             }
         ]
     })
