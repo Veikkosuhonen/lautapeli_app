@@ -3,13 +3,13 @@ import User from "./User"
 import OptionsDropDown from "./util/OptionsDropdown"
 import DeleteButton from "./DeleteButton"
 
-const PlaySession = ({ playSession, handleDelete, userId }) => {
+const PlaySession = ({ playSession, handleDelete, user }) => {
 
     const topScore = playSession.players
         .map(p => p.player.score)
         .reduce((top, score) => Math.max(top, score || 0), 0)
     
-    const canDelete = playSession.players.some(player => player.id === userId)
+    const canDelete = playSession.players.some(player => player.id === user?.id) || user?.isAdmin
     
     return (
         

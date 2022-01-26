@@ -48,7 +48,7 @@ const Boardgame = () => {
 
     const playSessions = boardgame ? [...boardgame.playSessions].sort((a, b) => new Date(b.date) - new Date(a.date)) : []
 
-    const isOwner = boardgame?.addedById === user?.id
+    const isOwner = boardgame?.addedById === user?.id || user?.isAdmin
 
     const isLiked = boardgame?.likes.some(like => like.userId === user?.id)
     
@@ -94,7 +94,11 @@ const Boardgame = () => {
                         </h1>
                         <LikeButton liked={isLiked} onClick={handleLike} likes={boardgame.likes?.length}/>
                         <OptionsDropDown>
-                            <DeleteButton onClick={handleDelete} disabled={!isOwner || !canDelete} />
+                            <DeleteButton 
+                                onClick={handleDelete} 
+                                disabled={!isOwner || !canDelete} 
+                                disabledMessage={isOwner ? "Has playsessions, deletion not allowed" : "You aren't allowed to delete this boardgame"}
+                            />
                         </OptionsDropDown>
                     </div>
                     {/* Editable description */}
@@ -137,7 +141,7 @@ const Boardgame = () => {
                     >
                         {playSessions.map(ps => 
                             <div className="py-2" key={ps.id}>
-                                <PlaySession playSession={ps} handleDelete={handleDeletePlaySession} userId={user?.id}/>
+                                <PlaySession playSession={ps} handleDelete={handleDeletePlaySession} user={user}/>
                             </div>
                         )}
                     </PaginatedList>

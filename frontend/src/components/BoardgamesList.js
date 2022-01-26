@@ -1,7 +1,7 @@
 import React from "react"
 import Surface from "./util/Surface"
 import { Link } from "react-router-dom"
-import { CubeIcon } from "@heroicons/react/solid"
+import { CubeIcon, PlayIcon } from "@heroicons/react/outline"
 
 const Boardgame = ({ boardgame }) => (
     <Surface className="
@@ -22,14 +22,17 @@ const Boardgame = ({ boardgame }) => (
                         </h1>
                     </Link>
                 </div>
-                <div className="flex flex-row items-center pl-2">
-                    <CubeIcon className="text-rose-400 w-5 h-5"/>
-                    <span className="text-rose-400 tabular-nums">{boardgame?.numLikes}</span>
+                <div className="flex flex-row items-center select-none" title={"likes"}>
+                    <CubeIcon className="text-rose-500 w-5 h-5"/>
+                    <span className="text-slate-300 tabular-nums">{boardgame?.numLikes}</span>
                 </div>
             </div>
             <div className="flex flex-row">
-                <p className="text-slate-500 text-xs">Added {new Date(boardgame.dateAdded).toLocaleDateString()} by {boardgame.addedBy?.name}</p>
-                <p className="text-slate-500 text-xs">Played {boardgame.playSessions ? boardgame.playSessions.length : 0} times</p>
+                <p className="text-slate-500 text-xs mr-auto">Added {new Date(boardgame.dateAdded).toLocaleDateString()} by {boardgame.addedBy?.name}</p>
+                <div className="flex flex-row items-center select-none" title={"times played"}>
+                    <PlayIcon className="text-orange-500 w-5 h-5"/>
+                    <span className="text-slate-300 tabular-nums">{boardgame.playSessions ? boardgame.playSessions.length : 0}</span>
+                </div>
             </div>
         </div>
     </Surface>
