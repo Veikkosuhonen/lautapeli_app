@@ -88,7 +88,7 @@ const Boardgame = () => {
                 </div>
                 <div className="flex flex-col gap-4 pb-12 md:pb-16 lg:pb-20 pt-2">
                     {/* Title row */}
-                    <div className="flex flex-row items-center gap-2">
+                    <div className="flex flex-row items-center gap-4">
                         <h1 className="text-slate-100 font-light text-4xl pr-8">
                             {boardgame.name}
                         </h1>
@@ -137,7 +137,7 @@ const Boardgame = () => {
                     >
                         {playSessions.map(ps => 
                             <div className="py-2" key={ps.id}>
-                                <PlaySession playSession={ps} handleDelete={handleDeletePlaySession} userId={user.id}/>
+                                <PlaySession playSession={ps} handleDelete={handleDeletePlaySession} userId={user?.id}/>
                             </div>
                         )}
                     </PaginatedList>

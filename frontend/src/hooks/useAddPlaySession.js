@@ -9,7 +9,7 @@ const useAddPlaySession = () => {
     return useMutation(mutationFn, {
         onSuccess: (result, variables, context) => {
             queryClient.setQueryData(["boardgame", Number(variables.boardgameId)],
-                result.boardgame
+                boardgame => ({ ...boardgame, playSessions: boardgame.playSessions.concat(result.playSession) })
             )
             queryClient.setQueryData("activities",
                 activities => [result.activity].concat(activities)
