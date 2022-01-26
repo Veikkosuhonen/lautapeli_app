@@ -25,7 +25,9 @@ router.put("/:id", adminAuth, async (req, res) => {
     if (typeof(req.body.disabled) !== "boolean") {
         return res.status(400).json({ error: "missing or invalid disabled field" })
     }
-    const user = await User.findByPk(req.params.id)
+    const user = await User.findByPk(req.params.id, {
+        attributes: {exclude: ["passwordHash"] }
+    })
     user.disabled = req.body.disabled
     await user.save()
     return res.json(user)
