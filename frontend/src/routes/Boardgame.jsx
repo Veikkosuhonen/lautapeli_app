@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import PlaySession from '../components/PlaySession';
 import PlaySessionForm from '../components/PlaySessionForm';
 
 import toaster from '../util/toaster';
 import HeroSection from '../components/HeroSection';
 import PaginatedList from '../components/util/PaginatedList';
-import { CheckIcon, DotsHorizontalIcon, PencilIcon, XIcon } from '@heroicons/react/outline';
+import { ArrowNarrowLeftIcon, CheckIcon, DotsHorizontalIcon, PencilIcon, XIcon } from '@heroicons/react/outline';
 import EditableParagraph from '../components/util/EditableParagraph';
 import useCurrentUser from '../hooks/useCurrentUser';
 import useUsers from '../hooks/useUsers';
@@ -14,6 +14,9 @@ import useBoardgame from '../hooks/useBoardgame';
 import useUpdateDescription from '../hooks/useUpdateDescription';
 import OptionsDropDown from '../components/util/OptionsDropdown';
 import useDeleteBoardgame from '../hooks/useDeleteBoardgame';
+import LikeButton from '../components/LikeButton';
+import DeleteButton from '../components/DeleteButton';
+import useUpdateLike from '../hooks/useUpdateLike';
 
 const Boardgame = () => {
 
@@ -27,6 +30,8 @@ const Boardgame = () => {
 
     const updateDescription = useUpdateDescription()
     const deleteBoardgame = useDeleteBoardgame()
+    const updateLike = useUpdateLike()
+
     const navigate = useNavigate()
 
     const handleDescriptionUpdate = () => {
@@ -44,9 +49,13 @@ const Boardgame = () => {
 
     const isOwner = boardgame?.addedById === user.id
 
+    const isLiked = boardgame?.likes.some(like => like.userId === user.id)
+
+    const canDelete = playSessions?.length === 0
+
     const handleDelete = () => {
         if (!isOwner) return
-        if (playSessions.length !== 0) {
+        if (!canDelete) {
             toaster.errorMessage("Cannot delete a boardgame that has playsessions")
             return
         }
@@ -59,58 +68,64 @@ const Boardgame = () => {
         }
     }
 
+    const handleLike = () => {
+        updateLike({ like: !isLiked, boardgameId: boardgame.id })
+    }
+
     return (
         <div className="basis-full">
 
-            <HeroSection>
-                {boardgame && 
-                <div className="flex flex-col justify-end space-y-4">
-                    <h1>{boardgame.name}</h1>     
-                    <span className="text-lg text-slate-400">Added {boardgame.dateAdded}</span>
-                </div>
-                }
-            </HeroSection>
+            <HeroSection />
 
             {boardgame ?
             <div className="p-2 sm:p-4 md:p-8">
-                <div className="absolute top-20 right-10 md:top-40 md:right-40">
-                    <OptionsDropDown button={
-                        <div className="bg-sky-600/70 hover:bg-sky-600 rounded-xl p-2 shadow-lg">
-                            <DotsHorizontalIcon className="text-slate-200 w-6 h-6 md:w-8 md:h-8" />
-                        </div>
-                    }>
-                        { isOwner && <button className="text-rose-500 hover:text-rose-400" onClick={handleDelete}>Delete</button> }
-                    </OptionsDropDown>
-                </div>
-                <div className="flex flex-row w-full items-start gap-4 self-align-end pb-12 md:pb-16 lg:pb-20">
-                    <EditableParagraph 
-                        value={newDescription} 
-                        setValue={setNewDescription}
-                        disabled={!editing}
-                        placeholder={"No description available"}
-                        className={"flex-grow"}
-                        id="description"
-                    />
-                    { !editing ? 
-                    <button onClick={() => { setEditing(true) }} className="text-slate-400 hover:text-slate-200  p-2">
-                        <PencilIcon className="w-6 h-6"/>
-                    </button> 
-                    : <>
-                        <button 
-                            disabled={!descriptionEdited}
-                            onClick={() => { setEditing(false); handleDescriptionUpdate() }}
-                            className="text-slate-400 hover:text-slate-200  disabled:text-slate-600 p-2"
-                        >
-                            <CheckIcon className="w-7 h-7"/>
-                        </button>
-                        <button 
-                            onClick={() => { setEditing(false); setNewDescription(boardgame.description) }}
-                            className="text-slate-400 hover:text-slate-200 p-2"
-                        >
-                            <XIcon className="w-7 h-7"/>
-                        </button>
-                    </>
-                    }
+                <Link to="/boardgames">
+                    <ArrowNarrowLeftIcon className="w-7 h-7 text-slate-500 hover:text-slate-200"/>
+                </Link>
+                <div className="flex flex-col gap-4 pb-12 md:pb-16 lg:pb-20 pt-2">
+                    <div className="flex flex-row items-center gap-2">
+                        <h1 className="text-slate-100 font-light text-4xl pr-8">
+                            {boardgame.name}
+                        </h1>
+                        <LikeButton liked={isLiked} onClick={handleLike} likes={boardgame.likes?.length}/>
+                        <OptionsDropDown button={
+                            <div className="p-1 rounded-lg bg-slate-800/50">
+                                <DotsHorizontalIcon className="text-slate-500 hover:text-slate-200 w-5 h-5 md:w-7 md:h-7" />
+                            </div>
+                        }>
+                            <DeleteButton onClick={handleDelete} disabled={!isOwner || !canDelete} />
+                        </OptionsDropDown>
+                    </div>
+                    <div className="flex flex-row w-full items-start gap-4 basis-1/3">
+                        <EditableParagraph 
+                            value={newDescription} 
+                            setValue={setNewDescription}
+                            disabled={!editing}
+                            placeholder={"No description available"}
+                            className={"flex-grow"}
+                            id="description"
+                        />
+                        { !editing ? 
+                        <button onClick={() => { setEditing(true) }} className="text-slate-400 hover:text-slate-200  p-2">
+                            <PencilIcon className="w-6 h-6"/>
+                        </button> 
+                        : <>
+                            <button 
+                                disabled={!descriptionEdited}
+                                onClick={() => { setEditing(false); handleDescriptionUpdate() }}
+                                className="text-slate-400 hover:text-slate-200  disabled:text-slate-600 p-2"
+                            >
+                                <CheckIcon className="w-7 h-7"/>
+                            </button>
+                            <button 
+                                onClick={() => { setEditing(false); setNewDescription(boardgame.description) }}
+                                className="text-slate-400 hover:text-slate-200 p-2"
+                            >
+                                <XIcon className="w-7 h-7"/>
+                            </button>
+                        </>
+                        }
+                    </div>
                 </div>
                 <div className="flex flex-col md:flex-row gap-y-10 gap-x-6">
                     <PaginatedList 

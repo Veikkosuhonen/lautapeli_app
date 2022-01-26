@@ -45,4 +45,5 @@
 | 23.1 | 6h | Lautapelien ja pelisessioiden poistamistoiminto |
 | Yht: | 17h |
 | Viikko 7 |
+| 25.1 | 3h | Tykkäykset backendiin |
 

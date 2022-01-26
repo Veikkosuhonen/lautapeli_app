@@ -1,4 +1,5 @@
-import { Menu } from '@headlessui/react'
+import { Menu, Transition } from '@headlessui/react'
+import { Fragment } from "react"
 
 const OptionsDropDown = ({
     button, children
@@ -6,11 +7,21 @@ const OptionsDropDown = ({
 
     return (
         <div>
-            <Menu>
+            <Menu as="div" className="relative">
                 <Menu.Button>{button}</Menu.Button>
-                <Menu.Items className="relative mt-2 shadow-md p-2 bg-slate-800 rounded-md">
-                    <Menu.Item>{children}</Menu.Item>
-                </Menu.Items>
+                <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="origin-top-right absolute right-0 mt-0 shadow-md p-2 bg-slate-800 rounded-md">
+                        <Menu.Item>{children}</Menu.Item>
+                    </Menu.Items>
+                </Transition>
             </Menu>
         </div>
     )
