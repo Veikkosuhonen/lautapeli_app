@@ -115,9 +115,7 @@ test("Playsessions can be deleted", async () => {
 })
 
 test("Only players can delete playSession", async () => {
-    // create a user
-    const user = (await testUtils.createUser(api, "new", "password")).body
-
+    
     // create a new session one
     const bg = await Boardgame.findOne()
     let response = await api.post("/api/playsessions/")
@@ -125,13 +123,17 @@ test("Only players can delete playSession", async () => {
             boardgameId: bg.id,
             duration: 180,
             date: new Date(),
-            players: [{ id: user.id, score: 0 }]
+            players: [{ id: testUtils.getCurrentUser().id, score: 0 }]
         })
         .set("authorization", testUtils.getToken())
         .expect(200)
     
     const id = response.body.playSession.id
     
+    // create a non-admin user and login. 
+    const user = (await testUtils.createUser(api, "new", "password")).body
+    await testUtils.login(api, user.username, user.password)
+
     // try to delete it
     response = await api.delete("/api/playsessions/" + id)
         .set("authorization", testUtils.getToken())
