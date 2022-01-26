@@ -6,11 +6,11 @@ const useUpdateDescription = () => {
 
     const mutationFn = async (boardgame) => api.put("/boardgames/" + boardgame.id, boardgame)
 
+    const updateFn = (result) => (boardgame) => ({ ...boardgame, description: result.description })
+
     return useMutation(mutationFn, {
         onSuccess: (result, variables, context) => {
-            queryClient.setQueryData(["boardgame", Number(variables.id)],
-                boardgame => ({ ...boardgame, description: result.description })
-            )
+            queryClient.setQueryData(["boardgame", Number(variables.id)], updateFn(result))
         }
     }).mutateAsync
 }

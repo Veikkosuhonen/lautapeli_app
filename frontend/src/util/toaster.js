@@ -50,6 +50,13 @@ const deleteBoardgameMessage = (request) => {
     )
 }
 
+const deletePlaySessionMessage = (request) => {
+    promise(request, 
+        "Deleting...",
+        "Ok, that session is gone"
+    )
+}
+
 const userDisableMessage = (request) => {
     promise(request, 
         "Update disabled state...",
@@ -75,6 +82,7 @@ const toaster = {
     playSessionAddMessage,
     descriptionUpdateMessage,
     deleteBoardgameMessage,
+    deletePlaySessionMessage,
     userDisableMessage,
     generateCodeMessage,
     errorMessage

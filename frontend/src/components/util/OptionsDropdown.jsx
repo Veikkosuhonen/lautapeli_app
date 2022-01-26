@@ -1,14 +1,19 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from "react"
+import { DotsHorizontalIcon } from '@heroicons/react/outline'
 
 const OptionsDropDown = ({
-    button, children
+    children
 }) => {
 
     return (
         <div>
             <Menu as="div" className="relative">
-                <Menu.Button>{button}</Menu.Button>
+                <Menu.Button>
+                    <div className="p-1">
+                        <DotsHorizontalIcon className="text-slate-500 hover:text-slate-200 w-5 h-5 md:w-7 md:h-7" />
+                    </div>
+                </Menu.Button>
                 <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"

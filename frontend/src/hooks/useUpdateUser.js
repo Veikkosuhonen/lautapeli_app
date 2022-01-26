@@ -6,11 +6,11 @@ const useUpdateUser = () => {
 
     const mutationFn = async (user) => api.put("/users", user)
 
+    const updateFn = (result) => (users) => users.concat(result)
+
     return useMutation(mutationFn, {
         onSuccess: (result, variables, context) => {
-            queryClient.setQueryData("users",
-                users => users.concat(result)
-            )
+            queryClient.setQueryData("users", updateFn(result))
         }
     }).mutateAsync
 }

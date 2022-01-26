@@ -124,7 +124,7 @@ router.post("/", auth, async (request, response) => {
 router.delete("/:id", auth, async (request, response) => {
     const id = Number(request.params.id)
     if (!Number.isInteger(id)) {
-        return request.sendStatus(404)
+        return response.sendStatus(404)
     }
     const playSession = await PlaySession.findByPk(id, {
         include: [

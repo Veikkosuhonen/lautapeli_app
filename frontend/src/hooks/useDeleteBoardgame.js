@@ -6,11 +6,11 @@ const useDeleteBoardgame = () => {
 
     const mutationFn = async (id) => api.del("/boardgames/" + id)
 
+    const updateFn = (result) => (boardgames) => boardgames?.filter(boardgame => boardgame.id !== result.id)
+
     return useMutation(mutationFn, {
         onSuccess: (result, variables, context) => {
-            queryClient.setQueryData("boardgames",
-                boardgames => boardgames?.filter(boardgame => boardgame.id !== result.id)
-            )
+            queryClient.setQueryData("boardgames", updateFn(result))
         }
     }).mutateAsync
 }

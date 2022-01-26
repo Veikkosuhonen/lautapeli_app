@@ -616,6 +616,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 1.75rem;
 }
 
+.w-min {
+  width: -webkit-min-content;
+  width: min-content;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -692,6 +697,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
 }
 
 .items-start {
@@ -882,6 +891,15 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(249 115 22 / var(--tw-border-opacity));
 }
 
+.border-slate-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(71 85 105 / var(--tw-border-opacity));
+}
+
+.border-transparent {
+  border-color: transparent;
+}
+
 .bg-orange-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(154 52 18 / var(--tw-bg-opacity));
@@ -909,10 +927,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(71 85 105 / 0.5);
 }
 
-.bg-slate-800\/50 {
-  background-color: rgb(30 41 59 / 0.5);
-}
-
 .bg-slate-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
@@ -929,6 +943,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-transparent {
   background-color: transparent;
+}
+
+.bg-slate-800\/50 {
+  background-color: rgb(30 41 59 / 0.5);
 }
 
 .bg-gradient-to-r {
@@ -1324,8 +1342,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-duration: 150ms;
 }
 
+.transition-colors {
+  transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .delay-75 {
   transition-delay: 75ms;
+}
+
+.delay-100 {
+  transition-delay: 100ms;
 }
 
 .duration-200 {
@@ -1338,6 +1368,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .duration-75 {
   transition-duration: 75ms;
+}
+
+.duration-150 {
+  transition-duration: 150ms;
 }
 
 .ease-in-out {
@@ -1402,6 +1436,10 @@ input[type=number] {
   cursor: pointer;
 }
 
+.hover\:border:hover {
+  border-width: 1px;
+}
+
 .hover\:border-indigo-500:hover {
   --tw-border-opacity: 1;
   border-color: rgb(99 102 241 / var(--tw-border-opacity));
@@ -1410,6 +1448,16 @@ input[type=number] {
 .hover\:border-rose-600:hover {
   --tw-border-opacity: 1;
   border-color: rgb(225 29 72 / var(--tw-border-opacity));
+}
+
+.hover\:border-slate-600:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(71 85 105 / var(--tw-border-opacity));
+}
+
+.hover\:border-slate-800:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(30 41 59 / var(--tw-border-opacity));
 }
 
 .hover\:bg-slate-800:hover {
@@ -1433,6 +1481,14 @@ input[type=number] {
 .hover\:bg-slate-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-slate-900\/50:hover {
+  background-color: rgb(15 23 42 / 0.5);
+}
+
+.hover\:bg-slate-800\/30:hover {
+  background-color: rgb(30 41 59 / 0.3);
 }
 
 .hover\:text-rose-400:hover {
