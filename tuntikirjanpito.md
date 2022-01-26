@@ -46,5 +46,5 @@
 | Yht: | 17h |
 | Viikko 7 |
 | 25.1 | 3h | Tykkäykset backendiin |
-| 26.1 | 3h | Tykkäykset fronttiin |
+| 26.1 | 6h | Tykkäykset fronttiin, ui-parannuksia, adminilla aina delettäysoikeudet |
 
