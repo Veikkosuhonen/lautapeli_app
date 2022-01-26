@@ -10,9 +10,10 @@ import InputField from "../components/util/InputField"
 import SelectInput from "../components/util/SelectInput"
 import useBoardgames from "../hooks/useBoardgames"
 import useActivities from "../hooks/useActivities"
+import { useMemo } from "react"
 
 const sortOptions = [
-    "name", "date added", "last played"
+    "name", "date added", "last played", "times played", "likes"
 ]
 
 const Boardgames = () => {
@@ -24,21 +25,33 @@ const Boardgames = () => {
     const [sortBy, setSortBy] = useState(sortOptions[0])
     const [desc, setDesc] = useState(true)
 
-    const sorter = (a, b) => {
-        switch (sortBy) {
-            case "date added": return new Date(b.dateAdded) - new Date(a.dateAdded)
-            case "last played": {
-                return (new Date(b.playSessions.length > 0 ? b.playSessions[0].date : 0) 
-                        - new Date(a.playSessions.length > 0 ? a.playSessions[0].date : 0))
+    const sortedBoardgames = useMemo(() => {
+        const sorter = (a, b) => {
+            switch (sortBy) {
+                case "date added": return new Date(b.dateAdded) - new Date(a.dateAdded)
+                case "last played": {
+                    return (new Date(b.playSessions.length > 0 ? b.playSessions[0].date : 0) 
+                            - new Date(a.playSessions.length > 0 ? a.playSessions[0].date : 0))
+                }
+                case "times played": return b.playSessions.length - a.playSessions.length
+                case "likes": return b.numLikes - a.numLikes
+                default: return ("" + a.name).localeCompare(b.name)
             }
-            default: return ("" + a.name).localeCompare(b.name)
         }
-    }
 
-    const getBoardgames = () => boardgames ? boardgames
-        .filter(bg => bg.name.toLowerCase().includes(searchTerm.toLowerCase()))
-        .sort(desc ? sorter : (a, b) => sorter(b, a))
-        : []
+        return boardgames?.sort(sorter)
+    }, [boardgames, sortBy])
+
+    const filteredBoardgames = useMemo(() => {
+        return sortedBoardgames?.filter(bg => bg.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sortedBoardgames, searchTerm, sortBy]) // without sortBy dep, doesnt update when sort changes
+
+    // risky: reverse in place a memoized array. It works just fine doe
+    const onSortDirChange = () => {
+        setDesc(!desc)
+        filteredBoardgames.reverse()
+    }
 
     return (
         <div>
@@ -60,7 +73,7 @@ const Boardgames = () => {
                         <div className="flex flex-row space-x-1 items-center">
                             <span className="hidden sm:block text-slate-400 text-sm">Sort by</span>
                             <SelectInput value={sortBy} setValue={setSortBy} options={sortOptions}/>
-                            <button className="text-slate-400 hover:text-slate-200" onClick={(event) => setDesc(!desc)}>
+                            <button className="text-slate-400 hover:text-slate-200" onClick={onSortDirChange}>
                                 {desc ? <ArrowDownIcon className="w-5 h-5"/> : <ArrowUpIcon className="w-5 h-5"/>}
                             </button>
                         </div>
@@ -69,7 +82,7 @@ const Boardgames = () => {
                         </NavLink>
                     </div>
                     <Outlet />
-                    <BoardgamesList boardgames={getBoardgames(boardgames)} />
+                    <BoardgamesList boardgames={filteredBoardgames} />
                 </div>
             </div>
         </div>

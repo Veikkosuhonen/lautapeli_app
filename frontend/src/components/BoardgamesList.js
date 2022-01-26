@@ -41,7 +41,7 @@ const BoardgamesList = ({
     <div className="
         grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-y-4 gap-x-2"
     >
-        {boardgames.map(bg => 
+        {boardgames?.map(bg => 
             <Boardgame key={bg.id} boardgame={bg} onSelect={onSelect}/>
         )}
     </div>

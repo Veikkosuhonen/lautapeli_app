@@ -481,6 +481,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   z-index: 10;
 }
 
+.z-20 {
+  z-index: 20;
+}
+
 .col-span-3 {
   grid-column: span 3 / span 3;
 }
@@ -534,6 +538,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mt-0 {
   margin-top: 0px;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
 }
 
 .block {
@@ -612,13 +620,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 5rem;
 }
 
-.w-7 {
-  width: 1.75rem;
-}
-
 .w-min {
   width: -webkit-min-content;
   width: min-content;
+}
+
+.w-7 {
+  width: 1.75rem;
 }
 
 .flex-1 {
@@ -631,10 +639,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .basis-1\/4 {
   flex-basis: 25%;
-}
-
-.basis-full {
-  flex-basis: 100%;
 }
 
 .basis-1\/3 {
@@ -891,15 +895,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(249 115 22 / var(--tw-border-opacity));
 }
 
-.border-slate-600 {
-  --tw-border-opacity: 1;
-  border-color: rgb(71 85 105 / var(--tw-border-opacity));
-}
-
-.border-transparent {
-  border-color: transparent;
-}
-
 .bg-orange-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(154 52 18 / var(--tw-bg-opacity));
@@ -943,10 +938,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-transparent {
   background-color: transparent;
-}
-
-.bg-slate-800\/50 {
-  background-color: rgb(30 41 59 / 0.5);
 }
 
 .bg-gradient-to-r {
@@ -1290,6 +1281,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.shadow-lg {
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -1370,10 +1367,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-duration: 75ms;
 }
 
-.duration-150 {
-  transition-duration: 150ms;
-}
-
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1436,10 +1429,6 @@ input[type=number] {
   cursor: pointer;
 }
 
-.hover\:border:hover {
-  border-width: 1px;
-}
-
 .hover\:border-indigo-500:hover {
   --tw-border-opacity: 1;
   border-color: rgb(99 102 241 / var(--tw-border-opacity));
@@ -1450,16 +1439,6 @@ input[type=number] {
   border-color: rgb(225 29 72 / var(--tw-border-opacity));
 }
 
-.hover\:border-slate-600:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(71 85 105 / var(--tw-border-opacity));
-}
-
-.hover\:border-slate-800:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(30 41 59 / var(--tw-border-opacity));
-}
-
 .hover\:bg-slate-800:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
@@ -1467,6 +1446,10 @@ input[type=number] {
 
 .hover\:bg-sky-300\/20:hover {
   background-color: rgb(125 211 252 / 0.2);
+}
+
+.hover\:bg-slate-800\/30:hover {
+  background-color: rgb(30 41 59 / 0.3);
 }
 
 .hover\:bg-slate-800\/50:hover {
@@ -1481,14 +1464,6 @@ input[type=number] {
 .hover\:bg-slate-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(51 65 85 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-slate-900\/50:hover {
-  background-color: rgb(15 23 42 / 0.5);
-}
-
-.hover\:bg-slate-800\/30:hover {
-  background-color: rgb(30 41 59 / 0.3);
 }
 
 .hover\:text-rose-400:hover {
