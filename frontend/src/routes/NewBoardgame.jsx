@@ -1,23 +1,11 @@
-import React, { useState } from "react"
-import { multiValidation } from "../util/validation"
-import InputField from "../components/util/InputField"
-import { PrimaryButton } from "../components/util/Buttons"
 import Surface from "../components/util/Surface"
 import { NavLink } from "react-router-dom"
 import { XIcon } from "@heroicons/react/solid"
-import EditableParagraph from "../components/util/EditableParagraph"
 import useAddBoardgame from "../hooks/useAddBoardgame"
 import toaster from "../util/toaster"
-import useBoardgames from "../hooks/useBoardgames"
 import NewBoardgameForm from "../components/NewBoardgameForm"
 
 export default function NewBoardgame() {
-
-    const { boardgames } = useBoardgames()
-    
-    const [name, setName] = useState("")
-    const [description, setDescription] = useState("")
-    const [valid, setValid] = useState(false)
 
     const addBoardgame = useAddBoardgame()
 
@@ -25,22 +13,6 @@ export default function NewBoardgame() {
         const response = addBoardgame(boardgame)
         toaster.boardgameAddMessage(response);
     }
-
-    const validateName = multiValidation(
-        setValid,
-        {
-            condition: (name) => name !== "",
-            message: "Name must not be empty"
-        },
-        {
-            condition: (name) => name.length <= 48,
-            message: "Length must be no more than 48"
-        },
-        {
-            condition: (name) => !boardgames?.some(board => board.name === name),
-            message: "Boardgame already exists"
-        }
-    )
 
     return (
         <Surface className="py-6 px-6 mb-4">
