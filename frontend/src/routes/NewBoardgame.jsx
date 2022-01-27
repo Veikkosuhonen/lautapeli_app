@@ -9,6 +9,7 @@ import EditableParagraph from "../components/util/EditableParagraph"
 import useAddBoardgame from "../hooks/useAddBoardgame"
 import toaster from "../util/toaster"
 import useBoardgames from "../hooks/useBoardgames"
+import NewBoardgameForm from "../components/NewBoardgameForm"
 
 export default function NewBoardgame() {
 
@@ -20,12 +21,9 @@ export default function NewBoardgame() {
 
     const addBoardgame = useAddBoardgame()
 
-    const submitHandler = (event) => {
-        event.preventDefault()
-        const response = addBoardgame({ name, description })
+    const submitHandler = (boardgame) => {
+        const response = addBoardgame(boardgame)
         toaster.boardgameAddMessage(response);
-        setName("")
-        setDescription("")
     }
 
     const validateName = multiValidation(
@@ -53,24 +51,7 @@ export default function NewBoardgame() {
                         <XIcon className="text-slate-400 w-6 h-6 hover:text-slate-200"/>
                     </NavLink>
                 </div>
-                <form onSubmit={submitHandler}>
-                    <div className="flex flex-col gap-4">
-                        <InputField 
-                            placeholder="Boardgame name"
-                            value={name} 
-                            onChange={event => {setName(event.target.value)}}
-                            validation={validateName}
-                            autoComplete="off"
-                        />
-                        <EditableParagraph 
-                            value={description} 
-                            setValue={setDescription} 
-                            placeholder="description (optional)"
-                            className="sm:text-base"
-                        />
-                        <PrimaryButton type="submit" content="add boardgame" disabled={!valid}/>
-                    </div>
-                </form>
+                <NewBoardgameForm handleSubmit={submitHandler} />
             </div>
         </Surface>
     )

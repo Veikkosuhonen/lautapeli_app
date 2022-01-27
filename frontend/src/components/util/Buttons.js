@@ -4,7 +4,7 @@ const PrimaryButton = ({
     content,
     type,
     onClick,
-    disabled
+    disabled,
 }) => (
     <button
     disabled={disabled}
