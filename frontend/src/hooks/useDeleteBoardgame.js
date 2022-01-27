@@ -4,7 +4,7 @@ import queryClient from "../services/queryClient"
 
 const useDeleteBoardgame = () => {
 
-    const mutationFn = async (id) => api.del("/boardgames/" + id)
+    const mutationFn = async (boardgame) => api.del("/boardgames/" + boardgame.id)
 
     const updateFn = (result) => (boardgames) => boardgames?.filter(boardgame => boardgame.id !== result.id)
 

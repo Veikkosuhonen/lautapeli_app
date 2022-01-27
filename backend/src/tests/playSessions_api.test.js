@@ -1,6 +1,6 @@
 const supertest = require("supertest")
 const app = require("../app")
-const { PlaySession, Boardgame, User, Player } = require("../models")
+const { PlaySession, Boardgame, Player } = require("../models")
 const testUtils = require("./testUtils")
 
 const api = supertest(app)
