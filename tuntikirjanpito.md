@@ -47,4 +47,4 @@
 | Viikko 7 |
 | 25.1 | 3h | Tykkäykset backendiin |
 | 26.1 | 6h | Tykkäykset fronttiin, ui-parannuksia, adminilla aina delettäysoikeudet |
-
+| 27.1 | 2h | Formik käyttöön lautapelin lisäämislomakkeeseen |
