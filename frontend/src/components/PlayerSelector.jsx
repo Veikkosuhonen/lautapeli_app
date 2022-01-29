@@ -64,7 +64,7 @@ const PlayerSelector = ({
                         className="p-1 text-left hover:bg-slate-600"
                     >
                         <div className="flex flex-row items-center">
-                            <span className="mr-auto p-1">{option.name}</span>
+                            <span className={"mr-auto p-1 " + (index === focusIndex ? "text-slate-200" : "")}>{option.name}</span>
                             {index === focusIndex && 
                             <div className="flex flex-row items-center p-1 rounded bg-slate-800/50 font-mono text-sm">
                                 <span>enter</span>

@@ -2,6 +2,7 @@ import React from "react"
 import User from "./User"
 import OptionsDropDown from "./util/OptionsDropdown"
 import DeleteButton from "./DeleteButton"
+import { Menu } from "@headlessui/react"
 
 const PlaySession = ({ playSession, handleDelete, user }) => {
 
@@ -9,7 +10,7 @@ const PlaySession = ({ playSession, handleDelete, user }) => {
         .map(p => p.player.score)
         .reduce((top, score) => Math.max(top, score || 0), 0)
     
-    const canDelete = playSession.players.some(player => player.id === user?.id) || user?.isAdmin
+    const isOwner = playSession.players.some(player => player.id === user?.id) || user?.isAdmin
     
     return (
         
@@ -25,7 +26,7 @@ const PlaySession = ({ playSession, handleDelete, user }) => {
                         </span>
                     </div>
                     <OptionsDropDown>
-                        <DeleteButton onClick={() => handleDelete(playSession)} disabled={!canDelete}/>
+                        <Menu.Item><DeleteButton onClick={() => handleDelete(playSession)} disabled={!isOwner}/></Menu.Item>
                     </OptionsDropDown>
                 </div>
             </div>

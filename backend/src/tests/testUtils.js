@@ -37,6 +37,10 @@ const getCurrentUser = () => {
     return currentUser
 }
 
+const getCurrentUserAsPlayer = () => {
+    return { id: currentUser.id, score: 0 }
+}
+
 const clearUsers = async () => {
     await User.destroy({
         where: {
@@ -49,6 +53,6 @@ const clearUsers = async () => {
     }
 }
 
-const testUtils = { createUser, login, getToken, clearUsers, getCurrentUser }
+const testUtils = { createUser, login, getToken, clearUsers, getCurrentUser, getCurrentUserAsPlayer }
 
 module.exports = testUtils

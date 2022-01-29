@@ -49,12 +49,22 @@ router.get("/:id", auth, async (request, response) => {
     }
 })
 
-const validatePlaysession = (body) => {
-    return (
+const validatePlaysession = (body, user) => {
+    const hasFields = (
         body.boardgameId !== undefined &&
         body.duration !== undefined &&
         body.players !== undefined
     )
+    if (!hasFields) return false
+    try {
+        const hasInvalidPlayers = body.players.some((player) => player.id === undefined || player.score === undefined)
+        if (hasInvalidPlayers) return false
+        const userInPlayers = body.players.some((player) => player.id === user.id)
+        if (!userInPlayers) return false
+    } catch (e) {
+        return false
+    }
+    return true
 }
 
 const createActivity = async (playSession) => {
@@ -86,7 +96,7 @@ const createActivity = async (playSession) => {
 
 router.post("/", auth, async (request, response) => {
     const playSession = request.body
-    if (!validatePlaysession(playSession)) {
+    if (!validatePlaysession(playSession, request.user)) {
         return response.status(400).json({ error: "Invalid playsession" })
     }
 

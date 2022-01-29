@@ -11,7 +11,7 @@ const PaginatedList = ({
     const end = children ? Math.min((page + 1) * itemsPerPage, children.length) : 1
 
     return (
-        <div className={"p-2 overflow-hidden " + className}>
+        <div className={"p-2 " + className}>
             <div className="flex flex-row space-x-2 items-center pb-4">
                 <div className="pr-4">
                     {title}

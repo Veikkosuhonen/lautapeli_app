@@ -23,8 +23,8 @@ const OptionsDropDown = ({
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="origin-top-right absolute right-0 mt-0 shadow-md p-2 bg-slate-800 rounded-md">
-                        <Menu.Item>{children}</Menu.Item>
+                    <Menu.Items className="origin-top-right absolute right-0 mt-0 flex flex-col gap-2 shadow-md p-2 bg-slate-800 rounded-md">
+                        {children}
                     </Menu.Items>
                 </Transition>
             </Menu>

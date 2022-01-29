@@ -21,7 +21,7 @@ const ScoreInput = (
                 value={value}
                 onChange={onChange}
                 type="number"
-                placeholder="0"
+                placeholder="score"
                 className="rounded bg-slate-700 p-1 my-2 focus:outline-none text-center w-20 font-serif text-orange-500"
                 onBlur={props["onBlur"]}
             />
@@ -30,25 +30,25 @@ const ScoreInput = (
 }
 
 const PlaySessionForm = ({
-    users, boardgame
+    user, users, boardgame
 }) => {
 
     const addPlaySession = useAddPlaySession()
 
     const [duration, setDuration] = useState(0)
     const [date, setDate] = useState(new Date())
-    const [players, setPlayers] = useState([])
+    const [players, setPlayers] = useState(user ? [{ id: user.id, name: user.name, score: 0 }] : [])
     const [durationValid, setDurationValid] = useState(false)
 
     const onSubmit = (event) => {
         event.preventDefault()
-        const playSession = {
+        const playSessionObject = {
             boardgameId: boardgame.id,
             duration,
             date,
             players: players.map(p => ({ id: p.id, score: p.score }))
         }
-        const response = addPlaySession(playSession)
+        const response = addPlaySession(playSessionObject)
         toaster.playSessionAddMessage(response)
     }
 
@@ -61,7 +61,7 @@ const PlaySessionForm = ({
     }
 
     const isValid = () => {
-        return durationValid && players.length > 0
+        return durationValid && players.some(player => player.id === user.id)
     }
 
     const durationValidation = validation(
@@ -117,6 +117,7 @@ const PlaySessionForm = ({
                             <span className="w-5"></span>
                             <span className="flex-grow">Player</span>
                             <span className="pr-4">Score</span>
+                            <div className="w-5 h-5"/>
                         </div>
                         {players.map(player => 
                             <div key={player.id} className="flex flex-row space-x-4 items-center  
@@ -135,13 +136,16 @@ const PlaySessionForm = ({
                                     />
                                 </div>
                                 
-                                <button 
+                                { player.id !== user.id  // dont show remove button when its the user themselves
+                                ? <button 
                                     type="button"
                                     onClick={() => handleRemove(player)}
                                     className="text-slate-400 hover:text-slate-100"
                                 >
                                     <XIcon className="w-5 h-5"/>
                                 </button>
+                                : <div className="w-5 h-5"/>
+                                }
                                 
                             </div>
                         )}  

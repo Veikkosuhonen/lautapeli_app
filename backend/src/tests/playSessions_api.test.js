@@ -22,13 +22,13 @@ beforeEach(async () => {
         boardgameId: bg.id,
         duration: 180,
         date: new Date(),
-        players: []
+        players: [testUtils.getCurrentUserAsPlayer()]
     })
     await PlaySession.create({
         boardgameId: bg.id,
         duration: 240,
         date: new Date(),
-        players: []
+        players: [testUtils.getCurrentUserAsPlayer()]
     })
     await testUtils.login(api)
 })
@@ -65,7 +65,7 @@ test("Playsessions can be posted", async () => {
             boardgameId: bg.id,
             duration: 180,
             date: new Date(),
-            players: []
+            players: [testUtils.getCurrentUserAsPlayer()]
         })
         .set("authorization", testUtils.getToken())
         .expect(200)
@@ -79,6 +79,23 @@ test("Playsessions can be posted", async () => {
         .set("authorization", testUtils.getToken())
     
     expect(bgsResponse.body.playSessions).toHaveLength(3)
+})
+
+test("Playsession must have creator as player", async () => {
+    // create a new user
+    const user = (await testUtils.createUser(api, "boo", "far", "McFarty")).body
+    const bg = await Boardgame.findOne()
+    const response = await api.post("/api/playsessions/")
+        .send({
+            boardgameId: bg.id,
+            duration: 180,
+            date: new Date(),
+            players: [{ id: user.id, score: 0}]
+        })
+        .set("authorization", testUtils.getToken())
+        .expect(400)
+    
+    expect(response.body.error).toBe("Invalid playsession")
 })
 
 test("Playsessions can be deleted", async () => {

@@ -31,7 +31,14 @@ const boardgameAddMessage = (request) => {
 
 const playSessionAddMessage = (request) => {
     promise(request, 
-        "Adding playsession",
+        "Adding playsession...",
+        "Success"
+    )
+}
+
+const playSessionEditMessage = (request) => {
+    promise(request, 
+        "Editing playsession...",
         "Success"
     )
 }
@@ -80,6 +87,7 @@ const toaster = {
     registerMessage,
     boardgameAddMessage,
     playSessionAddMessage,
+    playSessionEditMessage,
     descriptionUpdateMessage,
     deleteBoardgameMessage,
     deletePlaySessionMessage,
