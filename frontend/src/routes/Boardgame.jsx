@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Formik } from "formik"
+import * as Yup from "yup"
+import FormikTextArea from '../components/util/FormikTextArea'
+import { PrimaryButton } from '../components/util/Buttons'
 import PlaySession from '../components/PlaySession';
 import PlaySessionForm from '../components/PlaySessionForm';
-
 import toaster from '../util/toaster';
 import HeroSection from '../components/HeroSection';
 import PaginatedList from '../components/util/PaginatedList';
@@ -17,10 +20,116 @@ import useDeleteBoardgame from '../hooks/useDeleteBoardgame';
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
 import useUpdateLike from '../hooks/useUpdateLike';
+import useAddComment from '../hooks/useAddComment';
 import useDeletePlaySession from '../hooks/useDeletePlaySession';
 
-const Boardgame = () => {
+const EditableDescription = ({
+    newDescription, setNewDescription, oldDescription, handleUpdate
+}) => {
+
     const [editing, setEditing] = useState(false)
+
+    const descriptionEdited = oldDescription !== undefined && newDescription !== oldDescription
+
+    return (
+        <div className="flex flex-row w-full items-start gap-4 basis-1/3">
+            <EditableParagraph 
+                value={newDescription} 
+                setValue={setNewDescription}
+                disabled={!editing}
+                placeholder={"No description available"}
+                className={"flex-grow"}
+                id="description"
+            />
+            { !editing ? 
+            <button onClick={() => { setEditing(true) }} className="text-slate-400 hover:text-slate-200  p-2">
+                <PencilIcon className="w-6 h-6"/>
+            </button> 
+            : <>
+                <button 
+                    disabled={!descriptionEdited}
+                    onClick={() => { setEditing(false); handleUpdate() }}
+                    className="text-slate-400 hover:text-slate-200  disabled:text-slate-600 p-2"
+                >
+                    <CheckIcon className="w-7 h-7"/>
+                </button>
+                <button 
+                    onClick={() => { setEditing(false); setNewDescription(oldDescription) }}
+                    className="text-slate-400 hover:text-slate-200 p-2"
+                >
+                    <XIcon className="w-7 h-7"/>
+                </button>
+            </>
+            }
+        </div>
+    )
+}
+
+const Comment = ({
+    comment
+}) => (
+    <div className="flex flex-col gap-2 p-2">
+        <div className="flex flex-row gap-2 items-end">
+            <span className="text-sm font-serif text-slate-400">
+                {comment.user.name}
+            </span>
+            <span className="text-xs text-slate-500">
+                {new Date(comment.date).toLocaleString()}
+            </span>
+        </div>
+        <p className="text-slate-400">
+            {comment.comment}
+        </p>
+    </div>
+)
+
+const CommentSection = ({
+    boardgame
+}) => {
+
+    const addComment = useAddComment()
+
+    const handleSubmit = ({ comment }) => {
+        const response = addComment({ boardgameId: boardgame.id, comment: comment })
+        toaster.boardgameAddMessage(response)
+    }
+
+    return (
+        <div className="flex flex-col">
+            <PaginatedList
+                className="basis-full sm:basis-1/2"
+                title={<h1 className="text-slate-400 text-md font-normal">Comments</h1>}
+            >
+                {boardgame.comments.map(comment => 
+                    <Comment comment={comment} key={comment.id} /> 
+                )}
+            </PaginatedList>
+            <Formik
+                initialValues={{comment: ""}}
+                initialErrors={{comment: "cannot be blank"}}
+                validationSchema={Yup.object({
+                    comment: Yup.string().min(0).required("cannot be blank")
+                })}
+                onSubmit={handleSubmit}
+            >
+                {formik => (
+                    <form onSubmit={formik.handleSubmit} className="flex flex-row items-end gap-2 p-2">
+                        <FormikTextArea
+                            label="Comment"
+                            name="comment"
+                            placeholder="New comment"
+                        />
+                        <div>
+                            <PrimaryButton content={"Comment"} type={"submit"} disabled={!formik.isValid}/>
+                        </div>
+                    </form>
+                )}
+            </Formik>
+        </div>
+    )
+}
+
+const Boardgame = () => {
     const [newDescription, setNewDescription] = useState("")
 
     const { user } = useCurrentUser()
@@ -43,8 +152,6 @@ const Boardgame = () => {
 
         toaster.descriptionUpdateMessage(response)
     }
-
-    const descriptionEdited = boardgame && newDescription !== boardgame.description
 
     const playSessions = boardgame ? [...boardgame.playSessions].sort((a, b) => new Date(b.date) - new Date(a.date)) : []
 
@@ -101,54 +208,31 @@ const Boardgame = () => {
                             />
                         </OptionsDropDown>
                     </div>
-                    {/* Editable description */}
-                    <div className="flex flex-row w-full items-start gap-4 basis-1/3">
-                        <EditableParagraph 
-                            value={newDescription} 
-                            setValue={setNewDescription}
-                            disabled={!editing}
-                            placeholder={"No description available"}
-                            className={"flex-grow"}
-                            id="description"
-                        />
-                        { !editing ? 
-                        <button onClick={() => { setEditing(true) }} className="text-slate-400 hover:text-slate-200  p-2">
-                            <PencilIcon className="w-6 h-6"/>
-                        </button> 
-                        : <>
-                            <button 
-                                disabled={!descriptionEdited}
-                                onClick={() => { setEditing(false); handleDescriptionUpdate() }}
-                                className="text-slate-400 hover:text-slate-200  disabled:text-slate-600 p-2"
-                            >
-                                <CheckIcon className="w-7 h-7"/>
-                            </button>
-                            <button 
-                                onClick={() => { setEditing(false); setNewDescription(boardgame.description) }}
-                                className="text-slate-400 hover:text-slate-200 p-2"
-                            >
-                                <XIcon className="w-7 h-7"/>
-                            </button>
-                        </>
-                        }
-                    </div>
+                    <EditableDescription 
+                        newDescription={newDescription}
+                        setNewDescription={setNewDescription}
+                        oldDescription={boardgame.description}
+                        handleUpdate={handleDescriptionUpdate}
+                    />
                 </div>
-                <div className="flex flex-col md:flex-row gap-y-10 gap-x-6">
+                <div className="flex flex-col gap-y-10">
+                    {/* Activity section */}
+                    <div className="flex flex-col sm:flex-row gap-2">
                     {/* Playsessions */}
-                    <PaginatedList 
-                        className="basis-1/4 sm:basis-2/5"
-                        title={<h1 className="text-slate-400 text-md font-normal">Playsessions</h1>}
-                    >
-                        {playSessions.map(ps => 
-                            <div className="py-2" key={ps.id}>
-                                <PlaySession playSession={ps} handleDelete={handleDeletePlaySession} user={user}/>
-                            </div>
-                        )}
-                    </PaginatedList>
-                    {/* Form */}
-                    <div className="w-full">
-                        <PlaySessionForm user={user} boardgame={boardgame} users={users}/>
+                        <PaginatedList 
+                            className="basis-full sm:basis-1/2"
+                            title={<h1 className="text-slate-400 text-md font-normal">Playsessions</h1>}
+                        >
+                            {playSessions.map(ps => 
+                                <div className="py-2" key={ps.id}>
+                                    <PlaySession playSession={ps} handleDelete={handleDeletePlaySession} user={user}/>
+                                </div>
+                            )}
+                        </PaginatedList>
+                    {/* Comments */}
+                        <CommentSection boardgame={boardgame} />
                     </div>
+                    <PlaySessionForm user={user} boardgame={boardgame} users={users}/>
                 </div>
             </div>
             : <>

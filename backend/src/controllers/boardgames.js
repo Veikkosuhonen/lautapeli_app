@@ -198,7 +198,15 @@ router.post("/:id/comment", auth, async (request, response) => {
 
     const boardgameComment = await BoardgameComment.create({ userId: user.id, boardgameId: boardgame.id, comment })
 
-    return response.status(200).json(boardgameComment.toJSON())
+    return response.status(200).json({ 
+        id: boardgameComment.id,
+        boardgameId: boardgameComment.boardgameId,
+        comment: boardgameComment.comment,
+        date: boardgameComment.date,
+        user: {
+            id: user.id, name: user.name
+        }
+    })
 })
 
 module.exports = router

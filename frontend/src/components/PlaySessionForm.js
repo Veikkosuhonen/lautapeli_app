@@ -85,7 +85,8 @@ const PlaySessionForm = ({
     }
 
     return (
-        <Surface className="flex flex-col space-y-3 px-2 py-8">
+        <div className="flex flex-row justify-center py-2 px-6 w-full">
+        <Surface className="sm:w-full sm:basis-2/3 md:basis-1/2 lg:basis-2/5 xl:basis-1/3">
             <h1 className="text-slate-300 pb-6">New playsession</h1>
             <form onSubmit={onSubmit}>
                 <div className="grid grid-cols-3 items-center text-slate-400">
@@ -157,6 +158,7 @@ const PlaySessionForm = ({
                 </div>
             </form>
         </Surface>
+        </div>
     )
 }
 

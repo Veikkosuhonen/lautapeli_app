@@ -198,7 +198,7 @@ test("Can comment on a boardgame", async () => {
     console.log(JSON.stringify(commentResponse))
     
     const comment = commentResponse.body
-    expect(comment.id && comment.userId && comment.boardgameId).toBeTruthy()
+    expect(comment.id && comment.user.id && comment.boardgameId).toBeTruthy()
     
     expect(commentResponse.body.comment).toBe("Helloo whats this")
 
