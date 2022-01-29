@@ -1,9 +1,10 @@
 import { useField } from "formik";
 import { usePopperTooltip } from "react-popper-tooltip"
 import 'react-popper-tooltip/dist/styles.css';
+import styles from "../../util/styles";
 
 const FormikInputField = ({
-    label, ...props
+    ...props
 }) => {
     const [field, meta] = useField(props)
 
@@ -20,10 +21,9 @@ const FormikInputField = ({
         visible: meta.touched && meta.error,
     });
 
-    let className = "p-1 text-slate-300 w-full rounded bg-slate-700/50 outline-2 "
-    + "focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-offset-2 "
+    let className = styles.inputField
     if (meta.touched && meta.error) {
-        className += "outline outline-rose-500 focus:outline-rose-500 "
+        className += styles.inputFieldError
     }
     className += props.className
 

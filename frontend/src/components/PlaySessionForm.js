@@ -4,11 +4,12 @@ import { PrimaryButton } from './util/Buttons';
 import InputField from './util/InputField';
 import DateInput from './util/DateInput';
 import Surface from "./util/Surface"
-import Select from "react-select"
+import PlayerSelector from "./PlayerSelector"
 import { StarIcon } from '@heroicons/react/solid';
 import { validation } from "../util/validation"
 import useAddPlaySession from '../hooks/useAddPlaySession';
 import toaster from '../util/toaster';
+import { XIcon } from '@heroicons/react/outline';
 
 const ScoreInput = (
     {value, onChange, ...props}
@@ -25,69 +26,6 @@ const ScoreInput = (
                 onBlur={props["onBlur"]}
             />
         </div>
-    )
-}
-
-const PlayerSelector = ({ 
-    users,
-    players,
-    setPlayers
- }) => {
-
-    const options = users
-        ?.filter(u => !players.some(p => p.id === u.id))
-        .map(user => ({
-            value: { id: user.id, name: user.name, score: 0 },
-            label: user.name
-        }))
-    
-    const value = players.map(p => ({ 
-        value: p,
-        label: p.name
-    }))
-
-    const styles = {
-        input: (styles, {data}) => ({
-            ...styles,
-            color: "rgb(148 163 184)",
-        }),
-        control: (styles, {data}) => ({
-            ...styles,
-            backgroundColor: undefined,
-        }),
-        menu: (styles, {data}) => ({
-            ...styles,
-            backgroundColor: "rgb(51 65 81)",
-        }),
-        option: (styles, {data, isFocused, isDisabled, isSelected}) => ({
-            ...styles,
-            backgroundColor: isFocused ? "rgb(71 85 105)": "rgb(51 65 81)",
-        }),
-        multiValue: (styles, {data}) => ({
-            ...styles,
-            backgroundColor: "rgb(51 65 81)",
-            borderRadius: "4px"
-        }),
-        multiValueLabel: (styles, {data}) => ({
-            ...styles,
-            color: "rgb(148 163 184)"
-        })
-    }
-
-    return (
-        <Select 
-            value={value}
-            options={options}
-            onChange={(values) => setPlayers(values.map(p => p.value))}
-            placeholder="Select players"
-            isMulti
-            escapeClearsValue={false}
-            backspaceRemovesValue={false}
-            blurInputOnSelect
-            isClearable={false}
-            menuPlacement="top"
-            styles={styles}
-        />
     )
 }
 
@@ -138,6 +76,14 @@ const PlaySessionForm = ({
         setPlayers(players.slice().sort((a, b) => b.score - a.score))
     }
 
+    const handleSelect = (option) => {
+        setPlayers(players.concat({...option, score: 0}))
+    }
+
+    const handleRemove = (player) => {
+        setPlayers(players.filter(p => p !== player))
+    }
+
     return (
         <Surface className="flex flex-col space-y-3 px-2 py-8">
             <h1 className="text-slate-300 pb-6">New playsession</h1>
@@ -161,11 +107,10 @@ const PlaySessionForm = ({
                     </div>
 
                     <span className="text-slate-400">Select players</span>
-                    <div className="col-span-3 text-sm text-slate-400 font-light pb-4">
-                        <PlayerSelector players={players} users={users} setPlayers={setPlayers}/>
+                    <div className="col-span-3 pb-4">
+                        <PlayerSelector players={players} users={users} handleSelect={handleSelect}/>
                     </div>
 
-                    {players.length > 0 && 
                     <div className="col-span-3 space-y-2">
                         <div className="flex flex-row items-center
                         uppercase text-slate-500 text-xs space-x-4">
@@ -189,11 +134,18 @@ const PlaySessionForm = ({
                                         onBlur={onScoreFocusLoss}
                                     />
                                 </div>
+                                
+                                <button 
+                                    type="button"
+                                    onClick={() => handleRemove(player)}
+                                    className="text-slate-400 hover:text-slate-100"
+                                >
+                                    <XIcon className="w-5 h-5"/>
+                                </button>
+                                
                             </div>
-                        )} 
-                            
+                        )}  
                     </div>
-                    }
 
                     <div className="col-span-3 pt-4">
                         <PrimaryButton type="submit" content="add playsession" disabled={!isValid()}/>
