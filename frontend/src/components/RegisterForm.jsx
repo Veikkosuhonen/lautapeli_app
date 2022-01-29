@@ -30,8 +30,9 @@ const RegisterForm = ({
                     name: Yup.string().min(3, "Min length is 3").max(20, "Max length is 20").required("Required"),
                     password: Yup.string().min(5, "Min length is 5").max(20, "Max length is 20").required("Required"),
                     passwordConfirm: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
-                    code: Yup.number().integer().min(1000).required("Required"),
+                    code: Yup.number().integer().required("Required"),
                 })}
+                onSubmit={handleSubmit}
             >
             {formik => (
                 <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4 p-2 py-4">
@@ -74,7 +75,6 @@ const RegisterForm = ({
                     <FormikInputField 
                         label="Code"
                         name="code"
-                        type="number"
                         placeholder="Code"
                         autoComplete="off"
                     />

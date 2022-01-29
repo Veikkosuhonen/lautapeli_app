@@ -56,7 +56,7 @@ const removeDatedCodes = async () => {
 const useCode = async (code) => {
     await removeDatedCodes()
     const isValid = await Code.findOne({ where: {
-        code: code
+        code: String(code)
     }})
     if (isValid) {
         await Code.destroy({ where: {
