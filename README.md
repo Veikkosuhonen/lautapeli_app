@@ -18,7 +18,7 @@ _Tämä on myös HY:n fullstack-harjoitustyöni_:  [_Tuntikirjanpito_](https://g
 - [x] Users can log their playsessions
 - [x] Playsessions contain information about when it happened, what the duration was and who were playing and what each players scores were
 - [x] Events such as playsessions, users joining and boardgames getting added, show up on the activity feed
-- [ ] Playsessions can be edited and deleted by the creator or admin.
+- [x] Playsessions can be deleted by the creator or admin.
 - [x] Boardgame can be deleted by the creator or admin if it has no playsessions.
 - [x] Users can like boardgames and see the like count
 - [ ] Users have 3 mega-likes (for some reason) which they can allocate to boardgames

@@ -48,3 +48,5 @@
 | 25.1 | 3h | Tykkäykset backendiin |
 | 26.1 | 6h | Tykkäykset fronttiin, ui-parannuksia, adminilla aina delettäysoikeudet |
 | 27.1 | 2h | Formik käyttöön lautapelin lisäämislomakkeeseen |
+| 29.1 | 6h | Formik kirjautumisessa ja rekisteröinnissä, paranneltu pelisessioiden lisääminen |
+| Yht: | 17h |

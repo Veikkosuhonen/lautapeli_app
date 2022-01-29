@@ -1,7 +1,6 @@
 const supertest = require("supertest")
 const app = require("../app")
-const { Boardgame, PlaySession, Player, User } = require("../models")
-const Like = require("../models/like")
+const { Boardgame, PlaySession, Player, User, Like, BoardgameComment } = require("../models")
 const testUtils = require("./testUtils")
 
 const api = supertest(app)
@@ -20,6 +19,7 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
+    await BoardgameComment.destroy({ where: { } })
     await Like.destroy({ where: { } })
     await Player.destroy({ where: { }})
     await PlaySession.destroy({ where: { }})
@@ -77,33 +77,27 @@ test("Invalid boardgame returns bad request", async () => {
 })
 
 test("Posted boardgame is added", async () => {
-    await api
-        .post("/api/boardgames")
-        .set("authorization", testUtils.getToken())
-        .send({ name: "Azul" })
+    await testUtils.createBoardgame(api)
     const response = await api
         .get("/api/boardgames")
         .set("authorization", testUtils.getToken())
     expect(response.body).toHaveLength(2)
 })
 
-test("Can get posted boardgame", async () => {
-    const postResponse = await api
-        .post("/api/boardgames")
+test("Can get one boardgame", async () => {
+    const id = (await testUtils.createBoardgame(api)).body.boardgame.id
+    const response = await api.get("/api/boardgames/" + id)
         .set("authorization", testUtils.getToken())
-        .send({ name: "Azul" })
-    const id = postResponse.body.boardgame.id
-    const response = await api
-        .get("/api/boardgames/" + id)
-        .set("authorization", testUtils.getToken())
-    expect(response.status).toBe(200)
+        .expect(200)
+        .expect("Content-Type",  /application\/json/)
+    
+    expect(response.body).toHaveProperty("playSessions")
+    expect(response.body).toHaveProperty("likes")
+    expect(response.body).toHaveProperty("comments")
 })
 
 test("Put modifies boardgame", async () => {
-    const postResponse = await api
-        .post("/api/boardgames")
-        .set("authorization", testUtils.getToken())
-        .send({ name: "Azul" })
+    const postResponse = await testUtils.createBoardgame(api)
     const id = postResponse.body.boardgame.id
     const response = await api
         .put("/api/boardgames/" + id)
@@ -114,10 +108,7 @@ test("Put modifies boardgame", async () => {
 })
 
 test("Creator can delete boardgame", async () => {
-    const postResponse = await api
-        .post("/api/boardgames")
-        .set("authorization", testUtils.getToken())
-        .send({ name: "Azul" })
+    const postResponse = await testUtils.createBoardgame(api)
     const id = postResponse.body.boardgame.id
     const response = await api
         .delete("/api/boardgames/" + id)
@@ -127,10 +118,7 @@ test("Creator can delete boardgame", async () => {
 })
 
 test("Not creator cannot delete boardgame", async () => {
-    const postResponse = await api
-        .post("/api/boardgames")
-        .set("authorization", testUtils.getToken())
-        .send({ name: "Azul" })
+    const postResponse = await testUtils.createBoardgame(api)
     const id = postResponse.body.boardgame.id
     // login as someone else
     await testUtils.createUser(api, "Other", "person123")
@@ -142,10 +130,7 @@ test("Not creator cannot delete boardgame", async () => {
 })
 
 test("Cannot delete if has playSessions", async () => {
-    const postResponse = await api
-        .post("/api/boardgames")
-        .set("authorization", testUtils.getToken())
-        .send({ name: "Azul" })
+    const postResponse = await testUtils.createBoardgame(api)
     const id = postResponse.body.boardgame.id
 
     const user = testUtils.getCurrentUser()
@@ -165,10 +150,7 @@ test("Cannot delete if has playSessions", async () => {
 })
 
 test("Can like a boardgame", async () => {
-    const postResponse = await api
-        .post("/api/boardgames")
-        .set("authorization", testUtils.getToken())
-        .send({ name: "Azul" })
+    const postResponse = await testUtils.createBoardgame(api)
     const id = postResponse.body.boardgame.id
 
     await api.post("/api/boardgames/" + id + "/like")
@@ -184,10 +166,7 @@ test("Can like a boardgame", async () => {
 })
 
 test("Can un-like a boardgame", async () => {
-    const postResponse = await api
-        .post("/api/boardgames")
-        .set("authorization", testUtils.getToken())
-        .send({ name: "Azul" })
+    const postResponse = await testUtils.createBoardgame(api)
     const id = postResponse.body.boardgame.id
 
     await api.post("/api/boardgames/" + id + "/like")
@@ -205,4 +184,27 @@ test("Can un-like a boardgame", async () => {
     const succeeded = !(await boardgame.hasLike(user))
 
     expect(succeeded).toBe(true)
+})
+
+test("Can comment on a boardgame", async () => {
+    const postResponse = await testUtils.createBoardgame(api)
+    const id = postResponse.body.boardgame.id
+
+    const commentResponse = await api.post("/api/boardgames/" + id + "/comment")
+        .send({ comment: "Helloo whats this"})
+        .set("authorization", testUtils.getToken())
+        .expect(200)
+
+    console.log(JSON.stringify(commentResponse))
+    
+    const comment = commentResponse.body
+    expect(comment.id && comment.userId && comment.boardgameId).toBeTruthy()
+    
+    expect(commentResponse.body.comment).toBe("Helloo whats this")
+
+    const boardgameResponse = await api.get("/api/boardgames/" + id).set("authorization", testUtils.getToken())
+    expect(boardgameResponse.body.comments).toHaveLength(1)
+    const theComment = boardgameResponse.body.comments[0]
+    expect(theComment.comment).toBe("Helloo whats this")
+    expect(theComment.user.name).toBe(testUtils.getCurrentUser().name)
 })

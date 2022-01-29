@@ -29,6 +29,13 @@ const login = async (api, username, password) => {
     return response
 }
 
+const createBoardgame = async (api, name, description) => {
+    return await api
+        .post("/api/boardgames")
+        .set("authorization", testUtils.getToken())
+        .send({ name: name | "Azul", description })
+}
+
 const getToken = () => {
     return "bearer " + token
 }
@@ -53,6 +60,6 @@ const clearUsers = async () => {
     }
 }
 
-const testUtils = { createUser, login, getToken, clearUsers, getCurrentUser, getCurrentUserAsPlayer }
+const testUtils = { createUser, login, getToken, clearUsers, getCurrentUser, getCurrentUserAsPlayer, createBoardgame }
 
 module.exports = testUtils

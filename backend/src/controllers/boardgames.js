@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const Sequelize = require("sequelize")
 
-const { Boardgame, PlaySession, User, Activity } = require("../models")
+const { Boardgame, PlaySession, User, Activity, BoardgameComment } = require("../models")
 const logger = require("../util/logger")
 const { auth, getLoggedInUser } = require("../middleware/authorization")
 const Like = require("../models/like")
@@ -62,6 +62,17 @@ router.get("/:id", auth, async (request, response) => {
             {
                 model: Like,
                 attributes: ["userId"]
+            },
+            { 
+                model: BoardgameComment,
+                as: "comments",
+                attributes: ["comment", "date"],
+                include: [
+                    {
+                        model: User,
+                        attributes: ["id", "name"]
+                    }
+                ]
             }
         ]
     })
@@ -173,6 +184,21 @@ router.post("/:id/like", auth, async (request, response) => {
     }
 
     return response.status(200).json({ like: isLike, boardgameId: id, userId: user.id })
+})
+
+router.post("/:id/comment", auth, async (request, response) => {
+    const id = Number(request.params.id)
+    if (!id) return response.sendStatus(404)
+    const boardgame = await Boardgame.findByPk(id)
+    if (!boardgame) {
+        return response.sendStatus(404)
+    }
+    const comment = request.body.comment
+    const user = request.user
+
+    const boardgameComment = await BoardgameComment.create({ userId: user.id, boardgameId: boardgame.id, comment })
+
+    return response.status(200).json(boardgameComment.toJSON())
 })
 
 module.exports = router
