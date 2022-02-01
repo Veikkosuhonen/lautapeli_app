@@ -1,14 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
-import { PrimaryButton } from './util/Buttons';
-import InputField from './util/InputField';
-import DateInput from './util/DateInput';
-import Surface from "./util/Surface"
+import { PrimaryButton } from '../util/Buttons';
+import InputField from '../util/InputField';
+import DateInput from '../util/DateInput';
+import Surface from "../util/Surface"
 import PlayerSelector from "./PlayerSelector"
 import { StarIcon } from '@heroicons/react/solid';
-import { validation } from "../util/validation"
-import useAddPlaySession from '../hooks/useAddPlaySession';
-import toaster from '../util/toaster';
+import { validation } from "../../util/validation"
+import useAddPlaySession from '../../hooks/useAddPlaySession';
+import toaster from '../../util/toaster';
 import { XIcon } from '@heroicons/react/outline';
 
 const ScoreInput = (
@@ -107,7 +107,7 @@ const PlaySessionForm = ({
                         />
                     </div>
 
-                    <span className="text-slate-400">Select players</span>
+                    <span className="text-slate-400 whitespace-nowrap">Select players</span>
                     <div className="col-span-3 pb-4">
                         <PlayerSelector players={players} users={users} handleSelect={handleSelect}/>
                     </div>
@@ -152,7 +152,7 @@ const PlaySessionForm = ({
                         )}  
                     </div>
 
-                    <div className="col-span-3 pt-4">
+                    <div className="col-span-3 pt-2">
                         <PrimaryButton type="submit" content="add playsession" disabled={!isValid()}/>
                     </div>
                 </div>

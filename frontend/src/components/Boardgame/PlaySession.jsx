@@ -1,6 +1,6 @@
 import React from "react"
-import User from "./User"
-import OptionsDropDown from "./util/OptionsDropdown"
+import User from "../User"
+import OptionsDropDown from "../util/OptionsDropdown"
 import DeleteButton from "./DeleteButton"
 import { Menu } from "@headlessui/react"
 

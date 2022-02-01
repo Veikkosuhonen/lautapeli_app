@@ -11,7 +11,7 @@ const OptionsDropDown = ({
             <Menu as="div" className="relative">
                 <Menu.Button>
                     <div className="p-1">
-                        <DotsHorizontalIcon className="text-slate-500 hover:text-slate-200 w-5 h-5 md:w-7 md:h-7" />
+                        <DotsHorizontalIcon className="text-slate-500 hover:text-slate-200 w-5 h-5 md:w-7 md:h-7  -z-10" />
                     </div>
                 </Menu.Button>
                 <Transition

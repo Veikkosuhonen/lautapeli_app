@@ -1,5 +1,5 @@
 import { useState, useRef } from "react"
-import styles from "../util/styles"
+import styles from "../../util/styles"
 import { AiOutlineEnter } from "react-icons/ai"
 
 const PlayerSelector = ({ 
@@ -56,7 +56,7 @@ const PlayerSelector = ({
                 onKeyDown={handleKeyDown}
             />
             {isOpen && 
-            <div className="absolute flex flex-col mt-2 divide-y divide-slate-600 bg-slate-700 rounded shadow-md text-slate-400 text-serif w-96" >
+            <div className="absolute flex flex-col mt-2 divide-y divide-slate-600 bg-slate-700 rounded shadow-md text-slate-400 text-serif w-64 md:w-96" >
                 {options.map((option, index) => 
                     <button 
                         key={option.id} 
