@@ -54,6 +54,7 @@ const PlayerSelector = ({
                 onChange={event => setSearchTerm(event.target.value.toLowerCase())}
                 onFocus={() => setIsOpen(true)}
                 onKeyDown={handleKeyDown}
+                placeholder="player name"
             />
             {isOpen && 
             <div className="absolute flex flex-col mt-2 divide-y divide-slate-600 bg-slate-700 rounded shadow-md text-slate-400 text-serif w-64 md:w-96" >

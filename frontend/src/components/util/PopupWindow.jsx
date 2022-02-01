@@ -13,22 +13,27 @@ const PopupWindow = React.forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({ setOpen }))
 
     return (
-        <div className={"fixed w-full top-1/3 backdrop-blur-lg backdrop-brightness-50 shadow-lg " + (isOpen ? "h-full" : "")}>
-            <Transition
-                show={isOpen}
-                enter="transition ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition ease-out duration-300"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
+        <Transition
+            className="fixed w-full bottom-0 backdrop-blur-lg backdrop-brightness-50 shadow-lg z-10 h-2/3"
+            show={isOpen}
+            enter="transition transform ease-out duration-100"
+            enterFrom="translate-y-full"
+            enterTo="translate-y-0"
+            leave="transition transform ease-in duration-100"
+            leaveFrom="translate-y-0"
+            leaveTo="translate-y-full"
+        >
+            <button type="button" onClick={() => setIsOpen(false)}
+                className="fixed right-2 pt-2"
             >
-                <div className="flex flex-row h-full items-start rounded-t-lg border-t-2 p-6 border-t-slate-600">
+                <XIcon className="w-6 h-6 sm:w-8 sm:h-8 text-slate-500"/>
+            </button>
+            <div className="rounded-t-lg border-t-2 border-t-slate-600 h-full">
+                <div className="h-full overflow-y-auto py-8">
                     {props.children}
-                    <button type="button" onClick={() => setIsOpen(false)}><XIcon className="w-6 h-6 sm:w-10 sm:h-10 text-slate-300"/></button>
                 </div>
-            </Transition>
-        </div>
+            </div>
+        </Transition>
     )
 })
 

@@ -2,7 +2,6 @@ import React, { useRef, useState, useMemo } from "react"
 
 import BoardgamesList from '../components/BoardgamesList'
 import Activities from "../components/Activities"
-import { NavLink } from "react-router-dom"
 import { SecondaryButton } from "../components/util/Buttons"
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon } from "@heroicons/react/outline"
 import HeroSection from "../components/HeroSection"

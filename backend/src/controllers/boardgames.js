@@ -66,7 +66,7 @@ router.get("/:id", auth, async (request, response) => {
             { 
                 model: BoardgameComment,
                 as: "comments",
-                attributes: ["comment", "date"],
+                attributes: ["id", "comment", "date"],
                 include: [
                     {
                         model: User,

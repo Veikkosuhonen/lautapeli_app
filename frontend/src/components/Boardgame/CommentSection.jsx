@@ -42,6 +42,7 @@ const CommentSection = ({
                             label="Comment"
                             name="comment"
                             placeholder="New comment"
+                            errorMessage={false}
                         />
                         <div>
                             <PrimaryButton content={"Comment"} type={"submit"} disabled={!formik.isValid}/>
