@@ -14,10 +14,14 @@ const boardgameRouter = require("./controllers/boardgames"),
     registerRouter = require("./controllers/register"),
     loginRouter = require("./controllers/login"),
     adminRouter = require("./controllers/admin"),
+    commitsRouter = require("./controllers/commits"),
     unknownEndpointRouter = require("./controllers/unknownEndpoint")
+const githubCommits = require("./util/githubCommits")
 
     
 const app = express()
+
+githubCommits.fetchRecent()
 
 connectToDatabase().then(() => {
     app.emit("dbReady")
@@ -39,6 +43,7 @@ app.use("/api/users", usersRouter)
 app.use("/api/register", registerRouter)
 app.use("/api/login", loginRouter)
 app.use("/api/admin", adminRouter)
+app.use("/api/commits", commitsRouter)
 
 // https://ui.dev/react-router-cannot-get-url-refresh/
 app.get("/*", function(req, res) {

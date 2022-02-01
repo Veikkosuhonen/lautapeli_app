@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Veikkosuhonen/lautapeli_app#readme",
   "dependencies": {
+    "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

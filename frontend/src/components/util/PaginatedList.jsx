@@ -16,7 +16,7 @@ const PaginatedList = ({
                 <div className="pr-4">
                     {title}
                 </div>
-                {children && <>
+                {children && pages > 1 && <>
                 <button className="text-slate-400 hover:text-slate-300 disabled:text-slate-600"
                     disabled={page === 0}
                     onClick={() => {setPage(page - 1)}}
@@ -34,6 +34,7 @@ const PaginatedList = ({
             </div>
             <div className="flex flex-col space-y-2 border-l border-slate-700">
                 {children ? children.slice(start, end) : <span className="text-sm text-slate-500">No items</span>}
+                { children?.length === 0 && <span className="text-slate-500 pl-2">Wow, its still empty here!</span>}
             </div>
         </div>
     )

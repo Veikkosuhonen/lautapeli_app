@@ -1,9 +1,11 @@
 import React from "react"
 import { NavLink } from "react-router-dom"
 import Activities from "../components/Activities"
+import Commits from "../components/Commits"
 import HeroSection from "../components/HeroSection"
 import useActivities from "../hooks/useActivities"
 import useBoardgames from "../hooks/useBoardgames"
+import useCommits from "../hooks/useCommits"
 import useUsers from "../hooks/useUsers"
 
 const Home = ({
@@ -11,6 +13,7 @@ const Home = ({
 }) => {
     const { boardgames } = useBoardgames()
     const { activities } = useActivities()
+    const { commits } = useCommits()
     const { users } = useUsers()
     
     const playSessions = boardgames?.map(boardgame => boardgame.playSessions.length).reduce((a, b) => a + b, 0)
@@ -43,11 +46,14 @@ const Home = ({
             </div>
             }
 
-            <div className="flex flex-row justify-center pt-16 md:pt-20">
+            <div className="flex flex-col sm:flex-row justify-center pt-16 md:pt-20">
             {user ?
             <>
-                <div className="w-full sm:w-1/2">
+                <div className="w-1/2 sm:w-1/3">
                     <Activities activities={activities} itemsPerPage={5} />
+                </div>
+                <div className="w-1/2 sm:w-1/3">
+                    <Commits commits={commits} itemsPerPage={5} />
                 </div>
             </> : 
                 <div className="flex flex-col">
