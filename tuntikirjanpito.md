@@ -50,4 +50,4 @@
 | 27.1 | 2h | Formik käyttöön lautapelin lisäämislomakkeeseen |
 | 29.1 | 8h | Lisää Formikkia, parannuksia, lautapelien kommenttipalstat |
 | Yht: | 19h |
-| 1.2 | 2h | Frontend-refaktorointia ja parannuksia |
+| 1.2 | 5h | Frontend-refaktorointia ja parannuksia |
