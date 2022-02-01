@@ -7,7 +7,6 @@ import {
 import Layout from "../components/Layout";
 import Home from "./Home";
 import Boardgames from "./Boardgames";
-import NewBoardgame from "./NewBoardgame";
 import Boardgame from "../components/Boardgame";
 import Login from "./Login";
 import Register from "./Register";
@@ -28,11 +27,7 @@ const Routes = ({
                 } />
                 <Route path="boardgames" element={
                     <Boardgames />
-                } >
-                    <Route path="new" element={
-                        <NewBoardgame />
-                    } />
-                </Route>
+                } />
                 <Route path="boardgames/:boardgameId" element={
                     <Boardgame user={user} />
                 } />

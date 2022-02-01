@@ -1,16 +1,17 @@
-import React, { useState } from "react"
+import React, { useRef, useState, useMemo } from "react"
 
 import BoardgamesList from '../components/BoardgamesList'
 import Activities from "../components/Activities"
-import { NavLink, Outlet } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { SecondaryButton } from "../components/util/Buttons"
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon } from "@heroicons/react/outline"
 import HeroSection from "../components/HeroSection"
 import InputField from "../components/util/InputField"
 import SelectInput from "../components/util/SelectInput"
+import PopupWindow from "../components/util/PopupWindow"
+import NewBoardgame from "./NewBoardgame"
 import useBoardgames from "../hooks/useBoardgames"
 import useActivities from "../hooks/useActivities"
-import { useMemo } from "react"
 
 const sortOptions = [
     "name", "date added", "last played", "times played", "likes"
@@ -53,8 +54,14 @@ const Boardgames = () => {
         filteredBoardgames.reverse()
     }
 
+    const newBoardgameFormPopupRef = useRef()
+
     return (
-        <div>
+        <>
+            <PopupWindow ref={newBoardgameFormPopupRef}>
+                <NewBoardgame />
+            </PopupWindow>
+
             <HeroSection>
                 <h1>Boardgames</h1>
             </HeroSection>
@@ -77,15 +84,14 @@ const Boardgames = () => {
                                 {desc ? <ArrowDownIcon className="w-5 h-5"/> : <ArrowUpIcon className="w-5 h-5"/>}
                             </button>
                         </div>
-                        <NavLink to="/boardgames/new" >
-                            <SecondaryButton content={<PlusIcon className="h-4 w-4"/>} />
-                        </NavLink>
+                        
+                        <SecondaryButton content={<PlusIcon className="h-4 w-4"/>} onClick={() => newBoardgameFormPopupRef.current.setOpen(true)}/>
+                        
                     </div>
-                    <Outlet />
                     <BoardgamesList boardgames={filteredBoardgames} />
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
