@@ -51,4 +51,4 @@
 | 29.1 | 8h | Lisää Formikkia, parannuksia, lautapelien kommenttipalstat |
 | Yht: | 19h |
 | 1.2 | 7h | Frontend-refaktorointia ja parannuksia, landing-pagella näkyy uusimmat commitit |
-| 2.2 | 2h | Pelisessioiden kuvaukset, näkymä kaikille pelisessioille |
+| 2.2 | 5h | Pelisessioiden kuvaukset, näkymä kaikille pelisessioille, UI-devausta |

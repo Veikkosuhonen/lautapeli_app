@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { usePopperTooltip } from "react-popper-tooltip"
 import 'react-popper-tooltip/dist/styles.css';
+import classNames from "classnames"
 
 const InputField = ({
     type,
@@ -27,12 +28,11 @@ const InputField = ({
         onVisibleChange: setPopoverVisible,
     });
 
-    let className = "p-1 text-slate-300 w-full rounded bg-slate-700/50 outline-2 "
-    + "focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-offset-2 "
-    if (errorMessage) {
-        className += "outline outline-rose-500 focus:outline-rose-500 "
-    }
-    className += props.className
+    let className = classNames(
+        "p-1 text-slate-300 w-full rounded bg-slate-700/50 outline-2 focus:outline-none focus:outline-indigo-400 hover:outline-dashed hover:outline-indigo-600 outline-offset-2",
+        { "outline outline-rose-500 focus:outline-rose-500": errorMessage },
+        props.className
+    )
 
     const checkValidation = (value) => {
         if (typeof(validation) === "function") {

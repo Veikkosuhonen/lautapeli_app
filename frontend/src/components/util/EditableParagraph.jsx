@@ -1,7 +1,8 @@
 import React, { useState } from "react"
+import classNames from "classnames"
 
 const EditableParagraph = ({
-    value, setValue, className, ...props
+    value, setValue, ...props
 }) => {
 
     const [rows, setRows] = useState(1)
@@ -30,13 +31,18 @@ const EditableParagraph = ({
         setRows(currentRows < maxRows ? currentRows : maxRows)
 	}
 
+    const className = classNames(
+        "bg-transparent outline-1 outline-dashed outline-indigo-500 focus:outline-2 p-2 rounded disabled:outline-none",
+        "text-slate-300 text-base sm:text-lg line resize-none placeholder:text-slate-400",
+        props.className
+    )
+
     return (
         <textarea
             rows={rows}
             value={value}
             onChange={handleChange}
-            className={"bg-transparent outline-1 outline-dashed outline-indigo-500 focus:outline-2 p-2 rounded disabled:outline-none " +
-                "text-slate-300 text-base sm:text-lg line resize-none placeholder:text-slate-400 " + className}
+            className={className}
             disabled={props.disabled}
             placeholder={props.placeholder}
             id={props.id}

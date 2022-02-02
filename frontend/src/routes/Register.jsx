@@ -18,7 +18,6 @@ const Register = ({
     })
 
     const handleRegister = (credentials) => {
-        console.log("Registering " + JSON.stringify(credentials))
         const response = api.post("/register", credentials)
 
         toaster.registerMessage(response)
