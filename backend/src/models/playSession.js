@@ -23,6 +23,11 @@ PlaySession.init({
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW
+    },
+    description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        defaultValue: ""
     }
 }, {
     sequelize,

@@ -5,7 +5,7 @@ const { auth } = require("../middleware/authorization")
 
 router.get("/", auth, async (request, response) => {
     const playsessions = await PlaySession.findAll({
-        attributes: { exclude: ["boardgameId"] },
+        attributes: ["id", "duration", "date"],
         include: [
             {
                 model: Boardgame,
@@ -103,7 +103,8 @@ router.post("/", auth, async (request, response) => {
     const playSessionObject = { 
         boardgameId: playSession.boardgameId, 
         duration: playSession.duration, 
-        date: playSession.date
+        date: playSession.date,
+        description: playSession.description
     }
 
     try {
