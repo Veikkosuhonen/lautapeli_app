@@ -47,6 +47,11 @@ const Navbar = ({
                                 <h1 className="font-medium text-lg">Boardgames</h1>
                             </NavbarLink>
                             }
+                            { user && 
+                            <NavbarLink path="/playsessions">
+                                <h1 className="font-medium text-lg">Playsessions</h1>
+                            </NavbarLink>
+                            }
                             { user && user.isAdmin && 
                             <NavbarLink path="/admin">
                                 <h1 className="font-medium text-lg">Admin</h1>

@@ -1,41 +1,24 @@
-import React from "react"
+import { NavLink } from "react-router-dom"
 import User from "../User"
-import OptionsDropDown from "../util/OptionsDropdown"
-import DeleteButton from "./DeleteButton"
-import { Menu } from "@headlessui/react"
 
-const PlaySession = ({ playSession, handleDelete, user }) => {
+const PlaySession = ({ playSession }) => {
 
     const topScore = playSession.players
         .map(p => p.player.score)
         .reduce((top, score) => Math.max(top, score || 0), 0)
-    
-    const isOwner = playSession.players.some(player => player.id === user?.id) || user?.isAdmin
-    
+        
     return (
         
-        <li key={playSession.id} className="flex flex-col ml-1 p-1 rounded-lg hover:bg-slate-800/30 transition-colors duration-200 delay-100">
-            <div className="flex flex-col pb-1">
-                <div className="flex flex-nowrap">
-                    <div className="flex flex-col mr-auto">
-                        <span className="text-xs text-slate-500">
-                            {new Date(playSession.date).toLocaleString()}
-                        </span>
-                        <span className="text-slate-400">
-                            Played {playSession.duration} minutes
-                        </span>
-                    </div>
-                    <OptionsDropDown>
-                        <Menu.Item><DeleteButton onClick={() => handleDelete(playSession)} disabled={!isOwner}/></Menu.Item>
-                    </OptionsDropDown>
-                </div>
-            </div>
+        <NavLink to={`/playsessions/${playSession.id}`} key={playSession.id} className="flex flex-col ml-1 p-1 rounded-lg hover:bg-slate-800/30 transition-colors duration-200 delay-100">
+            <span className="text-sm text-slate-400 pb-2">
+                {new Date(playSession.date).toLocaleString()}
+            </span>
             <div className="flex flex-row flex-wrap gap-2">
                 {playSession.players && playSession.players.map(player => (
-                    <User user={player} score={player.player.score} winner={player.player.score === topScore} key={player.id} />
+                    <User user={player} winner={player.player.score === topScore} key={player.id} />
                 ))}
             </div>
-        </li>
+        </NavLink>
     )
 }
 

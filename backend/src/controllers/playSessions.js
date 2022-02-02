@@ -9,7 +9,7 @@ router.get("/", auth, async (request, response) => {
         include: [
             {
                 model: Boardgame,
-                attributes: { exclude: ["dateAdded", "addedById"] }
+                attributes: ["id", "name"]
             },
             {
                 model: User,

@@ -13,6 +13,8 @@ import Register from "./Register";
 import Admin from "./Admin";
 import Logout from "./Logout";
 import NotFound from "./NotFound";
+import PlaySessions from "./PlaySessions";
+import PlaySession from "./PlaySession";
 
 const Routes = ({
     user, handleLogin, handleLogout
@@ -30,6 +32,12 @@ const Routes = ({
                 } />
                 <Route path="boardgames/:boardgameId" element={
                     <Boardgame user={user} />
+                } />
+                <Route path="playsessions" element={
+                    <PlaySessions />
+                } />
+                <Route path="playsessions/:playSessionId" element={
+                    <PlaySession />
                 } />
                 <Route path="login" element={
                     <Login user={user} handleLogin={handleLogin}/>
