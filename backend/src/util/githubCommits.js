@@ -19,8 +19,8 @@ const fetchRecent = async () => {
             message: c.commit.message
         }))
         logger.info("Got " + recentCommits.length + " recent commits from github")
-    }).catch(error => {
-        logger.error(error)
+    }).catch(() => {
+        logger.error("Unable to fetch recent commits")
     })
 }
 
