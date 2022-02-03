@@ -1,5 +1,6 @@
 const axios = require("axios")
 const logger = require("./logger")
+const { NODE_ENV } = require("./config")
 
 const numberOfCommits = 5
 
@@ -12,6 +13,7 @@ let recentCommits = []
  * A simple api call to github to fetch a few recent commits and store author, date and message
  */
 const fetchRecent = async () => {
+    if (NODE_ENV === "test") return
     axios.get(url).then(response => {
         recentCommits = response.data.map(c => ({
             author: c.commit.author.name,

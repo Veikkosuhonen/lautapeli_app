@@ -195,8 +195,6 @@ test("Can comment on a boardgame", async () => {
         .set("authorization", testUtils.getToken())
         .expect(200)
 
-    console.log(JSON.stringify(commentResponse))
-    
     const comment = commentResponse.body
     expect(comment.id && comment.user.id && comment.boardgameId).toBeTruthy()
     

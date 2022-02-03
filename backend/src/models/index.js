@@ -6,6 +6,7 @@ const Activity = require("./activity")
 const Code = require("./code")
 const Like = require("./like")
 const BoardgameComment = require("./boardgameComment")
+const Image = require("./image")
 
 Boardgame.hasMany(PlaySession)
 PlaySession.belongsTo(Boardgame)
@@ -28,6 +29,9 @@ Boardgame.hasMany(BoardgameComment, { as: "comments" })
 BoardgameComment.belongsTo(User)
 BoardgameComment.belongsTo(Boardgame)
 
+Boardgame.hasMany(Image)
+PlaySession.hasMany(Image)
+
 module.exports = {
-    Boardgame, User, PlaySession, Player, Activity, Code, Like, BoardgameComment
+    Boardgame, User, PlaySession, Player, Activity, Code, Like, BoardgameComment, Image
 }
