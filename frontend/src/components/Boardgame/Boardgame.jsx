@@ -105,19 +105,21 @@ const Boardgame = () => {
                             />
                         </OptionsDropDown>
                     </div>
-                    <EditableDescription 
-                        newDescription={newDescription}
-                        setNewDescription={setNewDescription}
-                        oldDescription={boardgame.description}
-                        handleUpdate={handleDescriptionUpdate}
-                    />
+                    
                 </div>
                 <div className="flex flex-col gap-y-10">
-                    {/* Activity section */}
-                    <div className="flex flex-col sm:flex-row gap-2">
-                    {/* Playsessions */}
+                    
+                    <div className="flex flex-col gap-4 sm:flex-row w-full">
+                        <div className="flex-grow">
+                            <EditableDescription 
+                                newDescription={newDescription}
+                                setNewDescription={setNewDescription}
+                                oldDescription={boardgame.description}
+                                handleUpdate={handleDescriptionUpdate}
+                            />
+                        </div>
                         <PaginatedList 
-                            className="basis-full sm:basis-1/2"
+                            className=""
                             title={<h1 className="text-slate-400 text-md font-normal">Playsessions</h1>}
                         >
                             {playSessions.map(ps => 
@@ -126,10 +128,10 @@ const Boardgame = () => {
                                 </div>
                             )}
                         </PaginatedList>
-                    {/* Comments */}
-                        <CommentSection boardgame={boardgame} />
                     </div>
                     <SecondaryButton content={"add playsession"} onClick={() => { playSessionFormPopupRef.current.setOpen(true) }}/>
+
+                    <CommentSection boardgame={boardgame} />
                 </div>
             </div>
             : <>

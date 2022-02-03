@@ -657,6 +657,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 16rem;
 }
 
+.w-40 {
+  width: 10rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1022,6 +1026,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(249 115 22 / var(--tw-border-opacity));
 }
 
+.border-emerald-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(5 150 105 / var(--tw-border-opacity));
+}
+
 .border-t-slate-600 {
   --tw-border-opacity: 1;
   border-top-color: rgb(71 85 105 / var(--tw-border-opacity));
@@ -1382,6 +1391,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-orange-400 {
   --tw-text-opacity: 1;
   color: rgb(251 146 60 / var(--tw-text-opacity));
+}
+
+.text-emerald-500 {
+  --tw-text-opacity: 1;
+  color: rgb(16 185 129 / var(--tw-text-opacity));
+}
+
+.text-emerald-400 {
+  --tw-text-opacity: 1;
+  color: rgb(52 211 153 / var(--tw-text-opacity));
 }
 
 .decoration-indigo-600 {
@@ -1829,6 +1848,10 @@ input[type=number] {
     width: 2rem;
   }
 
+  .sm\:w-40 {
+    width: 10rem;
+  }
+
   .sm\:basis-1\/2 {
     flex-basis: 50%;
   }
@@ -1988,6 +2011,30 @@ input[type=number] {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .md\:flex-row {
+    flex-direction: row;
+  }
+
+  .md\:flex-col {
+    flex-direction: column;
+  }
+
+  .md\:flex-col-reverse {
+    flex-direction: column-reverse;
+  }
+
+  .md\:items-end {
+    align-items: flex-end;
+  }
+
+  .md\:gap-4 {
+    gap: 1rem;
+  }
+
+  .md\:gap-1 {
+    gap: 0.25rem;
+  }
+
   .md\:p-8 {
     padding: 2rem;
   }
@@ -2037,6 +2084,14 @@ input[type=number] {
     width: 75%;
   }
 
+  .lg\:w-52 {
+    width: 13rem;
+  }
+
+  .lg\:w-2\/3 {
+    width: 66.666667%;
+  }
+
   .lg\:basis-1\/4 {
     flex-basis: 25%;
   }
@@ -2066,6 +2121,10 @@ input[type=number] {
 
   .xl\:-mb-20 {
     margin-bottom: -5rem;
+  }
+
+  .xl\:w-64 {
+    width: 16rem;
   }
 
   .xl\:basis-1\/5 {

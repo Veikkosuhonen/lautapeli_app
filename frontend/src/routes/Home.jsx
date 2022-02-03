@@ -38,9 +38,9 @@ const Home = ({
                         <NavLink to="/boardgames" className="rounded border border-orange-500 text-orange-300 hover:bg-slate-800/50 p-2">
                             {boardgames ? boardgames.length : "?"} boardgames
                         </NavLink>
-                        <span className="select-none rounded border border-slate-700 p-2">
+                        <NavLink to="/playsessions" className="rounded border border-emerald-600 text-emerald-400 hover:bg-slate-800/50 p-2">
                             {playSessions} games played
-                        </span>
+                        </NavLink>
                     </div>
                 </div>
             </div>

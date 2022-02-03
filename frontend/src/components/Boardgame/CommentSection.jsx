@@ -5,7 +5,7 @@ import toaster from "../../util/toaster"
 import FormikTextArea from "../util/FormikTextArea"
 import Comment from "./Comment"
 import PaginatedList from "../util/PaginatedList"
-import { PrimaryButton } from "../util/Buttons"
+import { SecondaryButton } from "../util/Buttons"
 
 const CommentSection = ({
     boardgame
@@ -20,14 +20,7 @@ const CommentSection = ({
 
     return (
         <div className="flex flex-col">
-            <PaginatedList
-                className="basis-full sm:basis-1/2"
-                title={<h1 className="text-slate-400 text-md font-normal">Comments</h1>}
-            >
-                {boardgame.comments.map(comment => 
-                    <Comment comment={comment} key={comment.id} /> 
-                )}
-            </PaginatedList>
+            <h1 className="p-2 text-slate-400 text-md font-normal">Comments</h1>
             <Formik
                 initialValues={{comment: ""}}
                 initialErrors={{comment: "cannot be blank"}}
@@ -37,7 +30,7 @@ const CommentSection = ({
                 onSubmit={handleSubmit}
             >
                 {formik => (
-                    <form onSubmit={formik.handleSubmit} className="flex flex-row items-end gap-2 p-2">
+                    <form onSubmit={formik.handleSubmit} className="flex items-end gap-2 p-2">
                         <FormikTextArea
                             label="Comment"
                             name="comment"
@@ -45,11 +38,20 @@ const CommentSection = ({
                             errorMessage={false}
                         />
                         <div>
-                            <PrimaryButton content={"Comment"} type={"submit"} disabled={!formik.isValid}/>
+                            <SecondaryButton content={"Comment"} type={"submit"} disabled={!formik.isValid}/>
                         </div>
                     </form>
                 )}
             </Formik>
+            <PaginatedList
+                itemsPerPage={10}
+                className=""
+            >
+                {boardgame.comments.map(comment => 
+                    <Comment comment={comment} key={comment.id} /> 
+                )}
+            </PaginatedList>
+            
         </div>
     )
 }

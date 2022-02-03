@@ -9,7 +9,7 @@ const useAddComment = () => {
     return useMutation(mutationFn, {
         onSuccess: (result, variables, context) => {
             queryClient.setQueryData(["boardgame", Number(variables.boardgameId)],
-                boardgame => ({ ...boardgame, comments: boardgame.comments.concat(result) })
+                boardgame => ({ ...boardgame, comments: [result].concat(boardgame.comments) })
             )
         }
     }).mutateAsync

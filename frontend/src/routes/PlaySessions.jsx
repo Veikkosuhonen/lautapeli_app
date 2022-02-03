@@ -38,7 +38,7 @@ const PlaySession = ({ playSession }) => {
                                 className=" text-slate-300
                                 hover:underline underline-offset-1 decoration-2 decoration-dashed decoration-indigo-500"
                             >
-                                <h1 className="truncate w-32">
+                                <h1 className="truncate w-48 sm:w-40 lg:w-52 xl:w-64">
                                     {playSession.boardgame.name}
                                 </h1>
                             </Link>
@@ -98,7 +98,7 @@ const PlaySessions = () => {
             <h1>Playsessions</h1>    
         </ HeroSection>
         <div className="flex flex-row justify-center">
-            <div className="flex flex-col w-full md:w-5/6 lg:w-3/4 xl:2/3 gap-4 items-stretch p-1 sm:p-4">
+            <div className="flex flex-col w-full md:w-5/6 lg:w-2/3 xl:1/2 gap-4 items-stretch p-1 sm:p-4">
                 <div className="flex flex-row items-center space-x-6 py-4">
                     <div className="flex flex-row space-x-1 items-center">
                         <span className="hidden sm:block text-slate-400 text-sm">Sort by</span>

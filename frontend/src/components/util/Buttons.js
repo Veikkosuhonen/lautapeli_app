@@ -29,7 +29,9 @@ const SecondaryButton = ({
     transition duration-100"
     type={type || "button"}
     onClick={onClick}
-    >{content}</button>
+    >
+        <div className="flex items-center justify-center gap-1">{content}</div>
+    </button>
 )
 
 export {
