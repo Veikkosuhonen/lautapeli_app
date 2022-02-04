@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const s3 = require("../util/s3")
+const imageUploadUrl = require("../util/imageUploadUrl")
 const { auth } = require("../middleware/authorization")
 const { Boardgame } = require("../models")
 
@@ -9,8 +9,8 @@ router.get("/boardgame", auth, async (request, response) => {
     if (!boardgame) {
         return response.status(400).json({ error: "invalid id" })
     }
-    const url = await s3.getUploadUrl()
-    return response.json({ url })
+    const { url, imageName } = await imageUploadUrl.getUploadUrl()
+    return response.json({ url, imageName })
 })
 
 module.exports = router

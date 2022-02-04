@@ -1,8 +1,8 @@
 const imageUpload = require("../util/imageUploadUrl")
 
-test("Boardgame image names are generated correctly", () => {
-    for (let i = 1; i < 1000; i += 37) {
-        const name = imageUpload.getBoardgameImageName(i)
+test("Image names are generated correctly", () => {
+    for (let i = 1; i < 50; i++) {
+        const name = imageUpload.getImageName()
         expect(name).toHaveLength(16)
     }
 })

@@ -6,7 +6,7 @@ const getRandomBytes = (n) => {
     return crypto.randomBytes(Math.floor(n / 2)).toString("hex").padEnd(n, "0")
 }
 
-const getBoardgameImageName = () => {
+const getImageName = () => {
     // Get date as YYYYMMdd
     const date = new Date().toISOString().substring(0, 10).replace(/-/g, "")
     let name = date + "-"
@@ -15,8 +15,10 @@ const getBoardgameImageName = () => {
     return name + byteString
 }
 
-const getBoardgameImageUploadUrl = async () => {
-    return await s3.getUploadUrl()
+const getUploadUrl = async () => {
+    const imageName = getImageName()
+    const url = await s3.getUploadUrl(imageName)
+    return { url, imageName }
 }
 
-module.exports = { getBoardgameImageName, getBoardgameImageUploadUrl }
+module.exports = { getImageName, getUploadUrl }

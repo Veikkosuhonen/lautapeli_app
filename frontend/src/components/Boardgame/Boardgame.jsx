@@ -20,6 +20,7 @@ import EditableDescription from './EditableDescription';
 import CommentSection from './CommentSection';
 import PopupWindow from '../util/PopupWindow';
 import { SecondaryButton } from '../util/Buttons';
+import Upload from './Upload';
 
 const Boardgame = () => {
     const [newDescription, setNewDescription] = useState("")
@@ -130,7 +131,7 @@ const Boardgame = () => {
                         </PaginatedList>
                     </div>
                     <SecondaryButton content={"add playsession"} onClick={() => { playSessionFormPopupRef.current.setOpen(true) }}/>
-
+                    <Upload boardgame={boardgame} />
                     <CommentSection boardgame={boardgame} />
                 </div>
             </div>
