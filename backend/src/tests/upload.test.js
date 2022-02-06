@@ -34,7 +34,7 @@ test("Can only get upload url when authorized", async () => {
 
 test("Receives url when request valid", async () => {
     const boardgameId = (await Boardgame.findOne()).id
-    const response = await api.get("/api/upload/boardgame?id=" + boardgameId)
+    const response = await api.get("/api/upload/boardgame?id=" + boardgameId + "&fileType=image/jpeg")
         .set("Authorization", testUtils.getToken())
         .expect(200)
     

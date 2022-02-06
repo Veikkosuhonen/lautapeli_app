@@ -7,16 +7,16 @@ const s3Bucket = new AWS.S3({
     secretAccessKey: config.AWS_SECRET_ACCESS_KEY
 })
 
-const getUploadUrl = async (key) => {
+const getSignedUploadUrl = async (key) => {
     if (config.NODE_ENV === "test") return "test-url"
     const params = {
         Bucket: config.AWS_BUCKET,
-        Key: "user-content/" + key,
+        Key: key,
         Expires: 30
     }
     return await s3Bucket.getSignedUrlPromise("putObject", params)
 }
-
-const s3 = { getUploadUrl }
+ 
+const s3 = { getSignedUploadUrl, bucketName: config.AWS_BUCKET, region: config.AWS_REGION}
 
 module.exports = s3

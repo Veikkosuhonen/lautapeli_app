@@ -1,8 +1,16 @@
 const imageUpload = require("../util/imageUploadUrl")
 
 test("Image names are generated correctly", () => {
-    for (let i = 1; i < 50; i++) {
-        const name = imageUpload.getImageName()
-        expect(name).toHaveLength(16)
-    }
+    
+    let name = imageUpload.getNewImageName("jpg")
+    expect(name).toHaveLength(16)
+
+    name = imageUpload.getNewImageName("png")
+    expect(name).toHaveLength(16)
+
+    name = imageUpload.getNewImageName("a")
+    expect(name).toHaveLength(16)
+
+    name = imageUpload.getNewImageName("asdasd")
+    expect(name).toHaveLength(16)
 })

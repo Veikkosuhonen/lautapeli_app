@@ -11,11 +11,12 @@ Image.init({
         primaryKey: true,
         autoIncrement: true
     },
-    description: {
-        type: DataTypes.TEXT,
+    fileName: {
+        type: DataTypes.STRING(16),
+        unique: true,
         allowNull: false
     },
-    link: {
+    description: {
         type: DataTypes.TEXT,
         allowNull: false
     },
@@ -23,6 +24,21 @@ Image.init({
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW
+    },
+    boardgameId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "boardgames", key: "id" },
+    },
+    playSessionId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: { model: "playSessions", key: "id" },
+    },
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "users", column: "id" }
     }
 }, {
     sequelize,

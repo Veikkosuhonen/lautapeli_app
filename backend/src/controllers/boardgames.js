@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const Sequelize = require("sequelize")
 
-const { Boardgame, PlaySession, User, Activity, BoardgameComment } = require("../models")
+const { Boardgame, PlaySession, User, Activity, BoardgameComment, Image } = require("../models")
 const logger = require("../util/logger")
 const { auth, getLoggedInUser } = require("../middleware/authorization")
 const Like = require("../models/like")
@@ -67,6 +67,16 @@ router.get("/:id", auth, async (request, response) => {
                 model: BoardgameComment,
                 as: "comments",
                 attributes: ["id", "comment", "date"],
+                include: [
+                    {
+                        model: User,
+                        attributes: ["id", "name"]
+                    }
+                ]
+            },
+            { 
+                model: Image,
+                attributes: ["id", "fileName", "date", "description", "playSessionId"],
                 include: [
                     {
                         model: User,
