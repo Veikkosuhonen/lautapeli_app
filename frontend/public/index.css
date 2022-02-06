@@ -600,6 +600,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 100%;
 }
 
+.min-h-full {
+  min-height: 100%;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
 .w-48 {
   width: 12rem;
 }

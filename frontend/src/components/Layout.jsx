@@ -5,10 +5,14 @@ import Footer from "./Footer"
 
 const Layout = ({ user, handleLogout }) => (
     <>
-        <Navbar user={user} handleLogout={handleLogout}/>
         <ToastContainer position="top-center"/>
-        <Outlet />
-        <Footer />
+        <div className="flex flex-col min-h-screen">
+            <Navbar user={user} handleLogout={handleLogout}/>
+            <main className="flex-grow">
+                <Outlet />
+            </main>
+            <Footer />
+        </div>
     </>
 )
 
