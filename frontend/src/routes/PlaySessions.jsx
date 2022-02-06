@@ -95,18 +95,11 @@ const PlaySessions = () => {
     return (
         <>
         <HeroSection>
-            <h1>Playsessions</h1>    
+            <h1>Game log</h1>    
         </ HeroSection>
         <div className="flex flex-row justify-center">
             <div className="flex flex-col w-full md:w-5/6 lg:w-2/3 xl:1/2 gap-4 items-stretch p-1 sm:p-4">
                 <div className="flex flex-row items-center space-x-6 py-4">
-                    <div className="flex flex-row space-x-1 items-center">
-                        <span className="hidden sm:block text-slate-400 text-sm">Sort by</span>
-                        <SelectInput value={sortBy} setValue={setSortBy} options={sortOptions}/>
-                        <button className="text-slate-400 hover:text-slate-200" onClick={onSortDirChange}>
-                            {desc ? <ArrowDownIcon className="w-5 h-5"/> : <ArrowUpIcon className="w-5 h-5"/>}
-                        </button>
-                    </div>
                     <div>
                         <InputField 
                             value={boardgameName} 
@@ -114,6 +107,13 @@ const PlaySessions = () => {
                             placeholder="Search by boardgame"
                             className="bg-slate-800"
                         />
+                    </div>
+                    <div className="flex flex-row space-x-1 items-center">
+                        <span className="hidden sm:block text-slate-400 text-sm">Sort by</span>
+                        <SelectInput value={sortBy} setValue={setSortBy} options={sortOptions}/>
+                        <button className="text-slate-400 hover:text-slate-200" onClick={onSortDirChange}>
+                            {desc ? <ArrowDownIcon className="w-5 h-5"/> : <ArrowUpIcon className="w-5 h-5"/>}
+                        </button>
                     </div>
                 </div>
                 <div className="flex flex-col gap-2 border-l border-slate-800 pl-1">

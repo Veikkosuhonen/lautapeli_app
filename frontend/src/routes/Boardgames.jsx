@@ -62,7 +62,7 @@ const Boardgames = () => {
             </PopupWindow>
 
             <HeroSection>
-                <h1>Boardgames</h1>
+                <h1>Shelf</h1>
             </HeroSection>
             <div className="flex flex-col space-y-8 sm:space-y-0 sm:flex-row space-x-2 sm:space-x-6 px-2 sm:px-4 md:px-6">
                 <Activities activities={activities}/>
