@@ -66,7 +66,7 @@ const Boardgames = () => {
             </HeroSection>
             <div className="flex flex-col space-y-8 sm:space-y-0 sm:flex-row space-x-2 sm:space-x-6 px-2 sm:px-4 md:px-6">
                 <Activities activities={activities}/>
-                <div>      
+                <div>
                     <div className="flex flex-row items-center space-x-6 pb-4 pt-6 sm:pt-0">
                         <div>
                             <InputField 
@@ -84,7 +84,9 @@ const Boardgames = () => {
                             </button>
                         </div>
                         
-                        <SecondaryButton content={<PlusIcon className="h-4 w-4"/>} onClick={() => newBoardgameFormPopupRef.current.setOpen(true)}/>
+                        <SecondaryButton content={
+                            <div className="flex gap-2 items-center"><PlusIcon className="h-4 w-4"/>Add</div>
+                        } onClick={() => newBoardgameFormPopupRef.current.setOpen(true)}/>
                         
                     </div>
                     <BoardgamesList boardgames={filteredBoardgames} />

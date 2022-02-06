@@ -78,6 +78,13 @@ const generateCodeMessage = (request) => {
     )
 }
 
+const fileUploadMessage = (request) => {
+    promise(request, 
+        "Uploading your image...",
+        "Success!"
+    )
+}
+
 const errorMessage = (error) => {
     toast.error(error)
 }
@@ -93,6 +100,7 @@ const toaster = {
     deletePlaySessionMessage,
     userDisableMessage,
     generateCodeMessage,
+    fileUploadMessage,
     errorMessage
 }
 

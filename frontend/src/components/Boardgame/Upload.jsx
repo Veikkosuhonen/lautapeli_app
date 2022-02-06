@@ -1,6 +1,6 @@
 import { useState } from "react"
-import api from "../../services/api"
-import s3 from "../../services/s3"
+import useUploadImage from "../../hooks/useUploadFile"
+import toaster from "../../util/toaster"
 import { PrimaryButton } from "../util/Buttons"
 
 const Upload = ({
@@ -8,13 +8,15 @@ const Upload = ({
 }) => {
 
     const [file, setFile] = useState(null)
+    const uploadImage = useUploadImage()
 
-    const handleSubmit = async () => {
-        const data = await api.get("/upload/boardgame?id=" + boardgame.id)
-        console.log(data.url)
-        s3.putObject(data.url, file).then(response => {
-            console.log(JSON.stringify(response))
-        }).catch(error => console.log(JSON.stringify(error)))
+    const handleSubmit = () => {
+        const response = uploadImage({
+            file,
+            boardgameId: boardgame.id,
+            description: "test"
+        })
+        toaster.fileUploadMessage(response)
     }
 
     return (

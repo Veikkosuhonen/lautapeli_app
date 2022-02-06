@@ -21,6 +21,7 @@ import CommentSection from './CommentSection';
 import PopupWindow from '../util/PopupWindow';
 import { SecondaryButton } from '../util/Buttons';
 import Upload from './Upload';
+import Album from "./Album"
 
 const Boardgame = () => {
     const [newDescription, setNewDescription] = useState("")
@@ -132,6 +133,7 @@ const Boardgame = () => {
                     </div>
                     <SecondaryButton content={"add playsession"} onClick={() => { playSessionFormPopupRef.current.setOpen(true) }}/>
                     <Upload boardgame={boardgame} />
+                    <Album boardgame={boardgame} />
                     <CommentSection boardgame={boardgame} />
                 </div>
             </div>
