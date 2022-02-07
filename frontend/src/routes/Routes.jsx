@@ -1,7 +1,7 @@
 import {
-    BrowserRouter as Router,
+    BrowserRouter,
     Routes as AllRoutes,
-    Route
+    Route,
 } from "react-router-dom";
 
 import Layout from "../components/Layout";
@@ -19,26 +19,28 @@ import PlaySession from "./PlaySession";
 const Routes = ({
     user, handleLogin, handleLogout
 }) => (
-    <Router>
+    <BrowserRouter>
         <AllRoutes>
             <Route path="/" element={
                 <Layout user={user} />
             }>
-                <Route path="/" element={
+                <Route index element={
                     <Home user={user} />
                 } />
-                <Route path="boardgames" element={
+                <Route path="shelf" element={
                     <Boardgames />
                 } />
-                <Route path="boardgames/:boardgameId" element={
+                <Route path="boardgames/:boardgameId/*" element={
                     <Boardgame user={user} />
                 } />
+                
                 <Route path="playsessions" element={
                     <PlaySessions />
-                } />
-                <Route path="playsessions/:playSessionId" element={
-                    <PlaySession />
-                } />
+                } >
+                    <Route path=":playSessionId" element={
+                        <PlaySession />
+                    } />
+                </Route>
                 <Route path="login" element={
                     <Login user={user} handleLogin={handleLogin}/>
                 } />
@@ -56,7 +58,7 @@ const Routes = ({
                 } />
             </Route>
         </AllRoutes>
-    </Router>
+    </BrowserRouter>
 )
 
 export default Routes

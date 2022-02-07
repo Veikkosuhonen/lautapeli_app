@@ -51,6 +51,10 @@ router.get("/:id", auth, async (request, response) => {
                         through: {
                             attributes: ["score"]
                         }
+                    },
+                    {
+                        model: Boardgame,
+                        attributes: ["id", "name"]
                     }
                 ]
             },

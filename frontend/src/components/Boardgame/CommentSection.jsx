@@ -20,7 +20,7 @@ const CommentSection = ({
 
     return (
         <div className="flex flex-col">
-            <h1 className="p-2 text-slate-400 text-md font-normal">Comments</h1>
+            <h1 className="text-slate-400 text-md font-normal">Comments</h1>
             <Formik
                 initialValues={{comment: ""}}
                 initialErrors={{comment: "cannot be blank"}}
@@ -47,7 +47,7 @@ const CommentSection = ({
                 itemsPerPage={10}
                 className=""
             >
-                {boardgame.comments.map(comment => 
+                {boardgame?.comments.map(comment => 
                     <Comment comment={comment} key={comment.id} /> 
                 )}
             </PaginatedList>

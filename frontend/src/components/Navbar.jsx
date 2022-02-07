@@ -2,16 +2,21 @@ import React from "react"
 import { NavLink } from "react-router-dom"
 import { Disclosure, Transition } from "@headlessui/react"
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import classNames from "classnames"
 
 const NavbarLink = ({ path, children }) => {
     return (
         <NavLink 
-            className={({ isActive }) => isActive ? "px-5 py-1 cursor-default bg-transparent text-slate-300" : "px-5 py-1 bg-sky-800/20 hover:bg-sky-600/20 sm:shadow-lg hover:shadow-xl hover:z-10"}
+            className={({ isActive }) => classNames({
+                "px-5 py-1": true,
+                "cursor-default bg-transparent text-slate-300": isActive,
+                "bg-sky-800/20 hover:bg-sky-600/20 sm:shadow-lg hover:shadow-xl hover:z-10": !isActive
+            })}
             to={path}
         >
-            <h1 className="font-medium text-lg whitespace-nowrap">
+            <div className="font-medium text-lg whitespace-nowrap">
                 {children}
-            </h1>
+            </div>
         </NavLink>
     )
 }
@@ -48,7 +53,7 @@ const Navbar = ({
                     <div className="hidden sm:block sm:ml-6 overflow-hidden p-1">
                         <div className="flex items-center divide-x-2 bg-sky-900/50 divide-slate-900 text-slate-200 rounded-lg shadow-lg overflow-hidden">
                             { user && 
-                            <NavbarLink path="/boardgames">
+                            <NavbarLink path="/shelf">
                                 Shelf
                             </NavbarLink>
                             }

@@ -9,6 +9,7 @@ export default function DeleteButton({
     return (
         <button 
             className="text-rose-500 hover:text-rose-400 disabled:text-rose-400/50" 
+            type="button"
             onClick={onClick} 
             disabled={disabled}
             title={disabled ? (disabledMessage ? disabledMessage : "You are not allowed to delete this") : null}

@@ -6,7 +6,7 @@ export default function LikeButton({
 }) {
     return (
         <button className="
-            p-2 rounded-lg 
+            p-1 rounded-lg 
             transition ease-in-out duration-200 delay-75
             border border-slate-700 hover:border-rose-600
             hover:shadow-lg hover:shadow-rose-600/30 text-slate-700 hover:text-rose-600" 
@@ -15,10 +15,10 @@ export default function LikeButton({
             <div className="flex flex-row items-center gap-1">
                 <span className="font-medium text-rose-500 tabular-nums">{likes}</span>
                 { liked ?  
-                    <SolidCubeIcon className="w-6 h-6 text-rose-500"/> 
+                    <SolidCubeIcon className="w-5 h-5 text-rose-500"/> 
                 : 
                 <>
-                    <OutlineCubeIcon className="w-6 h-6 "/>
+                    <OutlineCubeIcon className="w-5 h-5 "/>
                 </>
                 }
             </div>
