@@ -6,7 +6,7 @@ export default function Commits({
     return (
         <PaginatedList className="basis-1/4" itemsPerPage={itemsPerPage || 4} title={
             <h1 
-                title="Only frontend updates!" 
+                title="Git commits affecting client side" 
                 className="text-slate-500 text-md hover:text-sky-300 select-none"
             >Recent app updates</h1>
         }>
@@ -16,7 +16,7 @@ export default function Commits({
                     rounded hover:bg-slate-800"
                 >
                     <span className="text-slate-500 text-xs">
-                        {commit.author} on {new Date(commit.date).toLocaleString()}
+                        {commit.author} on {new Date(commit.date).toLocaleString("fi")}
                     </span>
                     <span className="text-slate-400 text-sm">
                         {commit.message}

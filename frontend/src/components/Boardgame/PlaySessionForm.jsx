@@ -11,10 +11,15 @@ import useAddPlaySession from '../../hooks/useAddPlaySession';
 import toaster from '../../util/toaster';
 import { CheckIcon, XIcon } from '@heroicons/react/outline';
 import PlaySessionDescription from './PlaySessionDescription';
+import useCurrentUser from '../../hooks/useCurrentUser';
+import useUsers from '../../hooks/useUsers';
 
 const PlaySessionForm = ({
-    user, users, boardgame
+    boardgame
 }) => {
+
+    const { user } = useCurrentUser()
+    const { users } = useUsers()
 
     const addPlaySession = useAddPlaySession()
 
@@ -80,7 +85,7 @@ const PlaySessionForm = ({
 
                     <div className="flex flex-row items-center justify-between pb-6">
                         <h1 className="text-slate-300">New playsession</h1>
-                        <Button onClick={() => {descriptionFormPopupRef.current.toggleOpen()}}>
+                        <Button onClick={() => {descriptionFormPopupRef.current.toggleOpen()}} type={"button"}>
                             add notes {description && <CheckIcon className="w-4 h-4"/>}
                         </Button>
                     </div>

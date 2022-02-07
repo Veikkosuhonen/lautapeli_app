@@ -39,7 +39,7 @@ const Heading = ({
 
                 <div className="flex gap-2 pt-4">
                     <span className="text-slate-500">Added by {boardgame?.addedBy.name}</span>
-                    <span className="italic text-slate-500">{new Date(boardgame?.dateAdded).toDateString()}</span>
+                    <span className="italic text-slate-500">{new Date(boardgame?.dateAdded).toLocaleDateString("fi")}</span>
                 </div>
 
                 <div className="flex flex-wrap gap-x-1 gap-y-1 pt-8 pb-8">

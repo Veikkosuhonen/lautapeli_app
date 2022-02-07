@@ -14,7 +14,7 @@ const PopupWindow = React.forwardRef((props, ref) => {
 
     return (
         <Transition
-            className="fixed w-full bottom-0 backdrop-blur-lg backdrop-brightness-50 shadow-lg z-10 h-2/3"
+            className="fixed w-full bottom-0 right-0 backdrop-blur-lg backdrop-brightness-50 shadow-lg z-10 h-2/3"
             show={isOpen}
             enter="transition transform ease-out duration-100"
             enterFrom="translate-y-full"
@@ -26,7 +26,7 @@ const PopupWindow = React.forwardRef((props, ref) => {
             <button type="button" onClick={() => setIsOpen(false)}
                 className="fixed right-2 pt-2"
             >
-                <XIcon className="w-6 h-6 sm:w-8 sm:h-8 text-slate-500"/>
+                <XIcon className="w-6 h-6 sm:w-8 sm:h-8 text-slate-500 hover:text-slate-300"/>
             </button>
             <div className="rounded-t-lg border-t-2 border-t-slate-600 h-full">
                 <div className="h-full overflow-y-auto py-8">

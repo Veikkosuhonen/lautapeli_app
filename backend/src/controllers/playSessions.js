@@ -115,7 +115,15 @@ router.post("/", auth, async (request, response) => {
         ))
         
         const result = await PlaySession.findByPk(ps.id, {
-            include: [{ model: User, as: "players", attributes: ["id", "name"], through: { attributes: ["score"] } }]
+            include: [
+                { 
+                    model: User, as: "players", attributes: ["id", "name"], through: { attributes: ["score"] }
+                },
+                {
+                    model: Boardgame,
+                    attributes: ["id", "name"]
+                }
+            ]
         })
 
         const activity = await createActivity(result)

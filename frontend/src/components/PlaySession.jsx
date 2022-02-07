@@ -10,18 +10,18 @@ const PlaySession = ({ playSession }) => {
     return (
         <div className="flex flex-row items-center">
             <span className="w-20 sm:w-24 md:w-32 text-center text-slate-500 text-xs sm:text-sm tabular-nums">
-                {new Date(playSession.date).toLocaleDateString()}
+                {new Date(playSession.date).toLocaleDateString("fi")}
             </span>
             <div className="w-full bg-gradient-to-b from-sky-600/10 to-indigo-600/10 rounded-lg shadow">
                 <div className="flex flex-row gap-2 divide-x divide-slate-800 items-stretch">
                     <div className="flex flex-col sm:flex-row gap-2 mr-auto">
                         <div className="flex flex-col gap-1 p-2">
-                            <Link to={"/boardgames/" + playSession.boardgame.id}
+                            <Link to={"/boardgames/" + playSession.boardgame?.id}
                                 className=" text-slate-300
                                 hover:underline underline-offset-1 decoration-2 decoration-dashed decoration-indigo-500"
                             >
                                 <h1 className="truncate w-48 sm:w-40 lg:w-52 xl:w-64">
-                                    {playSession.boardgame.name}
+                                    {playSession.boardgame?.name}
                                 </h1>
                             </Link>
                             <span className="text-slate-400 text-sm tabular-nums">

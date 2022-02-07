@@ -1,7 +1,11 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useRef } from "react"
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/outline"
 import PlaySessionsList from "../PlaySessionsList"
 import SelectInput from "../util/SelectInput"
+import PopupWindow from "../util/PopupWindow"
+import PlaySessionForm from "./PlaySessionForm"
+import Button from "../util/Buttons"
+import { PlusIcon } from "@heroicons/react/outline"
 
 const sortOptions = [
     "date", "duration", "players"
@@ -32,17 +36,24 @@ const BoardgamePlaySessions = ({ boardgame }) => {
         sortedPlaySessions.reverse()
     }
 
+
+    const playSessionFormPopupRef = useRef()
+
     return (
         <div>
-            <div className="flex flex-row items-center space-x-6 py-4">
-                <div className="flex flex-row space-x-1 items-center">
+            <PopupWindow ref={playSessionFormPopupRef}>
+                <PlaySessionForm boardgame={boardgame}/>
+            </PopupWindow>
+                <div className="flex flex-row gap-1 items-center pt-4 pb-6">
                     <span className="text-slate-400 text-sm">Sort by</span>
                     <SelectInput value={sortBy} setValue={setSortBy} options={sortOptions}/>
-                    <button className="text-slate-400 hover:text-slate-200" onClick={onSortDirChange}>
+                    <button className="text-slate-400 hover:text-slate-200 mr-auto" onClick={onSortDirChange}>
                         {desc ? <ArrowDownIcon className="w-5 h-5"/> : <ArrowUpIcon className="w-5 h-5"/>}
                     </button>
+                    <Button onClick={() => playSessionFormPopupRef.current.setOpen(true)} variant={"secondary"}> 
+                        <PlusIcon className="h-4 w-4"/>Add playsession
+                    </Button>
                 </div>
-            </div>
             
             <PlaySessionsList playSessions={sortedPlaySessions} />
         </div>

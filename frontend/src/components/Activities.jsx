@@ -14,7 +14,7 @@ export default function Activities({
                         rounded hover:bg-slate-800"
                     >
                         <span className="text-slate-500 text-xs">
-                            {activity.date ? new Date(activity.date).toLocaleString() : "unknown date"}
+                            {activity.date ? new Date(activity.date).toLocaleString("fi") : "unknown date"}
                         </span>
                         <span className="text-slate-400 text-sm">
                             {activity.description || "Suspicious activity with no description"}

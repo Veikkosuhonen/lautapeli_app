@@ -36,14 +36,12 @@ const Routes = ({
                 <Route path="boardgames/:boardgameId/*" element={
                     <Boardgame user={user} />
                 } />
-                
                 <Route path="playsessions" element={
                     <PlaySessions />
-                } >
-                    <Route path=":playSessionId" element={
-                        <PlaySession />
-                    } />
-                </Route>
+                } />
+                <Route path="playsessions/:playSessionId" element={
+                    <PlaySession />
+                } />
                 <Route path="myprofile" element={<User />} />
                 <Route path="login" element={
                     <Login user={user} handleLogin={handleLogin}/>

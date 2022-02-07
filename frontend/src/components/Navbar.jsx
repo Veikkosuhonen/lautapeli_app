@@ -105,12 +105,12 @@ const Navbar = ({
                     <div className="flex flex-col items-stretch w-2/3 divide-y-2 bg-sky-900/50 divide-slate-900 text-slate-200 rounded-lg shadow-lg overflow-hidden">
                         { user && 
                         <NavbarLink path="/shelf">
-                            Boardgames
+                            Shelf
                         </NavbarLink>
                         }
                         { user && 
                         <NavbarLink path="/playsessions">
-                            Playsessions
+                            Game log
                         </NavbarLink>
                         }
                         { user && user.isAdmin && 

@@ -15,7 +15,7 @@ const PlayerSelector = ({
     const searchFieldRef = useRef(null)
 
     let options = users
-        .filter(user => user.name.toLowerCase().includes(searchTerm))
+        ?.filter(user => user.name.toLowerCase().includes(searchTerm))
         .filter(user => !players.some(p => p.id === user.id))
 
     const handleKeyDown = (event) => {

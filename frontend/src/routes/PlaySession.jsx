@@ -1,6 +1,8 @@
+import UnderConstruction from "../components/UnderConstruction"
+
 const PlaySession = () => {
     return (
-        "playsession"
+        <UnderConstruction />
     )
 }
 
