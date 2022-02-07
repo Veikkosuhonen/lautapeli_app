@@ -13,7 +13,7 @@ const FooterLink = ({ link }) => (
 )
 
 const Footer = () => (
-    <footer className="w-full -z-10 -mt-16 -mb-10">
+    <footer className="w-full z-0 -mb-10">
         <svg xmlns="http://www.w3.org/2000/svg" id="visual" viewBox="0 0 900 600" version="1.1">
             <path d="M0 416L113 457L225 409L338 465L450 444L563 473L675 421L788 408L900 458L900 601L788 601L675 601L563 601L450 601L338 601L225 601L113 601L0 601Z" 
             fill="#f5730a"/>

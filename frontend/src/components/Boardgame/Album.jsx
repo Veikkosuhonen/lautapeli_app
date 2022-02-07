@@ -1,18 +1,12 @@
+import AlbumImage from "./AlbumImage"
+
 const Album = ({ boardgame }) => {
-    const imageUrl = (fileName) => `https://lautapeli-app.s3.eu-north-1.amazonaws.com/user-content/${fileName}`
+    
 
     return (
-        <div className="flex flex-col gap-2" >
+        <div className="grid grid-cols-3" >
             {boardgame?.images.map(image => 
-                <div>
-                    <img src={imageUrl(image.fileName)} alt={image.description} />
-                    <div className="flex flex-row">
-                        <p className="flex-basis-1/2">
-                            {image.description}
-                        </p>
-                        <span>{new Date(image.date).toLocaleString()}</span>
-                    </div>
-                </div>
+                <AlbumImage image={image} key={image.id}/>
             )}
         </div>
     )

@@ -8,7 +8,11 @@ const NavbarLink = ({ path, children }) => {
         <NavLink 
             className={({ isActive }) => isActive ? "px-5 py-1 cursor-default bg-transparent text-slate-300" : "px-5 py-1 bg-sky-800/20 hover:bg-sky-600/20 sm:shadow-lg hover:shadow-xl hover:z-10"}
             to={path}
-        >{children}</NavLink>
+        >
+            <h1 className="font-medium text-lg whitespace-nowrap">
+                {children}
+            </h1>
+        </NavLink>
     )
 }
 
@@ -45,27 +49,27 @@ const Navbar = ({
                         <div className="flex items-center divide-x-2 bg-sky-900/50 divide-slate-900 text-slate-200 rounded-lg shadow-lg overflow-hidden">
                             { user && 
                             <NavbarLink path="/boardgames">
-                                <h1 className="font-medium text-lg">Shelf</h1>
+                                Shelf
                             </NavbarLink>
                             }
                             { user && 
                             <NavbarLink path="/playsessions">
-                                <h1 className="font-medium text-lg">Game log</h1>
+                                Game log
                             </NavbarLink>
                             }
                             { user && user.isAdmin && 
                             <NavbarLink path="/admin">
-                                <h1 className="font-medium text-lg">Admin</h1>
+                                Admin
                             </NavbarLink>
                             }
                             { !user && 
                             <NavbarLink path="/login">
-                                <h1 className="font-medium text-lg">Login</h1>
+                                Login
                             </NavbarLink>
                             }
                             { !user && 
                             <NavbarLink path="/register">
-                                <h1 className="font-medium text-lg">Register</h1>
+                                Register
                             </NavbarLink>
                             }
                             { user && <>
@@ -76,7 +80,7 @@ const Navbar = ({
                                 </div>
                             </NavbarLink>
                             <NavbarLink path="/logout">
-                                <h1 className="font-medium text-lg">Logout</h1>
+                                Logout
                             </NavbarLink>
                             </>}
                         </div>
@@ -96,38 +100,35 @@ const Navbar = ({
                     <div className="flex flex-col items-stretch w-2/3 divide-y-2 bg-sky-900/50 divide-slate-900 text-slate-200 rounded-lg shadow-lg overflow-hidden">
                         { user && 
                         <NavbarLink path="/boardgames">
-                            <h1 className="font-medium text-lg">Boardgames</h1>
+                            Boardgames
                         </NavbarLink>
                         }
                         { user && 
                         <NavbarLink path="/playsessions">
-                            <h1 className="font-medium text-lg">Playsessions</h1>
+                            Playsessions
                         </NavbarLink>
                         }
                         { user && user.isAdmin && 
                         <NavbarLink path="/admin">
-                            <h1 className="font-medium text-lg">Admin</h1>
+                            Admin
                         </NavbarLink>
                         }
                         { !user && 
                         <NavbarLink path="/login">
-                            <h1 className="font-medium text-lg">Login</h1>
+                            Login
                         </NavbarLink>
                         }
                         { !user && 
                         <NavbarLink path="/register">
-                            <h1 className="font-medium text-lg">Register</h1>
+                            Register
                         </NavbarLink>
                         }
                         { user && <>
                         <NavbarLink path="/myprofile">
-                            <div className="flex flex-row gap-2 items-center">
-                                <span className="text-sm hidden lg:block">Logged in as</span>
-                                <h1 className="font-medium text-lg font-mono">{user.name}</h1>
-                            </div>
+                            <h1 className="font-medium text-lg font-mono">{user.name}</h1>
                         </NavbarLink>
                         <NavbarLink path="/logout">
-                            <h1 className="font-medium text-lg">Logout</h1>
+                            Logout
                         </NavbarLink>
                         </>}
                     </div>

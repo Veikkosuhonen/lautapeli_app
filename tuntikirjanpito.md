@@ -53,4 +53,7 @@
 | 1.2 | 7h | Frontend-refaktorointia ja parannuksia, landing-pagella näkyy uusimmat commitit |
 | 2.2 | 6h | Pelisessioiden kuvaukset, näkymä kaikille pelisessioille, UI-devausta |
 | 3.2 | 5h | Parannuksia, valmistelua kuvien uploadaamiseksi aws s3:een |
-| 3.2 | 3h | Kuvatiedostojen nimien generointi ja uploadaamisen kehittelyä |
+| 4.2 | 3h | Kuvatiedostojen nimien generointi ja uploadaamisen kehittelyä |
+| 5.2 | 1h | ^ sama |
+| 6.2 | 4h | Kuvien uploadaus, UI-parantelua ja perus kuvagalleria |
+| Yht: | 25h |

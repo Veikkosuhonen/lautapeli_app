@@ -49,10 +49,10 @@ const Home = ({
             <div className="flex flex-col sm:flex-row justify-center pt-16 md:pt-20">
             {user ?
             <>
-                <div className="w-1/2 sm:w-1/3">
+                <div className="w-full sm:w-1/2 md:w-1/3">
                     <Activities activities={activities} itemsPerPage={5} />
                 </div>
-                <div className="w-1/2 sm:w-1/3">
+                <div className="w-full sm:w-1/2 md:w-1/3">
                     <Commits commits={commits} itemsPerPage={5} />
                 </div>
             </> : 
