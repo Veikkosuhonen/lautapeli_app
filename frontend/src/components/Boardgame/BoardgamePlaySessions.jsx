@@ -44,16 +44,16 @@ const BoardgamePlaySessions = ({ boardgame }) => {
             <PopupWindow ref={playSessionFormPopupRef}>
                 <PlaySessionForm boardgame={boardgame}/>
             </PopupWindow>
-                <div className="flex flex-row gap-1 items-center pt-4 pb-6">
-                    <span className="text-slate-400 text-sm">Sort by</span>
-                    <SelectInput value={sortBy} setValue={setSortBy} options={sortOptions}/>
-                    <button className="text-slate-400 hover:text-slate-200 mr-auto" onClick={onSortDirChange}>
-                        {desc ? <ArrowDownIcon className="w-5 h-5"/> : <ArrowUpIcon className="w-5 h-5"/>}
-                    </button>
-                    <Button onClick={() => playSessionFormPopupRef.current.setOpen(true)} variant={"secondary"}> 
-                        <PlusIcon className="h-4 w-4"/>Add playsession
-                    </Button>
-                </div>
+            <div className="flex flex-row gap-1 items-center pt-4 pb-6">
+                <span className="text-slate-400 text-sm">Sort by</span>
+                <SelectInput value={sortBy} setValue={setSortBy} options={sortOptions}/>
+                <button className="text-slate-400 hover:text-slate-200 mr-auto" onClick={onSortDirChange}>
+                    {desc ? <ArrowDownIcon className="w-5 h-5"/> : <ArrowUpIcon className="w-5 h-5"/>}
+                </button>
+                <Button onClick={() => playSessionFormPopupRef.current.setOpen(true)} variant={"secondary"}> 
+                    <PlusIcon className="h-4 w-4"/>Add playsession
+                </Button>
+            </div>
             
             <PlaySessionsList playSessions={sortedPlaySessions} />
         </div>

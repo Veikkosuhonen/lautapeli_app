@@ -48,7 +48,9 @@ router.post("/boardgame", auth, async (request, response) => {
         userId: request.user.id
     })
 
-    return response.status(200).json(image)
+    return response.status(200).json({
+        ...(image.toJSON()), user: { id: request.user.id, name: request.user.name }
+    })
 })
 
 module.exports = router
