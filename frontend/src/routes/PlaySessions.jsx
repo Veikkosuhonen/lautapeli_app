@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react"
-import HeroSection from "../components/HeroSection"
+import HeroSection from "../components/util/HeroSection"
 import usePlaySessions from "../hooks/usePlaySessions"
 import PlaySessionsList from "../components/PlaySessionsList"
 import InputField from "../components/util/InputField"

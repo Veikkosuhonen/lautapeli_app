@@ -1,4 +1,4 @@
-import { PrimaryButton } from "./util/Buttons"
+import Button from "./util/Buttons"
 import Surface from "./util/Surface"
 import { NavLink } from "react-router-dom"
 import { Formik } from "formik"
@@ -45,7 +45,7 @@ const LoginForm = ({
                         type="password"
                         placeholder="Password"
                     />
-                    <PrimaryButton type="submit" content="Login" disabled={!formik.isValid} />
+                    <Button type="submit" disabled={!formik.isValid} >Login</Button>
                 </form>
             )}
             </Formik>

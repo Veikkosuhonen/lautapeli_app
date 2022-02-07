@@ -37,12 +37,12 @@ const Heading = ({
                     <LikeButton liked={isLiked} onClick={handleLike} likes={boardgame?.likes.length}/>
                 </div>
 
-                <div className="flex gap-2 pt-2">
+                <div className="flex gap-2 pt-4">
                     <span className="text-slate-500">Added by {boardgame?.addedBy.name}</span>
                     <span className="italic text-slate-500">{new Date(boardgame?.dateAdded).toDateString()}</span>
                 </div>
 
-                <div className="flex flex-wrap gap-x-1 gap-y-1 pt-6 pb-8">
+                <div className="flex flex-wrap gap-x-1 gap-y-1 pt-8 pb-8">
                     {tags.map((tag, i) => 
                         <div key={i} className="px-1 cursor-pointer
                             rounded-full border-2 border-green-800 

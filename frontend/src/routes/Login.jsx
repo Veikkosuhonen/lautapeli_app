@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import HeroSection from "../components/HeroSection"
+import HeroSection from "../components/util/HeroSection"
 import LoginForm from "../components/LoginForm"
 
 const Login = ({

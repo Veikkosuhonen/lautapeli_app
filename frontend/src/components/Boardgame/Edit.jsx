@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from "yup"
 import FormikInputField from '../util/FormikInputField';
 import FormikTextArea from '../util/FormikTextArea';
-import { PrimaryButton, SecondaryButton } from '../util/Buttons';
+import Button from '../util/Buttons';
 import DeleteButton from './DeleteButton';
 import toaster from '../../util/toaster';
 import { useNavigate } from 'react-router-dom';
@@ -69,8 +69,8 @@ const Edit = ({ boardgame, user }) => {
                         autoComplete="off"
                     />
                     <div className="flex flex-row gap-2 pt-4 items-center">
-                        <SecondaryButton content={"Cancel"} type={"reset"} onClick={() => formik.resetForm()}/>
-                        <PrimaryButton content={"Update"} type={"submit"} disabled={!formik.isValid}/>
+                        <Button variant={"secondary"} type={"reset"} onClick={() => formik.resetForm()}>Cancel</Button>
+                        <Button type={"submit"} disabled={!formik.isValid}>Update</Button>
                         <div className="ml-auto">
                             <DeleteButton onClick={handleDelete} disabled={!canDelete || !isOwner}/>
                         </div>

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Route, Routes, useParams } from 'react-router-dom';
+import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import PlaySessionForm from './PlaySessionForm';
 import useCurrentUser from '../../hooks/useCurrentUser';
 import useUsers from '../../hooks/useUsers';
@@ -8,7 +8,7 @@ import useUpdateLike from '../../hooks/useUpdateLike';
 import PopupWindow from '../util/PopupWindow';
 import Album from "./Album"
 import Heading from './Heading';
-import HeroSection from '../HeroSection';
+import HeroSection from '../util/HeroSection';
 import Discussion from './Discussion';
 import Edit from './Edit';
 import BoardgamePlaySessions from './BoardgamePlaySessions';
@@ -52,6 +52,7 @@ const Boardgame = () => {
                         <Route path="playsessions" element={<BoardgamePlaySessions boardgame={boardgame} />}/>
                         <Route path="gallery" element={<Album boardgame={boardgame} />}/>
                         <Route path="edit" element={<Edit boardgame={boardgame} user={user}/>} />
+                        <Route index element={<Navigate to="playsessions" />} />
                     </Routes>
                 </div>
             </div>

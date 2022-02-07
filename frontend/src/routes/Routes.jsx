@@ -16,6 +16,7 @@ import Logout from "./Logout";
 import NotFound from "./NotFound";
 import PlaySessions from "./PlaySessions";
 import PlaySession from "./PlaySession";
+import User from "./User";
 
 const Routes = ({
     user, handleLogin, handleLogout
@@ -43,6 +44,7 @@ const Routes = ({
                         <PlaySession />
                     } />
                 </Route>
+                <Route path="myprofile" element={<User />} />
                 <Route path="login" element={
                     <Login user={user} handleLogin={handleLogin}/>
                 } />

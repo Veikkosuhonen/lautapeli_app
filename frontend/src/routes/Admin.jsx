@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { PrimaryButton, SecondaryButton } from "../components/util/Buttons";
+import Button from "../components/util/Buttons";
 import Surface from "../components/util/Surface";
-import HeroSection from "../components/HeroSection"
+import HeroSection from "../components/util/HeroSection"
 import useUsers from "../hooks/useUsers";
 import toaster from "../util/toaster";
 import useUpdateUser from "../hooks/useUpdateUser";
@@ -47,10 +47,9 @@ const Admin = () => {
                 <Surface>
                     <div className="flex flex-col space-y-2 p-2">
                         <h2 className="text-slate-300 text-xl">Codes</h2>
-                        <PrimaryButton 
-                        content="Generate new code"
-                        onClick={genCode}
-                        />
+                        <Button onClick={genCode}>
+                            Generate new code
+                        </Button>
                         {codes?.map( code =>
                             <div key={code.code} className="flex flex-row space-x-2 items-center">
                                 <p className="text-slate-200">{code.code}</p>
@@ -62,9 +61,9 @@ const Admin = () => {
                 <Surface className="md:col-span-2 xl:col-span-1 overflow-auto">
                     <div className="flex flex-col space-y-2 p-0 sm:p-2">
                         <h2 className="text-slate-300 text-xl">Users</h2>
-                        <SecondaryButton content={ usersVisible ? "hide users" : "show users"}
-                        onClick={() => { setUsersVisible(!usersVisible)} } 
-                        />
+                        <Button variant={"secondary"} onClick={() => { setUsersVisible(!usersVisible)} } >
+                            { usersVisible ? "hide users" : "show users"}
+                        </Button>
                         { usersVisible && 
                         <table className="divide-y divide-slate-600">
                             <thead>

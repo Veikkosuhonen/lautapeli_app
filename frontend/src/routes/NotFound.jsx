@@ -1,6 +1,6 @@
-import HeroSection from "../components/HeroSection"
+import HeroSection from "../components/util/HeroSection"
 import { NavLink } from "react-router-dom"
-import { PrimaryButton } from "../components/util/Buttons"
+import Button from "../components/util/Buttons"
 
 const NotFound = () => (
     <>
@@ -9,7 +9,7 @@ const NotFound = () => (
         </HeroSection>
         <div className="mt-16 flex flex-row justify-center">
             <NavLink to="/">
-                <PrimaryButton content={"Go home"} />
+                <Button >Go home</Button>
             </NavLink>
         </div>
     </>

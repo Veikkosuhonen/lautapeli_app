@@ -5,7 +5,7 @@ import toaster from "../../util/toaster"
 import FormikTextArea from "../util/FormikTextArea"
 import Comment from "./Comment"
 import PaginatedList from "../util/PaginatedList"
-import { SecondaryButton } from "../util/Buttons"
+import Button from "../util/Buttons"
 
 const CommentSection = ({
     boardgame
@@ -38,7 +38,7 @@ const CommentSection = ({
                             errorMessage={false}
                         />
                         <div>
-                            <SecondaryButton content={"Comment"} type={"submit"} disabled={!formik.isValid}/>
+                            <Button variant={"secondary"} type={"submit"} disabled={!formik.isValid}>Comment</Button>
                         </div>
                     </form>
                 )}

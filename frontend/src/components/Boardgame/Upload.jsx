@@ -1,7 +1,7 @@
 import { useState } from "react"
 import useUploadImage from "../../hooks/useUploadFile"
 import toaster from "../../util/toaster"
-import { PrimaryButton } from "../util/Buttons"
+import Button from "../util/Buttons"
 
 const Upload = ({
     boardgame
@@ -26,7 +26,7 @@ const Upload = ({
                 aria-label="upload image"
                 onChange={event => setFile(event.target.files[0])}
             />
-            <PrimaryButton content={"submit"} onClick={handleSubmit}/>
+            <Button onClick={handleSubmit}>Upload</Button>
         </div>
     )
 }

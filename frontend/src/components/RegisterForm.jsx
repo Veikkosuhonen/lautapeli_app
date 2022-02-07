@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import * as Yup from "yup"
-import { PrimaryButton } from "./util/Buttons"
+import Button from "./util/Buttons"
 import Surface from "./util/Surface"
 import { NavLink } from "react-router-dom"
 import FormikInputField from './util/FormikInputField';
@@ -78,7 +78,9 @@ const RegisterForm = ({
                         placeholder="Code"
                         autoComplete="off"
                     />
-                    <PrimaryButton content={"Register"} type={"submit"} disabled={!formik.isValid}/>
+                    <Button type={"submit"} disabled={!formik.isValid}>
+                        Register
+                    </Button>
                 </form>
             )}
             </Formik>

@@ -1,40 +1,22 @@
+import classNames from "classnames"
 import React from "react"
 
-const PrimaryButton = ({
-    content,
-    type,
-    onClick,
-    disabled,
+const Button = ({
+    children,
+    variant,
+    ...props
 }) => (
     <button
-    disabled={disabled}
-    className="font-medium text-slate-800 
-    bg-orange-500 disabled:bg-orange-500/60 shadow-md hover:shadow-xl shadow-orange-500/50 disabled:shadow-none
-    px-4 py-1 rounded-lg
-    transition duration-100"
-    type={type || "button"}
-    onClick={onClick}
-    >{content}</button>
-)
-
-const SecondaryButton = ({
-    content,
-    type,
-    onClick
-}) => (
-    <button
-    className="font text-orange-400 border-2 border-orange-500
-    hover:bg-orange-500 hover:text-slate-700 hover:shadow-lg
-    px-4 py-1 rounded-lg
-    transition duration-100"
-    type={type || "button"}
-    onClick={onClick}
+        className={classNames({
+            "font-medium text-slate-800 bg-orange-500 disabled:bg-orange-500/60 shadow hover:shadow-xl shadow-orange-500/50 disabled:shadow-none px-4 py-1 rounded-lg transition ease-in duration-150 hover:scale-105 disabled:scale-100": variant === "primary" || variant === undefined,
+            "font text-orange-400 border-2 border-orange-500 disabled:border-orange-500/60 hover:bg-orange-500 disabled:bg-transparent hover:text-slate-800 disabled:text-orange-400/60 hover:shadow-lg px-4 py-1 rounded-lg transition-transform duration-150 hover:scale-105 disabled:scale-100": variant === "secondary"
+        })}
+        {...props}
     >
-        <div className="flex items-center justify-center gap-1">{content}</div>
+        <div className="flex items-center justify-center gap-1">
+            {children}
+        </div>
     </button>
 )
 
-export {
-    PrimaryButton,
-    SecondaryButton
-}
+export default Button

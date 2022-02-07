@@ -2,9 +2,9 @@ import React, { useRef, useState, useMemo } from "react"
 
 import BoardgamesList from '../components/BoardgamesList'
 import Activities from "../components/Activities"
-import { SecondaryButton } from "../components/util/Buttons"
+import Button from "../components/util/Buttons"
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon } from "@heroicons/react/outline"
-import HeroSection from "../components/HeroSection"
+import HeroSection from "../components/util/HeroSection"
 import InputField from "../components/util/InputField"
 import SelectInput from "../components/util/SelectInput"
 import PopupWindow from "../components/util/PopupWindow"
@@ -84,10 +84,9 @@ const Boardgames = () => {
                             </button>
                         </div>
                         
-                        <SecondaryButton content={
-                            <div className="flex gap-2 items-center"><PlusIcon className="h-4 w-4"/>Add</div>
-                        } onClick={() => newBoardgameFormPopupRef.current.setOpen(true)}/>
-                        
+                        <Button onClick={() => newBoardgameFormPopupRef.current.setOpen(true)} variant={"secondary"}> 
+                            <PlusIcon className="h-4 w-4"/>Add
+                        </Button>
                     </div>
                     <BoardgamesList boardgames={filteredBoardgames} />
                 </div>

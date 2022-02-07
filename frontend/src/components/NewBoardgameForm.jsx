@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import * as Yup from "yup"
-import { PrimaryButton } from './util/Buttons';
+import Button from './util/Buttons';
 import FormikInputField from './util/FormikInputField';
 import FormikTextArea from './util/FormikTextArea';
 
@@ -36,7 +36,7 @@ const NewBoardgameForm = ({
                         placeholder="Description (optional)"
                         autoComplete="off"
                     />
-                    <PrimaryButton content={"Create"} type={"submit"} disabled={!formik.isValid}/>
+                    <Button type={"submit"} disabled={!formik.isValid}>Create</Button>
                 </div>
             </form>
 

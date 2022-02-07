@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { useState } from 'react'
-import { PrimaryButton, SecondaryButton } from '../util/Buttons';
+import Button from '../util/Buttons';
 import InputField from '../util/InputField';
 import DateInput from '../util/DateInput';
 import Surface from "../util/Surface"
@@ -80,9 +80,9 @@ const PlaySessionForm = ({
 
                     <div className="flex flex-row items-center justify-between pb-6">
                         <h1 className="text-slate-300">New playsession</h1>
-                        <SecondaryButton content={
-                            <>add notes {description && <CheckIcon className="w-4 h-4"/>}</>
-                        } onClick={() => {descriptionFormPopupRef.current.toggleOpen()}}/>
+                        <Button onClick={() => {descriptionFormPopupRef.current.toggleOpen()}}>
+                            add notes {description && <CheckIcon className="w-4 h-4"/>}
+                        </Button>
                     </div>
 
                     <span>Date</span>
@@ -148,7 +148,7 @@ const PlaySessionForm = ({
                         </div>
                     )}  
                     <div className="h-4"/>
-                    <PrimaryButton type="submit" content="add playsession" disabled={!isValid()}/>
+                    <Button type="submit" disabled={!isValid()}>Add playsession</Button>
                 </div>
             </form>
         </Surface>
