@@ -27,7 +27,7 @@ _Tämä on myös HY:n fullstack-harjoitustyöni_:  [_Tuntikirjanpito_](https://g
 - [ ] A separate discussion activity feed for comments shows up besides the normal activity feed.
 - [ ] Tags: boardgames can have tags, users can create new tags. Users can search boardgames by tags.
 - [ ] Score types: boardgames can have different scoring systems in addition to the default numeric scoring, such as win-lose.
-- [ ] Images: boardgames have an image gallery. Users can upload images from the boardgames' page. 
+- [x] Images: boardgames have an image gallery. Users can upload images from the boardgames' page. 
 - [ ] Most recently added images show up in a carousel on the landing page.
 
 ## How to...
