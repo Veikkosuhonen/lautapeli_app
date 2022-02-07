@@ -36,7 +36,7 @@ const BoardgamePlaySessions = ({ boardgame }) => {
         <div>
             <div className="flex flex-row items-center space-x-6 py-4">
                 <div className="flex flex-row space-x-1 items-center">
-                    <span className="hidden sm:block text-slate-400 text-sm">Sort by</span>
+                    <span className="text-slate-400 text-sm">Sort by</span>
                     <SelectInput value={sortBy} setValue={setSortBy} options={sortOptions}/>
                     <button className="text-slate-400 hover:text-slate-200" onClick={onSortDirChange}>
                         {desc ? <ArrowDownIcon className="w-5 h-5"/> : <ArrowUpIcon className="w-5 h-5"/>}

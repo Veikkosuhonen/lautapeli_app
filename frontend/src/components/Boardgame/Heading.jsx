@@ -1,11 +1,9 @@
 import LikeButton from "./LikeButton"
-import OptionsDropDown from "../util/OptionsDropdown"
-import DeleteButton from "./DeleteButton"
 import { NavLink } from "react-router-dom"
 import classNames from "classnames"
 
 const tags = [
-    "nopee", "korttipeli", "party", "inessä", "tooodella simppeli", "+"
+    "nopee", "korttipeli", "party", "inessä", "tooodella simppeli", "nämä ovat vielä placeholdereita", "+"
 ]
 
 const NavBarLink = ({ to, children }) => (
@@ -21,54 +19,46 @@ const NavBarLink = ({ to, children }) => (
 )
 
 const Heading = ({ 
-    boardgame, user, handleLike, handleDelete
+    boardgame, user, handleLike
 }) => {
-
-    const isOwner = boardgame?.addedById === user?.id || user?.isAdmin
 
     const isLiked = boardgame?.likes.some(like => like.userId === user?.id)
     
-    const canDelete = boardgame?.playSessions?.length === 0
-
     return (
             
-        <div className="shadow-lg border-b border-slate-700 px-2 sm:px-2 md:px-8">
-            <div className="flex flex-col gap-4">
-                {/* Title row */}
-                <div className="flex flex-row items-end gap-4">
-                    <h1 className="text-slate-100 font-light text-4xl pr-8">
-                        {boardgame?.name}
-                    </h1>
-                    <LikeButton liked={isLiked} onClick={handleLike} likes={boardgame?.likes.length}/>
-                    <OptionsDropDown>
-                        <DeleteButton 
-                            onClick={handleDelete} 
-                            disabled={!isOwner || !canDelete} 
-                            disabledMessage={isOwner ? "Has playsessions, deletion not allowed" : "You aren't allowed to delete this boardgame"}
-                        />
-                    </OptionsDropDown>
+        <div className="shadow-lg border-b border-slate-700 sm:px-2 md:px-8">
+            
+            <div className="px-2">
+                <div className="flex flex-col gap-4">
+                    {/* Title row */}
+                    <div className="flex flex-row items-end gap-4">
+                        <h1 className="text-slate-100 font-light text-4xl pr-8">
+                            {boardgame?.name}
+                        </h1>
+                        <LikeButton liked={isLiked} onClick={handleLike} likes={boardgame?.likes.length}/>
+                    </div>
+                </div>
+
+                <div className="flex flex-wrap gap-x-1 gap-y-1 pt-6 pb-8">
+                    {tags.map((tag, i) => 
+                        <div key={i} className="px-1 cursor-pointer
+                            rounded-full border-2 border-green-800 
+                            text-slate-300 text-sm font-light whitespace-nowrap
+                            hover:bg-green-800
+                        ">
+                            {tag}
+                        </div>
+                    )}
+                </div>
+
+                <div>
+                    <p className="text-slate-400">
+                        {boardgame?.description}
+                    </p>
                 </div>
             </div>
 
-            <div className="flex flex-wrap gap-x-1 gap-y-1 pt-6 pb-8">
-                {tags.map((tag, i) => 
-                    <div key={i} className="px-1 cursor-pointer
-                        rounded-full border-2 border-green-800 
-                        text-slate-300 text-sm font-light whitespace-nowrap
-                        hover:bg-green-800
-                    ">
-                        {tag}
-                    </div>
-                )}
-            </div>
-
-            <div>
-                <p className="text-slate-400">
-                    {boardgame?.description}
-                </p>
-            </div>
-
-            <nav className="flex pt-8 text-lg text-slate-300">
+            <nav className="flex pt-8 text-lg text-slate-300 overflow-x-scroll sm:overflow-hidden">
                 <NavBarLink to="playsessions">
                     Game history
                 </NavBarLink>

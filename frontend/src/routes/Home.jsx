@@ -46,10 +46,10 @@ const Home = ({
             </div>
             }
 
-            <div className="flex flex-col sm:flex-row justify-center pt-16 md:pt-20">
+            <div className="flex flex-col sm:flex-row justify-center pt-16 md:pt-20 px-2">
             {user ?
             <>
-                <div className="w-full sm:w-1/2 md:w-1/3">
+                <div className="w-full pb-8 sm:pb-0 sm:w-1/2 md:w-1/3">
                     <Activities activities={activities} itemsPerPage={5} />
                 </div>
                 <div className="w-full sm:w-1/2 md:w-1/3">

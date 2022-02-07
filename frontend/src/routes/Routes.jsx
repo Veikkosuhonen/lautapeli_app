@@ -2,6 +2,7 @@ import {
     BrowserRouter,
     Routes as AllRoutes,
     Route,
+    Navigate,
 } from "react-router-dom";
 
 import Layout from "../components/Layout";
@@ -30,6 +31,7 @@ const Routes = ({
                 <Route path="shelf" element={
                     <Boardgames />
                 } />
+                <Route path="/boardgames" element={<Navigate to="/shelf" />} />
                 <Route path="boardgames/:boardgameId/*" element={
                     <Boardgame user={user} />
                 } />

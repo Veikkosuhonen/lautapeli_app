@@ -1,11 +1,9 @@
 import React, { useRef } from 'react'
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
 import PlaySessionForm from './PlaySessionForm';
-import toaster from '../../util/toaster';
 import useCurrentUser from '../../hooks/useCurrentUser';
 import useUsers from '../../hooks/useUsers';
 import useBoardgame from '../../hooks/useBoardgame';
-import useDeleteBoardgame from '../../hooks/useDeleteBoardgame';
 import useUpdateLike from '../../hooks/useUpdateLike';
 import PopupWindow from '../util/PopupWindow';
 import Album from "./Album"
@@ -22,21 +20,9 @@ const Boardgame = () => {
     const id = useParams().boardgameId
     const { boardgame } = useBoardgame(id)
 
-    const deleteBoardgame = useDeleteBoardgame()
     const updateLike = useUpdateLike()
 
-    const navigate = useNavigate()
-
     const isLiked = boardgame?.likes.some(like => like.userId === user?.id)
-    
-    const handleDelete = () => {
-        if (!window.confirm("Are you absolutely sure you want to delete " + boardgame?.name + "?")) return
-        const response = deleteBoardgame(boardgame)
-        toaster.deleteBoardgameMessage(response)
-        response.then(() => {
-            navigate("/boardgames")
-        })
-    }
 
     const handleLike = () => {
         updateLike({ like: !isLiked, boardgameId: boardgame.id })
@@ -56,7 +42,6 @@ const Boardgame = () => {
                 boardgame={boardgame}
                 user={user}
                 handleLike={handleLike}
-                handleDelete={handleDelete}
             />
 
             { boardgame &&

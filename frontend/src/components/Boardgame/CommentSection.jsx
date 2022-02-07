@@ -20,7 +20,7 @@ const CommentSection = ({
 
     return (
         <div className="flex flex-col">
-            <h1 className="text-slate-400 text-md font-normal">Comments</h1>
+            <h1 className="text-slate-400 text-md font-normal pb-6">Comments</h1>
             <Formik
                 initialValues={{comment: ""}}
                 initialErrors={{comment: "cannot be blank"}}
@@ -30,7 +30,7 @@ const CommentSection = ({
                 onSubmit={handleSubmit}
             >
                 {formik => (
-                    <form onSubmit={formik.handleSubmit} className="flex items-end gap-2 p-2">
+                    <form onSubmit={formik.handleSubmit} className="flex items-end gap-2">
                         <FormikTextArea
                             label="Comment"
                             name="comment"
