@@ -27,16 +27,19 @@ const Heading = ({
     return (
             
         <div className="shadow-lg border-b border-slate-700 sm:px-2 md:px-8">
-            
+
             <div className="px-2">
-                <div className="flex flex-col gap-4">
-                    {/* Title row */}
-                    <div className="flex flex-row items-end gap-4">
-                        <h1 className="text-slate-100 font-light text-4xl pr-8">
-                            {boardgame?.name}
-                        </h1>
-                        <LikeButton liked={isLiked} onClick={handleLike} likes={boardgame?.likes.length}/>
-                    </div>
+                {/* Title row */}
+                <div className="flex flex-row items-end gap-4">
+                    <h1 className="text-slate-100 font-light text-4xl pr-8">
+                        {boardgame?.name}
+                    </h1>
+                    <LikeButton liked={isLiked} onClick={handleLike} likes={boardgame?.likes.length}/>
+                </div>
+
+                <div className="flex gap-2 pt-2">
+                    <span className="text-slate-500">Added by {boardgame?.addedBy.name}</span>
+                    <span className="italic text-slate-500">{new Date(boardgame?.dateAdded).toDateString()}</span>
                 </div>
 
                 <div className="flex flex-wrap gap-x-1 gap-y-1 pt-6 pb-8">
@@ -58,7 +61,7 @@ const Heading = ({
                 </div>
             </div>
 
-            <nav className="flex pt-8 text-lg text-slate-300 overflow-x-scroll sm:overflow-hidden">
+            <nav className="flex pt-10 text-lg text-slate-300 overflow-x-scroll sm:overflow-hidden">
                 <NavBarLink to="playsessions">
                     Game history
                 </NavBarLink>

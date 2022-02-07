@@ -7,7 +7,7 @@ export default function Commits({
         <PaginatedList className="basis-1/4" itemsPerPage={itemsPerPage || 4} title={
             <h1 
                 title="Only frontend updates!" 
-                className="text-slate-400 text-md hover:text-sky-300 select-none"
+                className="text-slate-500 text-md hover:text-sky-300 select-none"
             >Recent app updates</h1>
         }>
             {commits?.map((commit, index) => (

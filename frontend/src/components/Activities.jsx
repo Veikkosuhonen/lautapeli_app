@@ -6,7 +6,7 @@ export default function Activities({
 }) {
     return (
         <PaginatedList className="basis-1/4" itemsPerPage={itemsPerPage || 4} title={
-            <h1 className="text-slate-400 text-md">Recent activity</h1>
+            <h1 className="text-slate-500 text-md">Recent activity</h1>
         }>
             {activities?.map(activity => (
                 <NavLink key={activity.id} to={activity.link} >
