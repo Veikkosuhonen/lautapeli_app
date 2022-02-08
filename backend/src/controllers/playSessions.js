@@ -1,6 +1,6 @@
 const router = require("express").Router()
 
-const { PlaySession, Boardgame, Player, User, Activity } = require("../models")
+const { PlaySession, Boardgame, Player, User, Activity, Image } = require("../models")
 const { auth } = require("../middleware/authorization")
 
 router.get("/", auth, async (request, response) => {
@@ -39,6 +39,9 @@ router.get("/:id", auth, async (request, response) => {
                 through: {
                     attributes: ["score"]
                 }
+            },
+            {
+                model: Image
             }
         ]
     })
@@ -90,7 +93,7 @@ const createActivity = async (playSession) => {
     
     return await Activity.create({ 
         description: description, 
-        link: `/boardgames/${bg.id}`
+        link: `/playsessions/${playSession.id}`
     })
 }
 

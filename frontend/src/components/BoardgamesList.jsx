@@ -2,6 +2,7 @@ import React from "react"
 import Surface from "./util/Surface"
 import { Link } from "react-router-dom"
 import { CubeIcon, PlayIcon } from "@heroicons/react/outline"
+import styles from "../util/styles"
 
 const Boardgame = ({ boardgame }) => (
     <Surface className="
@@ -12,11 +13,7 @@ const Boardgame = ({ boardgame }) => (
         <div className="flex flex-col justify-start px-2 gap-x-4 space-y-2">
             <div className="flex items-start">
                 <div className="mr-auto">
-                    <Link to={"/boardgames/" + boardgame.id}
-                        className="text-xl text-slate-200 
-                        hover:underline underline-offset-2 decoration-4 decoration-dashed decoration-indigo-600
-                        "
-                    >
+                    <Link to={"/boardgames/" + boardgame.id} className={styles.boardgameTitle}>
                         <h1 className="truncate w-48">
                             {boardgame.name}
                         </h1>
