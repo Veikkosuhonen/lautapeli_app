@@ -7,7 +7,7 @@ const Comment = ({
                 {comment.user.name}
             </span>
             <span className="text-xs text-slate-500">
-                {new Date(comment.date).toLocaleString()}
+                {new Date(comment.date).toLocaleString("fi")}
             </span>
         </div>
         <p className="text-slate-300">

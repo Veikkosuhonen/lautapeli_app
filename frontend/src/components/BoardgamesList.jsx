@@ -10,7 +10,7 @@ const Boardgame = ({ boardgame }) => (
         hover:border-indigo-500"
     >
         <div className="flex flex-col justify-start px-2 gap-x-4 space-y-2">
-            <div className="flex flex-row items-start">
+            <div className="flex items-start">
                 <div className="mr-auto">
                     <Link to={"/boardgames/" + boardgame.id}
                         className="text-xl text-slate-200 
@@ -22,14 +22,14 @@ const Boardgame = ({ boardgame }) => (
                         </h1>
                     </Link>
                 </div>
-                <div className="flex flex-row items-center select-none" title={"likes"}>
+                <div className="flex items-center select-none" title={"likes"}>
                     <CubeIcon className="text-rose-500 w-5 h-5"/>
                     <span className="text-slate-300 tabular-nums">{boardgame?.numLikes}</span>
                 </div>
             </div>
-            <div className="flex flex-row">
-                <p className="text-slate-500 text-xs mr-auto">Added {new Date(boardgame.dateAdded).toLocaleDateString()} by {boardgame.addedBy?.name}</p>
-                <div className="flex flex-row items-center select-none" title={"times played"}>
+            <div className="flex items-center">
+                <p className="text-slate-500 text-xs mr-auto pr-1">Added {new Date(boardgame.dateAdded).toLocaleDateString("fi")} by {boardgame.addedBy?.name}</p>
+                <div className="flex items-center select-none" title={"times played"}>
                     <PlayIcon className="text-orange-500 w-5 h-5"/>
                     <span className="text-slate-300 tabular-nums">{boardgame.playSessions ? boardgame.playSessions.length : 0}</span>
                 </div>
