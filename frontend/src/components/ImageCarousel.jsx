@@ -11,7 +11,7 @@ const ImageCarousel = () => {
 
     return (
         <div className="flex justify-center py-4">
-        <div className="w-full sm:w-2/3 md:w-1/2">
+        <div className="w-full sm:w-1/2 md:w-1/3 lg:1/4">
         {isSuccess &&
         <CarouselProvider
             naturalSlideWidth={400}

@@ -1,6 +1,7 @@
 import LikeButton from "./LikeButton"
 import { NavLink } from "react-router-dom"
 import classNames from "classnames"
+import { ChatIcon, CogIcon, PhotographIcon, PlayIcon } from "@heroicons/react/outline"
 
 const tags = [
     "nopee", "korttipeli", "party", "inessä", "tooodella simppeli", "nämä ovat vielä placeholdereita", "+"
@@ -10,7 +11,7 @@ const NavBarLink = ({ to, children }) => (
     <NavLink 
         to={to}
         className={({isActive}) => classNames(
-            "px-4 border-b-2 pb-2 border-transparent hover:border-slate-400 whitespace-nowrap",
+            "px-4 border-b-2 pb-2 border-transparent hover:border-slate-400 whitespace-nowrap flex flex-nowrap gap-2 items-center",
             {"border-slate-600": isActive}
         )}
     >
@@ -63,15 +64,19 @@ const Heading = ({
 
             <nav className="flex pt-10 text-lg text-slate-300 overflow-x-scroll sm:overflow-hidden">
                 <NavBarLink to="playsessions">
+                    <PlayIcon className="w-5 h-5 text-slate-500"/>
                     Game history
                 </NavBarLink>
                 <NavBarLink to="gallery">
+                    <PhotographIcon className="w-5 h-5 text-slate-500"/>
                     Gallery
                 </NavBarLink>
                 <NavBarLink to="discussion">
+                    <ChatIcon className="w-5 h-5 text-slate-500"/>
                     Discussion
                 </NavBarLink>
                 <NavBarLink to="edit">
+                    <CogIcon className="w-5 h-5 text-slate-500"/>
                     Edit
                 </NavBarLink>
             </nav>
