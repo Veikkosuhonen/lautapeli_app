@@ -1,5 +1,7 @@
 # Käyttöohje
 
+vanhentunut
+
 ## Uuden käyttäjän luonti
 
 Mene osoitteeseen lautapelit.herokuapp.com, ja siirry kotinäkymästä rekisteröitymissivulle joko yläpalkin "register" napista 
