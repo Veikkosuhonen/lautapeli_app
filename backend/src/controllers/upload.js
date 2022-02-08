@@ -20,7 +20,7 @@ router.get("/boardgame", auth, async (request, response) => {
         return response.status(400).json({ error: "invalid boardgame id" })
     }
 
-    const playSessionId = Number(request.query.playSessionId)
+    let playSessionId = Number(request.query.playSessionId)
     if (Number.isInteger(playSessionId)) {
         const playSession = await PlaySession.findByPk(playSessionId)
         if (!playSession) {
@@ -53,12 +53,14 @@ router.post("/boardgame", auth, async (request, response) => {
         return response.status(400).json({ error: "invalid boardgame id" })
     }
 
-    const playSessionId = Number(request.query.playSessionId)
+    let playSessionId = Number(request.query.playSessionId)
     if (Number.isInteger(playSessionId)) {
         const playSession = await PlaySession.findByPk(playSessionId)
         if (!playSession) {
             return response.status(400).json({ error: "invalid playSession id" })
         }
+    } else {
+        playSessionId = null
     }
     
     const image = await Image.create({ 

@@ -16,6 +16,7 @@ const boardgameRouter = require("./controllers/boardgames"),
     adminRouter = require("./controllers/admin"),
     commitsRouter = require("./controllers/commits"),
     uploadRouter = require("./controllers/upload"),
+    imageRouter = require("./controllers/images"),
     unknownEndpointRouter = require("./controllers/unknownEndpoint")
 
 const githubCommits = require("./util/githubCommits")
@@ -45,6 +46,7 @@ app.use("/api/register", registerRouter)
 app.use("/api/login", loginRouter)
 app.use("/api/admin", adminRouter)
 app.use("/api/commits", commitsRouter)
+app.use("/api/images", imageRouter)
 app.use("/api/upload", uploadRouter)
 
 

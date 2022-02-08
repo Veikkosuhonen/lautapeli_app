@@ -2,6 +2,7 @@ import React from "react"
 import { NavLink } from "react-router-dom"
 import Activities from "../components/Activities"
 import Commits from "../components/Commits"
+import ImageCarousel from "../components/ImageCarousel"
 import HeroSection from "../components/util/HeroSection"
 import useActivities from "../hooks/useActivities"
 import useBoardgames from "../hooks/useBoardgames"
@@ -45,6 +46,8 @@ const Home = ({
                 </div>
             </div>
             }
+
+            <ImageCarousel />
 
             <div className="flex flex-col sm:flex-row justify-center pt-16 md:pt-20 px-2">
             {user ?
