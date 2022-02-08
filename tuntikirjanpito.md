@@ -58,4 +58,6 @@
 | 6.2 | 4h | Kuvien uploadaus, UI-parantelua ja perus kuvagalleria |
 | Yht: | 25h |
 | 7.2 | 5h | Frontendiä viilattu paljon paremmaksi... |
-| 8.2 | 5h | Pelisessionäkymä, kuvien lisäys pelisessioille, fixejä |
+| 8.2 | 6h | Pelisessionäkymä, kuvien lisäys pelisessioille, fixejä |
+
+Yht: 176 h
