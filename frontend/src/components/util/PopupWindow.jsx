@@ -14,7 +14,7 @@ const PopupWindow = React.forwardRef((props, ref) => {
 
     return (
         <Transition
-            className="fixed w-full bottom-0 right-0 backdrop-blur-lg backdrop-brightness-50 shadow-lg z-10 h-2/3"
+            className="fixed w-full bottom-0 right-0 backdrop-blur-lg backdrop-brightness-50 bg-slate-900/20 shadow-lg z-10 h-2/3"
             show={isOpen}
             enter="transition transform ease-out duration-100"
             enterFrom="translate-y-full"

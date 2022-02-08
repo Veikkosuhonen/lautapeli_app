@@ -3,7 +3,7 @@ import PopupWindow from "../util/PopupWindow"
 import Button from "../util/Buttons"
 import { PlusIcon } from "@heroicons/react/outline"
 import GalleryImage from "./GalleryImage"
-import Upload from "./Upload"
+import Upload from "../Upload"
 
 const Gallery = ({ boardgame }) => {
     
@@ -14,7 +14,7 @@ const Gallery = ({ boardgame }) => {
         <div>
             <div>
             <PopupWindow ref={imageFormPopupRef}>
-                <Upload boardgame={boardgame}/>
+                <Upload boardgameId={boardgame?.id}/>
             </PopupWindow>
                 <Button onClick={() => imageFormPopupRef.current.setOpen(true)} variant={"secondary"}> 
                     <PlusIcon className="h-4 w-4"/>Add image

@@ -1138,6 +1138,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(249 115 22 / var(--tw-bg-opacity));
 }
 
+.bg-slate-900\/10 {
+  background-color: rgb(15 23 42 / 0.1);
+}
+
+.bg-slate-900\/20 {
+  background-color: rgb(15 23 42 / 0.2);
+}
+
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -1156,12 +1164,30 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(2 132 199 / 0));
 }
 
+.from-sky-600\/20 {
+  --tw-gradient-from: rgb(2 132 199 / 0.2);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(2 132 199 / 0));
+}
+
+.from-sky-700\/20 {
+  --tw-gradient-from: rgb(3 105 161 / 0.2);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(3 105 161 / 0));
+}
+
 .to-slate-900 {
   --tw-gradient-to: #0f172a;
 }
 
 .to-indigo-600\/10 {
   --tw-gradient-to: rgb(79 70 229 / 0.1);
+}
+
+.to-indigo-600\/20 {
+  --tw-gradient-to: rgb(79 70 229 / 0.2);
+}
+
+.to-indigo-700\/20 {
+  --tw-gradient-to: rgb(67 56 202 / 0.2);
 }
 
 .bg-fixed {
@@ -1602,6 +1628,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .backdrop-brightness-50 {
   --tw-backdrop-brightness: brightness(.5);
+  -webkit-backdrop-filter: var(--tw-backdrop-filter);
+          backdrop-filter: var(--tw-backdrop-filter);
+}
+
+.backdrop-brightness-75 {
+  --tw-backdrop-brightness: brightness(.75);
   -webkit-backdrop-filter: var(--tw-backdrop-filter);
           backdrop-filter: var(--tw-backdrop-filter);
 }

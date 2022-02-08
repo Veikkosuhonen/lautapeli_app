@@ -20,7 +20,7 @@ const GalleryImage = ({ image }) => {
                     />
                 </div>
                 <div className="flex flex-col sm:flex-row justify-between px-2 py-1">
-                    <span className="text-sm text-slate-400">{image.user.name}</span>
+                    <span className="text-sm text-slate-400">{image.user?.name}</span>
                     <span className="text-sm text-slate-500">{new Date(image.date).toLocaleString("fi")}</span>
                 </div>
             </div>

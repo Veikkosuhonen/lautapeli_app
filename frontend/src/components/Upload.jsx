@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
-import useUploadImage from "../../hooks/useUploadFile"
-import toaster from "../../util/toaster"
-import Button from "../util/Buttons"
-import Surface from "../util/Surface"
-import FormikTextArea from "../util/FormikTextArea"
+import useUploadImage from "../hooks/useUploadFile"
+import toaster from "../util/toaster"
+import Button from "./util/Buttons"
+import Surface from "./util/Surface"
+import FormikTextArea from "./util/FormikTextArea"
 import { Formik } from "formik"
 
 const Upload = ({
-    boardgame
+    boardgameId, playSessionId
 }) => {
     const uploadImage = useUploadImage()
 
@@ -22,7 +22,8 @@ const Upload = ({
     const handleSubmit = (formData) => {
         const response = uploadImage({
             file,
-            boardgameId: boardgame.id,
+            boardgameId,
+            playSessionId,
             description: formData.description
         })
         toaster.fileUploadMessage(response)
@@ -51,6 +52,7 @@ const Upload = ({
                     />
                     <FormikTextArea name={"description"} placeholder="description"/>
                     <Button disabled={!file || !formik.isValid} type="submit">Upload</Button>
+                    <span className="text-sm text-slate-400">Please remember that all images you upload will be publicly available in the internet!</span>
                 </form>}
                 </Formik>
             </Surface>

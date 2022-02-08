@@ -5,15 +5,26 @@ import Surface from "../components/util/Surface"
 import { Link } from "react-router-dom"
 import GalleryImage from "../components/Boardgame/GalleryImage"
 import styles from "../util/styles"
+import { useRef } from "react"
+import PopupWindow from "../components/util/PopupWindow"
+import Upload from "../components/Upload"
+import Button from "../components/util/Buttons"
+import { PlusIcon } from "@heroicons/react/outline"
 
 const PlaySession = () => {
 
     const id = useParams().playSessionId
     const { playSession } = usePlaySession(id)
 
+    const uploadFormPopupRef = useRef()
+
     return (
         <>
         <HeroSection />
+        <PopupWindow ref={uploadFormPopupRef}>
+            <Upload boardgameId={playSession?.boardgame.id} playSessionId={id}/>
+        </PopupWindow>
+
         <div className="shadow-lg border-b border-slate-700 sm:px-2 md:px-8 pb-8 px-4">
             <div className="flex gap-2 items-end pb-4">
                 <Link to={"/boardgames/" + playSession?.boardgame.id}>
@@ -48,13 +59,21 @@ const PlaySession = () => {
                     )}
                 </div>
             </Surface>
-            <div className="grid col-span-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                {playSession?.images.map(image => 
-                    <GalleryImage image={image} key={image.id} />
-                )}
-                {playSession?.images?.length === 0 | undefined &&
-                    <span className="text-slate-500 col-span-full text-center">No images added yet!</span>
-                }
+            <div className="col-span-full ">
+                <div className="flex w-full gap-2 justify-between items-center">
+                    {playSession?.images?.length === 0 | undefined 
+                    ? <span className="text-slate-500 col-span-full">No images added yet!</span>
+                    : <span className="text-slate-400 col-span-full">Gallery</span>
+                    }
+                    <Button variant={"secondary"} onClick={() => uploadFormPopupRef.current.setOpen(true)}>
+                        <PlusIcon className="w-5 h-5"/>Add image
+                    </Button>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                    {playSession?.images.map(image => 
+                        <GalleryImage image={image} key={image.id} />
+                    )}
+                </div>
             </div>
         </div>
         </>

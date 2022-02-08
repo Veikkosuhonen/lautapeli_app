@@ -41,7 +41,11 @@ router.get("/:id", auth, async (request, response) => {
                 }
             },
             {
-                model: Image
+                model: Image,
+                include: {
+                    model: User,
+                    attributes: ["id", "name"]
+                }
             }
         ]
     })
