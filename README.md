@@ -22,13 +22,13 @@ _Tämä on myös HY:n fullstack-harjoitustyöni_:  [_Tuntikirjanpito_](https://g
 - [x] Boardgame can be deleted by the creator or admin if it has no playsessions.
 - [x] Users can like boardgames and see the like count
 - [ ] Users have 3 mega-likes (for some reason) which they can allocate to boardgames
-- [ ] Discussions: users can comment on playsessions and boardgames. 
+- [x] Discussions: users can comment on playsessions and boardgames. 
 - [ ] Users can edit and delete their comments. Admin can delete any comment.
 - [ ] A separate discussion activity feed for comments shows up besides the normal activity feed.
 - [ ] Tags: boardgames can have tags, users can create new tags. Users can search boardgames by tags.
 - [ ] Score types: boardgames can have different scoring systems in addition to the default numeric scoring, such as win-lose.
 - [x] Images: boardgames have an image gallery. Users can upload images from the boardgames' page. 
-- [ ] Most recently added images show up in a carousel on the landing page.
+- [x] Most recently added images show up in a carousel on the landing page.
 
 ## How to...
 
@@ -49,7 +49,7 @@ Github Actions CI is set up to deploy the application to Heroku.
 
 - Installs Node
 - Builds frontend
-- Builds the backend image and runs tests on it
+- Builds the backend image and runs api tests on it
 - Logs into Heroku
 - Pushes the image to Heroku repository
 
