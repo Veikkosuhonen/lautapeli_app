@@ -12,7 +12,7 @@ const getSignedUploadUrl = async (key) => {
     const params = {
         Bucket: config.AWS_BUCKET,
         Key: key,
-        Expires: 30
+        Expires: 300
     }
     return await s3Bucket.getSignedUrlPromise("putObject", params)
 }
